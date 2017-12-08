@@ -19,9 +19,6 @@ C
             x=p2*10.**p1
             xx(n)=x
             xx(73-n)=x
-            
-            
-            
          
             call dsszini(0)
             CALL DSSZ(X,Q,A,RUV,RDV,RUB,RDB,RS,RC,RB,RG)
