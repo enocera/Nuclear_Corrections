@@ -8,6 +8,7 @@ namePDFset[5]="EPPS16nlo_CT14nlo_Pb208"
 namePDFset[6]="cteq6"
 namePDFset[7]="nCTEQ15_1"
 
+#This is the energy scale
 Q[1]=10     #GeV
 Q[2]=3.1622 #GeV
 
