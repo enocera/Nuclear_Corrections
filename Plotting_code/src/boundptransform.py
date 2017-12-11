@@ -21,10 +21,10 @@ def numericalSort(value):
     return parts
 
 # Getting data
-x,fu,fuerr=np.loadtxt('/home/rosalyn/nuclear/PDFplots/{0}/data_2_{0}.txt'.format(fullnucpdf), unpack=True)
-x0,fd,fderr=np.loadtxt('/home/rosalyn/nuclear/PDFplots/{0}/data_1_{0}.txt'.format(fullnucpdf), unpack=True)
-x00,fub,fuberr=np.loadtxt('/home/rosalyn/nuclear/PDFplots/{0}/data_-2_{0}.txt'.format(fullnucpdf), unpack=True)
-x000,fdb,fdberr=np.loadtxt('/home/rosalyn/nuclear/PDFplots/{0}/data_-1_{0}.txt'.format(fullnucpdf), unpack=True)
+x,fu,fuerr=np.loadtxt('../res/{0}/data_2_{0}.txt'.format(fullnucpdf), unpack=True)
+x0,fd,fderr=np.loadtxt('../res/{0}/data_1_{0}.txt'.format(fullnucpdf), unpack=True)
+x00,fub,fuberr=np.loadtxt('../res/{0}/data_-2_{0}.txt'.format(fullnucpdf), unpack=True)
+x000,fdb,fdberr=np.loadtxt('../res/{0}/data_-1_{0}.txt'.format(fullnucpdf), unpack=True)
 
 # Transforming from full nuclear to bound proton
 fubp = ((A-Z)*fd-Z*fu)/(A-2*Z)
@@ -39,16 +39,16 @@ fubbperr = np.sqrt((((A-Z)/(A-2*Z))*(fdberr))**2 + ((Z/(A-2*Z))*(fuberr))**2)
 fdbbperr = np.sqrt((((A-Z)/(A-2*Z))*(fuberr))**2 + ((Z/(A-2*Z))*(fdberr))**2)
 
 # Printing data to files
-with open('/home/rosalyn/nuclear/PDFplots/{0}/data_2_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_2_{0}.txt'.format(boundppdf), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fubp[index]) + "\t" + str(fubperr[index]) + "\n")
-with open('/home/rosalyn/nuclear/PDFplots/{0}/data_1_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_1_{0}.txt'.format(boundppdf), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fdbp[index]) + "\t" + str(fdbperr[index]) + "\n")
-with open('/home/rosalyn/nuclear/PDFplots/{0}/data_-2_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_-2_{0}.txt'.format(boundppdf), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fubbp[index]) + "\t" + str(fubbperr[index]) + "\n")
-with open('/home/rosalyn/nuclear/PDFplots/{0}/data_-1_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_-1_{0}.txt'.format(boundppdf), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fdbbp[index]) + "\t" + str(fdbbperr[index]) + "\n")
 
@@ -63,7 +63,7 @@ plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('/home/rosalyn/nuclear/PDFplots/{0}/{0}_u_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_u_plot'.format(boundppdf))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
@@ -75,7 +75,7 @@ plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('/home/rosalyn/nuclear/PDFplots/{0}/{0}_d_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_d_plot'.format(boundppdf))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
@@ -87,7 +87,7 @@ plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('/home/rosalyn/nuclear/PDFplots/{0}/{0}_ubar_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_ubar_plot'.format(boundppdf))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
@@ -99,4 +99,4 @@ plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('/home/rosalyn/nuclear/PDFplots/{0}/{0}_d_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_d_plot'.format(boundppdf))
