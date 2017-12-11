@@ -18,8 +18,8 @@ def numericalSort(value):
     return parts
 
 # Getting data
-x,fa,ferra=np.loadtxt('/home/rosalyn/nuclear/PDFplots/{0}/data_{1}_{0}.txt'.format(pdfseta,pid), unpack=True)
-x0,fb,ferrb=np.loadtxt('/home/rosalyn/nuclear/PDFplots/{0}/data_{1}_{0}.txt'.format(pdfsetb,pid), unpack=True)
+x,fa,ferra=np.loadtxt('../res/{0}/data_{1}_{0}.txt'.format(pdfseta,pid), unpack=True)
+x0,fb,ferrb=np.loadtxt('../res/{0}/data_{1}_{0}.txt'.format(pdfsetb,pid), unpack=True)
 
 # Calculating ratio, taking off last entry as it is 0 so undefined ratio
 r=fa[:-1]/fb[:-1]
@@ -40,5 +40,5 @@ plt.xlabel("x")
 plt.ylabel("R")
 plt.ylim(0,1.8)
 plt.xlim(1e-3,1)
-plt.savefig('/home/rosalyn/nuclear/PDFplots/ratio_{0}_{1}_{2}'.format(pdfseta,pdfsetb,pid))
+plt.savefig('../plots/ratio_{0}_{1}_{2}'.format(pdfseta,pdfsetb,pid))
 
