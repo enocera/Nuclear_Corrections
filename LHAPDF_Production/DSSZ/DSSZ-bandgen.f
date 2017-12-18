@@ -1,73 +1,9 @@
-      PROGRAM BANDGEN
-      IMPLICIT DOUBLE PRECISION (A-Z)
-      integer iset
-      integer n
-      external func
-      dimension banduv(200),bandub(200),bandsb(200),bandgl(200)
-      dimension xx(200)
-C
-       q=sqrt(100.d0)
-c      a=208.d0
-       a=197.D0
-c       a=56.d0
-c      a=9.d0
-C
-      n=0
-      do 10 p1=-4., -1., 1.
-         do 20 p2=1., 9., 1.
-            n=n+1
-            x=p2*10.**p1
-            xx(n)=x
-            xx(73-n)=x
-         
-            call dsszini(0)
-            CALL DSSZ(X,Q,A,RUV,RDV,RUB,RDB,RS,RC,RB,RG)
-c
-            sumruv=0.d0
-            sumrub=0.d0
-            sumrsb=0.d0
-            sumrgl=0.d0
-c
-            do 1 iset=1, 25
-            call dsszini(iset)
-            CALL DSSZ(X,Q,A,RUV1,RDV1,RUB1,RDB1,RS1,RC1,RB1,RG1)
-            call dsszini(-iset)
-            CALL DSSZ(X,Q,A,RUV2,RDV2,RUB2,RDB2,RS2,RC2,RB2,RG2)
-c
-            sumruv=sumruv+(ruv1-ruv2)**2
-            sumrub=sumrub+(rub1-rub2)**2
-            sumrsb=sumrsb+(rs1-rs2)**2
-            sumrgl=sumrgl+(rg1-rg2)**2
- 1       continue 
-         banduv(n)=ruv+0.5*sqrt(sumruv)
-         banduv(73-n)=ruv-0.5*sqrt(sumruv)
-         bandub(n)=rub+0.5*sqrt(sumrub)
-         bandub(73-n)=rub-0.5*sqrt(sumrub)
-         bandsb(n)=rs+0.5*sqrt(sumrsb)
-         bandsb(73-n)=rs-0.5*sqrt(sumrsb)
-         bandgl(n)=rg+0.5*sqrt(sumrgl)
-         bandgl(73-n)=rg-0.5*sqrt(sumrgl)
-
-         write(6,*) x,rg,bandgl(n),bandgl(73-n)
-C
- 20   continue
- 10   continue
-C
-      do 90 n=1,72,1
-c        write(6,4) xx(n),log10(xx(n)),
-c    1       banduv(n),bandub(n),bandsb(n),bandgl(n)
- 90   continue
- 4    format(6(1pe12.4))
-C
-      end
-
-
-
+**************************************************************************
       SUBROUTINE DSSZ(X,Q,A,RUV,RDV,RUB,RDB,RS,RC,RB,RG)
 **************************************************************************
 *
-*       DSSZ NLO GLOBAL ABALYSIS OF NUCLEAR PARTON DISTRIBUTIONS                                                                     
-*       D. de Florian, R. Sassot, M. Stratmann, P. Zurita                                          
+*       DSSZ NLO GLOBAL ABALYSIS OF NUCLEAR PARTON DISTRIBUTIONS             
+*       D. de Florian, R. Sassot, M. Stratmann, P. Zurita               
 *                             
 *  REFERENCE:   arXiv:....
 *
@@ -96,24 +32,25 @@ C
 *                    RB  :    BOTTOM DISTRIBUTION
 *                    RG  :    GLUON DISTRIBUTION           
 *              
-*          The "nuclear ratio" in the neutron can be obtained by isospin symmetry,
-*          i.e., RUV_proton=RDV_neutron, etc
+*     The "nuclear ratio" in the neutron can be obtained by isospin symmetry,
+*     i.e., RUV_proton=RDV_neutron, etc
 *                                                                            
-*  INIT:  the routine DSSZINI(ISET) has to be called once to initialize a new grid
-*                   ISET : 0 CENTRAL FIT
-*                   ISET : 1 TO 25 (AND -1 TO -25) TO CALL HESSIAN UNCERTAINTY SETS
-*                   
-*  RANGE OF VALIDITY OF THE INTERPOLATION:                              
-*                           10^(-4) < X < 1.0                     
-*                           1 < Q**2 < 10^4                    
-*                           A = 9, 56, 197, 208      
-*
-*  IN CASE OF PROBLEMS, DOUBTS, ETC, PLEASE REPORT TO :                 
-*           deflo@df.uba.ar                                                     
-*           sassot@df.uba.ar     
-*           marco@bnl.gov
-*           pia@df.uba.ar
-*                                                                            
+*     INIT:  the routine DSSZINI(ISET) has to be called once to initialize a 
+*     new grid
+*     ISET : 0 CENTRAL FIT
+*     ISET : 1 TO 25 (AND -1 TO -25) TO CALL HESSIAN UNCERTAINTY SETS
+*     
+*     RANGE OF VALIDITY OF THE INTERPOLATION:                              
+*     10^(-4) < X < 1.0                     
+*     1 < Q**2 < 10^4                    
+*     A = 9, 56, 197, 208      
+*     
+*     IN CASE OF PROBLEMS, DOUBTS, ETC, PLEASE REPORT TO :                 
+*     deflo@df.uba.ar                                                     
+*     sassot@df.uba.ar     
+*     marco@bnl.gov
+*     pia@df.uba.ar
+*     
 **************************************************************************
       IMPLICIT NONE
 C...
@@ -169,7 +106,8 @@ C...
       CHARACTER *11 FNAME1(2)
       CHARACTER *2  FNAME2, FNAME2A
       CHARACTER *5  FNAME3
-      CHARACTER *20 FNAME, FILE
+      CHARACTER *20 FNAME 
+      CHARACTER *23 FILE
       CHARACTER *1 DUMMY0
 C...
       DATA FNAME1 / 'dssz-plus-','dssz-minus-'/
@@ -200,7 +138,7 @@ C...
       DUMMY0='0'
 C...
       IF(ISET.EQ.0) THEN
-         FILE='dssz-central.grid'
+         FILE='grids/dssz-central.grid'
       ELSE IF((ISET.LT.0).AND.(ISET.GE.-9)) THEN
          WRITE (FNAME2,1000) ABS(ISET)
  1000    FORMAT(I1)
