@@ -12,6 +12,11 @@ fullnucpdf = str(sys.argv[1])
 boundppdf = str(sys.argv[2])
 A = int(sys.argv[3])
 Z = int(sys.argv[4])
+q = float(sys.argv[5])
+
+# Need to remove decimal place for the Q appearing in filenames 
+qstring=str(q)
+qstring=qstring.replace(".","p")
 
 
 numbers = re.compile(r'(\d+)')
@@ -21,10 +26,10 @@ def numericalSort(value):
     return parts
 
 # Getting data
-x,fu,fuerr=np.loadtxt('../res/{0}/data_2_{0}.txt'.format(fullnucpdf), unpack=True)
-x0,fd,fderr=np.loadtxt('../res/{0}/data_1_{0}.txt'.format(fullnucpdf), unpack=True)
-x00,fub,fuberr=np.loadtxt('../res/{0}/data_-2_{0}.txt'.format(fullnucpdf), unpack=True)
-x000,fdb,fdberr=np.loadtxt('../res/{0}/data_-1_{0}.txt'.format(fullnucpdf), unpack=True)
+x,fu,fuerr=np.loadtxt('../res/{0}/data_2_{0}_q{1}.txt'.format(fullnucpdf,qstring), unpack=True)
+x0,fd,fderr=np.loadtxt('../res/{0}/data_1_{0}_q{1}.txt'.format(fullnucpdf,qstring), unpack=True)
+x00,fub,fuberr=np.loadtxt('../res/{0}/data_-2_{0}_q{1}.txt'.format(fullnucpdf,qstring), unpack=True)
+x000,fdb,fdberr=np.loadtxt('../res/{0}/data_-1_{0}_q{1}.txt'.format(fullnucpdf,qstring), unpack=True)
 
 # Transforming from full nuclear to bound proton
 fubp = ((A-Z)*fd-Z*fu)/(A-2*Z)
@@ -39,16 +44,16 @@ fubbperr = np.sqrt((((A-Z)/(A-2*Z))*(fdberr))**2 + ((Z/(A-2*Z))*(fuberr))**2)
 fdbbperr = np.sqrt((((A-Z)/(A-2*Z))*(fuberr))**2 + ((Z/(A-2*Z))*(fdberr))**2)
 
 # Printing data to files
-with open('../res/{0}/data_2_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_2_{0}_q{1}.txt'.format(boundppdf,qstring), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fubp[index]) + "\t" + str(fubperr[index]) + "\n")
-with open('../res/{0}/data_1_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_1_{0}_q{1}.txt'.format(boundppdf,qstring), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fdbp[index]) + "\t" + str(fdbperr[index]) + "\n")
-with open('../res/{0}/data_-2_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_-2_{0}_q{1}.txt'.format(boundppdf,qstring), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fubbp[index]) + "\t" + str(fubbperr[index]) + "\n")
-with open('../res/{0}/data_-1_{0}.txt'.format(boundppdf), 'w') as output:
+with open('../res/{0}/data_-1_{0}_q{1}.txt'.format(boundppdf,qstring), 'w') as output:
     for index in range(len(x)):
          	output.write(str(x[index]) + "\t" + str(fdbbp[index]) + "\t" + str(fdbbperr[index]) + "\n")
 
@@ -58,45 +63,45 @@ ax = fig.add_subplot(111)
 ax.set_xscale('log')
 ax.plot(x,fubp,color="r")
 ax.fill_between(x, fubp+np.absolute(fubperr), fubp-np.absolute(fubperr),alpha=0.5,facecolor="r")
-plt.title("{0} bound proton PDF, PID = 2".format(boundppdf))
+plt.title("{0} bound proton PDF, PID = 2, Q={1} GeV".format(boundppdf,q))
 plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/{0}/{0}_u_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_u_q{1}_plot'.format(boundppdf,qstring))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
 ax.set_xscale('log')
 ax.plot(x,fdbp,color="r")
 ax.fill_between(x, fdbp+np.absolute(fdbperr), fdbp-np.absolute(fdbperr),alpha=0.5,facecolor="r")
-plt.title("{0} bound proton PDF, PID = 1".format(boundppdf))
+plt.title("{0} bound proton PDF, PID = 1, Q={1}".format(boundppdf,q))
 plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/{0}/{0}_d_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_d_q{1}_plot'.format(boundppdf,qstring))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
 ax.set_xscale('log')
 ax.plot(x,fubbp,color="r")
 ax.fill_between(x, fubbp+np.absolute(fubbperr), fubbp-np.absolute(fubbperr),alpha=0.5,facecolor="r")
-plt.title("{0} bound proton PDF, PID = -2".format(boundppdf))
+plt.title("{0} bound proton PDF, PID = -2, Q={1} GeV".format(boundppdf,q))
 plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/{0}/{0}_ubar_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_ubar_q{1}_plot'.format(boundppdf,qstring))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
 ax.set_xscale('log')
 ax.plot(x,fdbbp,color="r")
 ax.fill_between(x, fdbbp+np.absolute(fdbbperr), fdbbp-np.absolute(fdbbperr),alpha=0.5,facecolor="r")
-plt.title("{0} bound proton PDF, PID = -1".format(boundppdf))
+plt.title("{0} bound proton PDF, PID = -1, Q={1} GeV".format(boundppdf,q))
 plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/{0}/{0}_d_plot'.format(boundppdf))
+plt.savefig('../plots/{0}/{0}_d_q{1}_plot'.format(boundppdf,qstring))

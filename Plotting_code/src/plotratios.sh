@@ -8,6 +8,8 @@ namePDFset[5]="nCTEQ15_56_26"
 namePDFset[6]="nCTEQ15_208_82"
 namePDFset[7]="DSSZ_NLO_Fe56"
 namePDFset[8]="DSSZ_NLO_Pb208"
+namePDFset[9]="DSSZ_NLO_Fe56_bp"
+namePDFset[10]="DSSZ_NLO_Pb208_bp"
 
 PDFset[1]="nCTEQ15_1"
 PDFset[2]="nCTEQ15_1"
@@ -17,6 +19,8 @@ PDFset[5]="nCTEQ15_1"
 PDFset[6]="nCTEQ15_1"
 PDFset[7]="MSTW2008nlo68cl"
 PDFset[8]="MSTW2008nlo68cl"
+PDFset[9]="MSTW2008nlo68cl"
+PDFset[10]="MSTW2008nlo68cl"
 
 
 PID[1]=21
@@ -32,7 +36,7 @@ Q[1]=10     #GeV
 Q[2]=3.1622 #GeV
 Q[3]=2 #GeV
 
-for ipdf in `seq 7 8`
+for ipdf in `seq 9 10`
 do
 for iPID in `seq 1 7`
 do
