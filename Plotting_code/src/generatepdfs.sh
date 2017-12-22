@@ -9,10 +9,14 @@ namePDFset[6]="cteq6"
 namePDFset[7]="nCTEQ15_1"
 namePDFset[8]="nCTEQ15_56_26"
 namePDFset[9]="nCTEQ15_208_82"
+namePDFset[10]="MSTW2008nlo68cl"
+namePDFset[11]="DSSZ_NLO_Fe56"
+namePDFset[12]="DSSZ_NLO_Pb208"
 
 #This is the energy scale
 Q[1]=10     #GeV
 Q[2]=3.1622 #GeV
+Q[3]=2 #GeV
 
 PID[1]=21
 PID[2]=-3
@@ -23,9 +27,9 @@ PID[6]=+1
 PID[7]=+3
 
 
-for ipdf in `seq 1 9`
+for ipdf in `seq 1 12`
 do
-for iQ in `seq 1 2`
+for iQ in `seq 1 3`
 do
 for iPID in `seq 1 7`
 do

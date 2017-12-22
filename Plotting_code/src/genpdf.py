@@ -12,6 +12,10 @@ pdfset = str(sys.argv[1])
 pid= int(sys.argv[2])
 q = float(sys.argv[3]) 
 
+# Need to remove decimal place for the Q appearing in filenames 
+qstring=str(q)
+qstring=qstring.replace(".","p")
+
 # Reading in PDF sets
 p = lhapdf.mkPDF(pdfset, 0)
 pset = lhapdf.getPDFSet(pdfset)
@@ -38,7 +42,7 @@ for i in range(len(xs)):
     fdiff_sq_sum[i]=np.sum(fdiff_sq[:,i])
 errors=0.5*np.sqrt(fdiff_sq_sum)
 
-with open('../res/{0}/data_{1}_{0}.txt'.format(pdfset,pid), 'w') as output:
+with open('../res/{0}/data_{1}_{0}_q{2}.txt'.format(pdfset,pid,qstring), 'w') as output:
     for index in range(len(xs)):
          	output.write(str(xs[index]) + "\t" + str(f[0,index]) + "\t" + str(errors[index]) + "\n")
 
@@ -55,5 +59,5 @@ plt.xlabel("x")
 plt.ylabel("xf")
 #plt.ylim(-2,10)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/{0}/{0}_{1}_plot'.format(pdfset,pid))
+plt.savefig('../plots/{0}/{0}_{1}_q{2}_plot'.format(pdfset,pid,qstring))
 
