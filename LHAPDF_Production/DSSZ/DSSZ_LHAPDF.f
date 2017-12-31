@@ -18,14 +18,13 @@
       double precision Qin
 
       IO    = 1  !NLO
-      A     = 56 !Fe
-      Z     = 26 !Fe
+      A     = 208!Pb
+      Z     = 82 !Pb
 
       Qin   = 1d0 !GeV 
       
       irepb = -1
 
-      call dsszini(0)
       call initPDFsetbyname("MSTW2008nlo68cl")
       call initPDF(0)
 
@@ -39,7 +38,7 @@
       call SetLHgridParameters(100,50,1d-4,1d-1,1d0,50,
      1                         1.0000000001d0,99999.998d0)
       
-      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Fe56")
+      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Pb208")
 
       call CleanUp
 
@@ -80,6 +79,7 @@
          is = irep
       endif
 
+      call DSSZINI(is)
       call DSSZ(X,Q,A,RUV,RDV,RUB,RDB,RS,RC,RB,RG)
       call evolvePDF(x,Q,xpdflh)
 

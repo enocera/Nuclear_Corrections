@@ -103,14 +103,14 @@ C...
       INTEGER NA(NARG)
       INTEGER I, J, K
 C...
-      CHARACTER *11 FNAME1(2)
+      CHARACTER *17 FNAME1(2)
       CHARACTER *2  FNAME2, FNAME2A
       CHARACTER *5  FNAME3
-      CHARACTER *20 FNAME 
-      CHARACTER *23 FILE
+      CHARACTER *26 FNAME 
+      CHARACTER *29 FILE
       CHARACTER *1 DUMMY0
 C...
-      DATA FNAME1 / 'dssz-plus-','dssz-minus-'/
+      DATA FNAME1 / 'grids/dssz-plus-','grids/dssz-minus-'/
 C...
       COMMON/ DSSZGRID / XUVF, XDVF, XUBF, XDBF, XSF, XCF, XBF, XGF,
      1                   ARRF, NA
