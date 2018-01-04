@@ -31,9 +31,12 @@ r=fa[:-1]/fb[:-1]
 # Calculating ratio errors
 rerr=r*np.sqrt((ferra[:-1]/fa[:-1])**2 + (ferrb[:-1]/fb[:-1])**2)
 
+# Saving data 
+with open('../res/{0}/ratio_{1}_{0}_{2}_q{3}.txt'.format(pdfseta,pid,pdfsetb,qstring), 'w') as output:
+    for index in range(len(x[:-1])):
+        output.write(str(x[index]) + "\t" + str(r[index]) + "\t" + str(rerr.T[index]) + "\n")
 
 # Plotting
-
 fig=plt.figure()
 ax = fig.add_subplot(111)
 ax.set_xscale('log')
