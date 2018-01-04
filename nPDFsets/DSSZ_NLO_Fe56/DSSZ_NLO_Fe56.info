@@ -10,7 +10,7 @@
  FlavorScheme: variable
  NumFlavors:            5
  ErrorType: replicas
- XMin:   1.0000000000000000E-004
+ XMin:   1.0000000000000001E-005
  XMax:   1.0000000000000000     
  QMin:   1.0000000000500000     
  QMax:   316.22776285456024     
