@@ -9,26 +9,25 @@
       program DSSZ_LHAPDF
       implicit none
 
-      integer IO, A, Z
-      common / DSSpars / IO, A, Z
+      integer A, Z
+      common / DSSpars / A, Z
 
       integer IREPB
       common / replica / irepB
 
       double precision Qin
 
-      IO    = 1  !NLO
-      A     = 208!Pb
-      Z     = 82 !Pb
+      A     = 56 !Pb
+      Z     = 26 !Pb
 
-      Qin   = 1d0 !GeV 
+      Qin   = -1d0 !GeV 
       
       irepb = -1
 
       call initPDFsetbyname("MSTW2008nlo68cl")
       call initPDF(0)
 
-      call setPerturbativeOrder(IO)
+      call setPerturbativeOrder(1)
       call SetPoleMasses(1.4d0,4.75d0,1d10)
       call SetAlphaEvolution("exact")
       call SetAlphaQCDref(0.120179d0,91.1876d0)
@@ -38,7 +37,7 @@
       call SetLHgridParameters(100,50,1d-4,1d-1,1d0,50,
      1                         1.0000000001d0,99999.998d0)
       
-      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Pb208")
+      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Fe56")
 
       call CleanUp
 
@@ -53,10 +52,10 @@
       
 
       integer fini, is, irep, irepb
-      integer IO, A, Z
+      integer A, Z
       common / fragini / fini
       common / replica / irepb
-      common / DSSpars / IO, A, Z
+      common / DSSpars / A, Z
 
       double precision x, Q, Q2
       double precision RUV, RDV, RUB, RDB, RS, RC, RB, RG
@@ -87,15 +86,17 @@
       xf(-5) = RB * xpdflh(-5)
       xf(-4) = RC * xpdflh(-4)
       xf(-3) = RS * xpdflh(-3)
-      xf(-2) = Z/A * RUB * xpdflh(-2) 
-     1     + (A-Z)/A * RDB * xpdflh(-1) 
-      xf(-1) = Z/A * RDB * xpdflh(-1) 
-     1     + (A-Z)/A * RUB * xpdflh(-2) 
+      xf(-2) = xpdflh(-2)
+      xf(-1) = xpdflh(-1)
       xf(0)  = RG * xpdflh(0)
-      xf(1)  =  Z/A * (RDV + RDB) * xpdflh(+1) 
-     1     + (A-Z)/A * (RUV + RUB) * xpdflh(+2) 
-      xf(2)  = Z/A * (RUV + RUB) * xpdflh(+2) 
-     1     + (A-Z)/A * (RDV + RDB) * xpdflh(+1) 
+      xf(1)  = Z/dble(A) * (RDV * (xpdflh(+1) - xpdflh(-1)) )
+     1       + Z/dble(A) * (RDB * xpdflh(-1) )
+     1       + (A-Z)/dble(A) * (RUV * (xpdflh(+2) - xpdflh(-2)) )
+     1       + (A-Z)/dble(A) * (RUB * xpdflh(-2) )
+      xf(2)  = Z/dble(A) * (RUV * (xpdflh(+2) - xpdflh(-2)) )
+     1       + Z/dble(A) * (RUB * xpdflh(-2) )
+     1       + (A-Z)/dble(A) * (RDV * (xpdflh(+1) - xpdflh(-1)) )
+     1       + (A-Z)/dble(A) * (RDB * xpdflh(-1) )
       xf(3)  = RS * xpdflh(+3)
       xf(4)  = RC * xpdflh(+4)
       xf(5)  = RB * xpdflh(+5)
