@@ -16,8 +16,8 @@
       double precision A, Z
       common / DSSpars / A, Z
 
-      A     = 56d0 !Pb
-      Z     = 26d0 !Pb
+      A     = 208d0 !Pb
+      Z     = 82d0 !Pb
 
       Qin   = -1d0 !GeV 
       
@@ -36,7 +36,7 @@
       call SetLHgridParameters(100,50,1d-5,1d-1,1d0,50,
      1                         1.0000000001d0,99999.998d0)
       
-      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Fe56")
+      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Pb208")
 
       call CleanUp
 
