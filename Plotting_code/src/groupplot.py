@@ -12,25 +12,26 @@ dict = {}
 pid = int(sys.argv[1])
 q = float(sys.argv[2])
 
-print(sys.argv[3:])
-print(range(len(sys.argv[3:])))
+# Creating a string of all the PDF sets for inclusion in filename
+pdfstring = "_"
 
-print("--------------------------------" + "\n")
-print("The PDF sets being plotted are:" + "\n")
-print("--------------------------------" + "\n")
+print("--------------------------------")
+print("The PDF sets being plotted are:")
+print("--------------------------------")
 for i in range(len(sys.argv[3:])):
     print("pdfset_{0} = ".format(i))
     dict["pdfset_{0}".format(i)]=str(sys.argv[i+3])
+    pdfstring = pdfstring + dict["pdfset_{0}".format(i)] + "_"
     print(str(sys.argv[i+3]) + "\n")
-
+print("pdfstring=" + pdfstring)
 # Need to remove decimal place for the Q appearing in filenames 
 qstring=str(q)
 qstring=qstring.replace(".","p")
 
 # Getting data
-print("----------------------" + "\n")
-print("Loading data" + "\n")
-print("----------------------" + "\n")
+print("----------------------")
+print("Loading data")
+print("----------------------")
 for i in range(len(sys.argv[3:])):
     print("pdfset_{0}".format(i))
     filenames = glob.glob('../res/{0}/ratio_{1}_{0}*q{2}.txt'.format(dict["pdfset_{0}".format(i)],pid,qstring))
@@ -59,5 +60,5 @@ plt.xlabel("x")
 plt.ylabel("R")
 plt.ylim(0,1.8)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/groupratio_{0}_q{1}'.format(pid,qstring))
+plt.savefig('../plots/groupratio{0}{1}_q{2}'.format(pdfstring,pid,qstring))
 
