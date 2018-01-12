@@ -26,7 +26,7 @@ for icomb in `seq 2 8`
 do
 for iPID in `seq 1 7`
 do
-for iQ in `seq 1 1`
+for iQ in `seq 2 3`
 do
 python groupplot.py ${PID[iPID]} ${Q[iQ]} ${PDFsets[icomb]} 
 done
