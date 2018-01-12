@@ -45,7 +45,7 @@ for pid in [1,-1,2,-2]:
 
 # Calculating Hessian errors 
 for pid in [1,-1,2,-2,3,-3,21,11,-11,22,-22]:
-    errordict["f_0".format(pid)] = np.sqrt(np.mean(np.square(dict["f_0".format(pid)]),axis=0)-np.square(np.mean(dict["f_0".format(pid)]),axis=0))
+    errordict["f_{0}".format(pid)] = np.sqrt(np.mean(np.square(dict["f_{0}".format(pid)]),axis=0)-np.square(np.mean(dict["f_{0}".format(pid)],axis=0)))
     with open('../res/{0}/data_{1}_{0}_q{2}.txt'.format(pdfset,pid,qstring), 'w') as output:
         for index in range(len(xs)):
             output.write(str(xs[index]) + "\t" + str(dict["f_{0}".format(pid)][0,index]) + "\t" + str(errordict["f_{0}".format(pid)][index]) + "\n")
