@@ -23,9 +23,12 @@ x00,rc,rerrc=np.loadtxt(glob.glob('../res/{0}/ratio_{1}_{0}*q{2}.txt'.format(pdf
 x00,rd,rerrd=np.loadtxt(glob.glob('../res/{0}/ratio_{1}_{0}*q{2}.txt'.format(pdfsetd,pid,qstring))[0], unpack=True)
 
 # Calculating percentage difference in errors
-pdiffb = 200*(rerrb-rerra)/(rerrb+rerra)
-pdiffc = 200*(rerrc-rerra)/(rerrc+rerra)
-pdiffd = 200*(rerrd-rerra)/(rerrd+rerra)
+#pdiffb = 200*(rerrb-rerra)/(rerrb+rerra)
+#pdiffc = 200*(rerrc-rerra)/(rerrc+rerra)
+#pdiffd = 200*(rerrd-rerra)/(rerrd+rerra)
+pdiffb = (1-rerrb/rerra)*100
+pdiffc = (1-rerrc/rerra)*100
+pdiffd = (1-rerrd/rerra)*100
 # Plotting
 fig=plt.figure()
 ax = fig.add_subplot(111)
