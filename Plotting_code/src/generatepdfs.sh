@@ -24,6 +24,12 @@ namePDFset[21]="nCTEQ15FullNuc_208_82_MC"
 namePDFset[22]="nCTEQ15FullNuc_208_82_MC_100"
 namePDFset[23]="nCTEQ15FullNuc_56_26_MC"
 namePDFset[24]="nCTEQ15FullNuc_56_26_MC_100"
+namePDFset[25]="DSSZ_NLO_Fe56_MC_1000"
+namePDFset[26]="DSSZ_NLO_Pb208_MC_1000"
+namePDFset[27]="EPPS16nlo_CT14nlo_Fe56_MC_1000"
+namePDFset[28]="EPPS16nlo_CT14nlo_Pb208_MC_1000"
+namePDFset[29]="nCTEQ15FullNuc_208_82_MC_1000"
+namePDFset[30]="nCTEQ15FullNuc_56_26_MC_1000"
 
 # Fill in the corresponding proton and mass numbers for each PDF set
 A[1]=1
@@ -50,6 +56,13 @@ A[21]=208
 A[22]=208
 A[23]=56
 A[24]=56
+A[25]=56
+A[26]=208
+A[27]=56
+A[28]=208
+A[29]=208
+A[30]=56
+
 
 
 Z[1]=1
@@ -76,6 +89,12 @@ Z[21]=82
 Z[22]=82
 Z[23]=26
 Z[24]=26
+Z[25]=26
+Z[26]=82
+Z[27]=25
+Z[28]=82
+Z[29]=82
+Z[30]=26
 
 #This is the energy scale
 Q[1]=10     #GeV
@@ -90,7 +109,7 @@ Q[3]=2 #GeV
 #done
 #done
 
-for ipdf in `seq 13 24`
+for ipdf in `seq 25 30`
 do
 for iQ in `seq 1 3`
 do
