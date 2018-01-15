@@ -91,7 +91,7 @@ Z[23]=26
 Z[24]=26
 Z[25]=26
 Z[26]=82
-Z[27]=25
+Z[27]=26
 Z[28]=82
 Z[29]=82
 Z[30]=26
@@ -109,7 +109,7 @@ Q[3]=2 #GeV
 #done
 #done
 
-for ipdf in `seq 25 30`
+for ipdf in `seq 27 27`
 do
 for iQ in `seq 1 3`
 do
