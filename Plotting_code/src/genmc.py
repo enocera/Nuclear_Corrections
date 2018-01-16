@@ -43,7 +43,7 @@ for pid in [1,-1,2,-2]:
     dict["f_-22"] = ((A-Z)*dict["f_-1"]-Z*dict["f_-2"])/(A-2*Z)
     dict["f_-11"] = ((A-Z)*dict["f_-2"]-Z*dict["f_-1"])/(A-2*Z)
 
-# Calculating Hessian errors 
+# Calculating MC errors 
 for pid in [1,-1,2,-2,3,-3,21,11,-11,22,-22]:
     errordict["f_{0}".format(pid)] = np.sqrt(np.mean(np.square(dict["f_{0}".format(pid)]),axis=0)-np.square(np.mean(dict["f_{0}".format(pid)],axis=0)))
     with open('../res/{0}/data_{1}_{0}_q{2}.txt'.format(pdfset,pid,qstring), 'w') as output:

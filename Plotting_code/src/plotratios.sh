@@ -26,6 +26,12 @@ namePDFset[23]="EPPS16nlo_CT14nlo_Fe56_MC_1000"
 namePDFset[24]="EPPS16nlo_CT14nlo_Pb208_MC_1000"
 namePDFset[25]="nCTEQ15FullNuc_208_82_MC_1000"
 namePDFset[26]="nCTEQ15FullNuc_56_26_MC_1000"
+namePDFset[27]="DSSZ_NLO_Fe56_MC_1000_compressed_25"
+namePDFset[28]="DSSZ_NLO_Pb208_MC_1000_compressed_25"
+namePDFset[29]="EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_25"
+namePDFset[30]="EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_25"
+namePDFset[31]="nCTEQ15FullNuc_208_82_MC_1000_compressed_25"
+namePDFset[32]="nCTEQ15FullNuc_56_26_MC_1000_compressed_25"
 
 
 PDFset[1]="nCTEQ15_1"
@@ -54,6 +60,12 @@ PDFset[23]="CT14nlo"
 PDFset[24]="CT14nlo"
 PDFset[25]="nCTEQ15_1"
 PDFset[26]="nCTEQ15_1"
+PDFset[27]="MSTW2008nlo68cl"
+PDFset[28]="MSTW2008nlo68cl"
+PDFset[29]="CT14nlo"
+PDFset[30]="CT14nlo"
+PDFset[31]="nCTEQ15_1"
+PDFset[32]="nCTEQ15_1"
 
 PID[1]=21
 PID[2]=-3
@@ -68,7 +80,7 @@ Q[1]=10     #GeV
 Q[2]=3.1622 #GeV
 Q[3]=2 #GeV
 
-for ipdf in `seq 21 26`
+for ipdf in `seq 27 32`
 do
 for iPID in `seq 1 7`
 do
