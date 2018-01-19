@@ -126,7 +126,7 @@ python genpdf.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
 done
 done
 
-for ipdf in `seq 31 36`
+for ipdf in `seq 13 36`
 do
 for iQ in `seq 1 3`
 do
