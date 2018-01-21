@@ -80,7 +80,7 @@ Q[1]=10     #GeV
 Q[2]=3.1622 #GeV
 Q[3]=2 #GeV
 
-for ipdf in `seq 27 32`
+for ipdf in `seq 1 32`
 do
 for iPID in `seq 1 7`
 do
@@ -92,6 +92,3 @@ done
 done
 
 exit 0
-
-
-

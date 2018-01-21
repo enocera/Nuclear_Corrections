@@ -1,27 +1,27 @@
 #! /usr/bin/env python
- 
+
 import lhapdf
 import numpy as np
 import sys
 import matplotlib.pyplot as plt
 
-# Reading in command line arguments 
-pdfset = str(sys.argv[1]) 
+# Reading in command line arguments
+pdfset = str(sys.argv[1])
 A = int(sys.argv[2])
-Z = int(sys.argv[3]) 
+Z = int(sys.argv[3])
 q = float(sys.argv[4])
 boundppdfset = "{0}_bp".format(pdfset)
 
-# Need to remove decimal place for the Q appearing in filenames 
+# Need to remove decimal place for the Q appearing in filenames
 qstring=str(q)
 qstring=qstring.replace(".","p")
 
 # Reading in PDF sets
 p = lhapdf.mkPDF(pdfset, 0)
-pset = lhapdf.getPDFSet(pdfset)
+#pset = lhapdf.getPDFSet(pdfset)
 pdfs2 = lhapdf.mkPDFs(pdfset)
 
-# Generating PDFs member by member and writing them to an array 
+# Generating PDFs member by member and writing them to an array
 N=len(pdfs2)
 npair = int((N-1)/2)
 xs = [x for x in np.logspace(-4, 0, 100)]
@@ -35,16 +35,16 @@ errordict = {"f_1":np.zeros([len(xs)]), "f_2":np.zeros([len(xs)]), "f_3":np.zero
 for pid in [1,-1,2,-2,3,-3,21]:
     for k in range(N):
         for ix, x in enumerate(xs):
-            dict["f_{0}".format(pid)][k,ix] = pdfs2[k].xfxQ(pid, x, q) 
+            dict["f_{0}".format(pid)][k,ix] = pdfs2[k].xfxQ(pid, x, q)
 # Transforming up and down type quarks from full nuclear to bound proton. Giving them new PIDs which don't conflict with the ones we already have:
 # dbp = 11, dbbp=-11, ubp=22, ubbp=-22
 for pid in [1,-1,2,-2]:
-    dict["f_22"] = ((A-Z)*dict["f_1"]-Z*dict["f_2"])/(A-2*Z) 
+    dict["f_22"] = ((A-Z)*dict["f_1"]-Z*dict["f_2"])/(A-2*Z)
     dict["f_11"] = ((A-Z)*dict["f_2"]-Z*dict["f_1"])/(A-2*Z)
     dict["f_-22"] = ((A-Z)*dict["f_-1"]-Z*dict["f_-2"])/(A-2*Z)
     dict["f_-11"] = ((A-Z)*dict["f_-2"]-Z*dict["f_-1"])/(A-2*Z)
 
-# Calculating Hessian errors 
+# Calculating Hessian errors
 fdiff=np.zeros([npair,len(xs)])
 fdiff_sq_sum=np.zeros([len(xs)])
 
