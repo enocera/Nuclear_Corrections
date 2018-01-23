@@ -40,7 +40,7 @@ PID[7]=-22
 
 #This is the energy scale
 Q[1]=10     #GeV
-Q[2]=3.1622 #GeV
+Q[2]=3.16227766017 #GeV
 Q[3]=2 #GeV
 
 for iMC in `seq 1 24`

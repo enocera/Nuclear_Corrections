@@ -14,7 +14,7 @@ pdfsetc = str(sys.argv[5])
 pdfsetd = str(sys.argv[6])
 pdfsete = str(sys.argv[7])
 
-# Need to remove decimal place for the Q appearing in filenames 
+# Need to remove decimal place for the Q appearing in filenames
 qstring=str(q)
 qstring=qstring.replace(".","p")
 
@@ -34,7 +34,7 @@ elif "nCTEQ" in pdfseta:
     print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
 else:
     print("--------------------------" + "\n""Hessian errors already at 68% confidence" +"\n" +"--------------------------")
-    
+
 
 # Calculating percentage difference in errors
 #pdiffb = 200*(rerrb-rerra)/(rerrb+rerra)
@@ -67,7 +67,7 @@ plt.xlabel("x")
 plt.ylabel("Error % difference")
 plt.xlim(1e-3,1)
 plt.legend()
-plt.savefig('../plots/perrdiff_{0}_{1}_q{2}'.format(pdfseta,pid,qstring))
+plt.savefig('../plots/perrdiff/perrdiff_{0}_{1}_q{2}'.format(pdfseta,pid,qstring))
 
 fig=plt.figure()
 ax = fig.add_subplot(111)
@@ -84,4 +84,4 @@ plt.xlabel("x")
 plt.ylabel("% difference")
 plt.xlim(1e-3,1)
 plt.legend()
-plt.savefig('../plots/pdiff_{0}_{1}_q{2}'.format(pdfseta,pid,qstring))
+plt.savefig('../plots/pdiff/pdiff_{0}_{1}_q{2}'.format(pdfseta,pid,qstring))

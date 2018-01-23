@@ -77,14 +77,14 @@ PID[7]=-22
 
 #This is the energy scale
 Q[1]=10     #GeV
-Q[2]=3.1622 #GeV
+Q[2]=3.16227766017 #GeV
 Q[3]=2 #GeV
 
 for ipdf in `seq 1 32`
 do
 for iPID in `seq 1 7`
 do
-for iQ in `seq 1 3`
+for iQ in `seq 2 2`
 do
 python plotratio.py "${namePDFset[ipdf]}" "${PDFset[ipdf]}" ${PID[iPID]} ${Q[iQ]}
 done
