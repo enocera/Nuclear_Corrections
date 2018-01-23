@@ -14,7 +14,7 @@ print("-------------")
 qstring=str(q)
 qstring=qstring.replace(".","p")
 # Transforming between PID conventions
-mypids=[21,11,-11,22,-22,3,-3]
+mypids=[21,1,-1,2,-2,3,-3]
 epids=[0,1,-1,2,-2,3,3]
 epid=epids[mypids.index(pid)]
 dict={}

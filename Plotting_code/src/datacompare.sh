@@ -9,10 +9,10 @@ PDFstring[6]=EPPS16nlo_CT14nlo_Pb208
 
 PID[1]=21
 PID[2]=+3
-PID[3]=+11
-PID[4]=-11
-PID[5]=+22
-PID[6]=-22
+PID[3]=+1
+PID[4]=-1
+PID[5]=+2
+PID[6]=-2
 
 #This is the energy scale
 Q[1]=10     #GeV
