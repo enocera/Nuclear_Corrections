@@ -26,7 +26,15 @@ x00,rd,rerrd=np.loadtxt(glob.glob('../res/{0}/data_{1}_{0}*q{2}.txt'.format(pdfs
 x000,re,rerre=np.loadtxt(glob.glob('../res/{0}/data_{1}_{0}*q{2}.txt'.format(pdfsete,pid,qstring))[0], unpack=True)
 
 # Rescaling Hessian errors from 90% to 68% confidence levels
-rerra=rerra/1.65
+if "EPPS" in pdfseta:
+    rerra=rerra/1.65
+    print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
+elif "nCTEQ" in pdfseta:
+    rerra=rerra/1.65
+    print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
+else:
+    print("--------------------------" + "\n""Hessian errors already at 68% confidence" +"\n" +"--------------------------")
+    
 
 # Calculating percentage difference in errors
 #pdiffb = 200*(rerrb-rerra)/(rerrb+rerra)

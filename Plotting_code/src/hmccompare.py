@@ -45,18 +45,26 @@ for i in range(len(sys.argv[3:])):
         print("Data loaded")
 # Scaling down the Hessian errors from 90% to 68% confidence.
 #The Hessian set must always be the first set inputted.
-dict["rerr_0"]=dict["rerr_0"]/1.65
+# Only EPPS and nCTEQ need rescaling (REMEMBER TO CHECK ABOUT HKN LATER)
+if "EPPS" in pdfstring:
+    dict["rerr_0"]=dict["rerr_0"]/1.65
+    print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
+elif "nCTEQ" in pdfstring:
+    dict["rerr_0"]=dict["rerr_0"]/1.65
+    print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
+else:
+    print("--------------------------" + "\n""Hessian errors already at 68% confidence" +"\n" +"--------------------------")
 
 #for index in range(len(x)):
 #    print(str(x[index]) + "\t" + str(dict["r_1"][index]) + "\t" + str(dict["rerr_1"][index]) + "\n")
-
+#print("r_0=" + str(dict["r_0"]))
 # Plotting
 fig=plt.figure()
 for i in range(len(sys.argv[3:])):
     dict["ax_{0}".format(i)] = fig.add_subplot(111)
     dict["ax_{0}".format(i)].set_xscale('log')
-    dict["ax_{0}".format(i)].plot(x,dict["r_{0}".format(i)]/dict["r_0"], label=dict["pdfset_{0}".format(i)])
-    dict["ax_{0}".format(i)].fill_between(x,(dict["r_{0}".format(i)]+np.absolute(dict["rerr_{0}".format(i)]))/dict["r_0"], (dict["r_{0}".format(i)]-np.absolute(dict["rerr_{0}".format(i)]))/dict["r_0"],alpha=0.5)
+    dict["ax_{0}".format(i)].plot(x[:-1],dict["r_{0}".format(i)][:-1]/dict["r_0"][:-1], label=dict["pdfset_{0}".format(i)])
+    dict["ax_{0}".format(i)].fill_between(x[:-1],(dict["r_{0}".format(i)][:-1]+np.absolute(dict["rerr_{0}".format(i)][:-1]))/dict["r_0"][:-1], (dict["r_{0}".format(i)][:-1]-np.absolute(dict["rerr_{0}".format(i)][:-1]))/dict["r_0"][:-1],alpha=0.5)
 plt.legend()
 plt.title("PID={0} and Q={1} GeV".format(pid,q))
 plt.xlabel("x")

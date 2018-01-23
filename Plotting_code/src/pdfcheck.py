@@ -46,10 +46,10 @@ dict = {"f_21":np.zeros([N,len(xs)]),"g_21_0":np.zeros([len(xs)]),"g_21_2":np.ze
 errordict = {"f_1":np.zeros([len(xs)]), "f_2":np.zeros([len(xs)]), "f_3":np.zeros([len(xs)]),"f_-1":np.zeros([len(xs)]), "f_-2":np.zeros([len(xs)]), "f_-3":np.zeros([len(xs)]), "f_21":np.zeros([len(xs)]),"f_11":np.zeros([len(xs)]), "f_22":np.zeros([len(xs)]),"f_-11":np.zeros([len(xs)]), "f_-22":np.zeros([len(xs)]),"g_21_0":np.zeros([len(xs)]),"g_21_2":np.zeros([len(xs)]), "g_21_1000":np.zeros([len(xs)]),"g_21_999":np.zeros([len(xs)])}
 dictmember = {}
 print("initialised dictionaries")
+print("range(N)=" + str(range(N)))
 for k in range(N):
-    new_key = input("g_21_{0}".format(k))
+    new_key = str("g_21_{0}".format(k))
     dictmember[new_key] = np.zeros([len(xs)])
-print(dictmember)
 print("filled dictionaries")
 # Loop over PIDs to fill these matrices
 q=3.1622
@@ -64,19 +64,25 @@ for pid in [21]:
             dictmember["g_21_{0}".format(k)][ix] = pdfs2[k].xfxQ(pid, x, q)
 print("looped over pdfs")
 
-print("f for gluon=")
-print(dict["f_21"])
-print("g for gluon member 0=")
-print(dictmember["g_21_0"])
-print("g for gluon member 2=")
-print(dictmember["g_21_2"])
-print("g for gluon member 999=")
-print(dictmember["g_21_999"])
-print("g for gluon member 1000=")
-print(dictmember["g_21_1000"])
+#print("f for gluon=")
+#print(dict["f_21"])
+#print("g for gluon member 0=")
+#print(dictmember["g_21_0"])
+#print("g for gluon member 2=")
+#print(dictmember["g_21_2"])
 
-# for pid in [21]:
-#     errordict["f_{0}".format(pid)] = np.sqrt(np.mean(np.square(dict["f_{0}".format(pid)]),axis=0)-np.square(np.mean(dict["f_{0}".format(pid)],axis=0)))
+# Calculating errors by matrix manipulation
+for pid in [21]:
+    errordict["f_{0}".format(pid)] = np.sqrt(np.mean(np.square(dict["f_{0}".format(pid)]),axis=0)-np.square(np.mean(dict["f_{0}".format(pid)],axis=0)))
 #     with open('../res/{0}/data_{1}_{0}_q{2}.txt'.format(pdfset,pid,qstring), 'w') as output:
 #         for index in range(len(xs)):
 #             output.write(str(xs[index]) + "\t" + str(dict["f_{0}".format(pid)][0,index]) + "\t" + str(errordict["f_{0}".format(pid)][index]) + "\n")
+print("matrix errors=")
+print(errordict["f_21"])
+
+# Calculating errors looping over members
+
+
+
+
+

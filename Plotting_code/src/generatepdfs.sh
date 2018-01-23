@@ -126,7 +126,7 @@ Q[3]=2 #GeV
 #done
 #done
 
-for ipdf in `seq 13 36`
+for ipdf in `seq 13 16`
 do
 for iQ in `seq 1 3`
 do
