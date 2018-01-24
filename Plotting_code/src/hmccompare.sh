@@ -33,10 +33,10 @@ MCset[24]="EPPS16nlo_CT14nlo_Pb208 EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_25
 PID[1]=21
 PID[2]=-3
 PID[3]=+3
-PID[4]=+11
-PID[5]=-11
-PID[6]=+22
-PID[7]=-22
+PID[4]=+1
+PID[5]=-1
+PID[6]=+2
+PID[7]=-2
 
 #This is the energy scale
 Q[1]=10     #GeV

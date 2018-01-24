@@ -49,8 +49,8 @@ fdiff=np.zeros([npair,len(xs)])
 fdiff_sq_sum=np.zeros([len(xs)])
 
 for pid in [1,-1,2,-2,3,-3,21,11,-11,22,-22]:
-    for i in range(0,npair):
-        fdiff[i]=dict["f_{0}".format(pid)][i+1]-dict["f_{0}".format(pid)][i+npair+1]
+    for i in range(1,npair+1):
+        fdiff[i-1]=dict["f_{0}".format(pid)][2*i-1]-dict["f_{0}".format(pid)][2*i]
     fdiff_sq=np.square(fdiff)
     for i in range(len(xs)):
         fdiff_sq_sum[i]=np.sum(fdiff_sq[:,i])

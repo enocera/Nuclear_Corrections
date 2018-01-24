@@ -57,18 +57,18 @@ print("f_21[1]=")
 print(dict["f_21"][1])
 # for pid in [1,-1,2,-2,3,-3,21,11,-11,22,-22]:
 for pid in [21]:
-    for i in range(0,npair):
-        print("pair numbers are "+str(i+1)+ " and "+str(i+npair+1))
-        print("f_{0}=".format(pid))
-        fdiff[i]=dict["f_{0}".format(pid)][i+1]-dict["f_{0}".format(pid)][i+npair+1]
-        print("fdiff[{0}]=".format(i))
-        print(fdiff[i])
+    for i in range(1,npair+1):
+        print("pair numbers are "+str(2*i-1)+ " and "+str(2*i))
+        # print("f_{0}=".format(pid))
+        fdiff[i]=dict["f_{0}".format(pid)][2*i-1]-dict["f_{0}".format(pid)][2*i]
+        # print("fdiff[{0}]=".format(i))
+        # print(fdiff[i])
     fdiff_sq=np.square(fdiff)
     for i in range(len(xs)):
         fdiff_sq_sum[i]=np.sum(fdiff_sq[:,i])
     errordict["f_{0}".format(pid)]=0.5*np.sqrt(fdiff_sq_sum)
-print("fdiff=")
-print(fdiff)
+# print("fdiff=")
+# print(fdiff)
 
 
 # dict={}

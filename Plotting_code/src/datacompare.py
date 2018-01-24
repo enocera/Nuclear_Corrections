@@ -35,6 +35,17 @@ for p in range(len(dict["xha"])):
     if dict["xha"][p]!=dict["xhb"][p]:
         print("x values not equal - aborting")
         sys.exit()
+
+# Only EPPS and nCTEQ need rescaling (REMEMBER TO CHECK ABOUT HKN LATER)
+if "EPPS" in pdfstring:
+    dict["yherrb"]=dict["yherrb"]/1.65
+    print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
+elif "nCTEQ" in pdfstring:
+    dict["yherrb"]=dict["yherrb"]/1.65
+    print("--------------------------" + "\n" + "Rescaled Hessian errors from 90% to 68% confidence" +"\n" +"--------------------------")
+else:
+    print("--------------------------" + "\n""Hessian errors already at 68% confidence" +"\n" +"--------------------------")
+
 for setstring in ["h","mc","mc100","mc1000","mc1000c25"]:
     fig=plt.figure()
     ax = fig.add_subplot(111)
