@@ -26,7 +26,7 @@ PID[7]=-22
 
 #This is the energy scale
 Q[1]=10     #GeV
-Q[2]=3.1622 #GeV
+Q[2]=3.16227766017 #GeV
 Q[3]=2 #GeV
 
 #for icomb in `seq 1 6`
@@ -35,7 +35,7 @@ Q[3]=2 #GeV
 #do
 #for iQ in `seq 1 3`
 #do
-#python groupplot.py ${PID[iPID]} ${Q[iQ]} ${PDFsets[icomb]} 
+#python groupplot.py ${PID[iPID]} ${Q[iQ]} ${PDFsets[icomb]}
 #done
 #done
 #done
@@ -44,7 +44,7 @@ for iMC in `seq 1 6`
 do
 for iPID in `seq 1 7`
 do
-for iQ in `seq 1 3`
+for iQ in `seq 2 2`
 do
 python groupplot.py ${PID[iPID]} ${Q[iQ]} "${MCset[iMC]}" "${MCset[iMC]}_MC" "${MCset[iMC]}_MC_100" "${MCset[iMC]}_MC_1000" "${MCset[iMC]}_MC_1000_compressed_25"
 done
@@ -52,4 +52,3 @@ done
 done
 
 exit 0
-

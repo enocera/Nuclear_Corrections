@@ -115,23 +115,23 @@ Z[36]=26
 
 #This is the energy scale
 Q[1]=10     #GeV
-Q[2]=3.1622 #GeV
+Q[2]=3.16227766017 #GeV
 Q[3]=2 #GeV
 
-#for ipdf in `seq 1 12`
-#do
-#for iQ in `seq 1 3`
-#do
-#python genpdf.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
-#done
-#done
-
-for ipdf in `seq 13 16`
+for ipdf in `seq 1 12`
 do
 for iQ in `seq 1 3`
 do
-python genmc.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
+python genpdf.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
 done
 done
+
+# for ipdf in `seq 13 36`
+# do
+# for iQ in `seq 1 3`
+# do
+# python genmc.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
+# done
+# done
 
 exit 0

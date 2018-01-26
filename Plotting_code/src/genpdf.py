@@ -24,8 +24,8 @@ pdfs2 = lhapdf.mkPDFs(pdfset)
 # Generating PDFs member by member and writing them to an array
 N=len(pdfs2)
 npair = int((N-1)/2)
-xs = [x for x in np.logspace(-4, 0, 100)]
-
+#xs = [x for x in np.logspace(-4, 0, 100)]
+xs = [x for x in [1e-4,2e-4,3e-4,4e-4,5e-4,6e-4,7e-4,8e-4,9e-4,1e-3,2e-3,3e-3,4e-3,5e-3,6e-3,7e-3,8e-3,9e-3,1e-2,2e-2,3e-2,4e-2,5e-2,6e-2,7e-2,8e-2,9e-2,1e-1,2e-1,3e-1,4e-1,5e-1,6e-1,7e-1,8e-1,9e-1]]
 # Creating  dictionaries for dynamic variable assignment
 dict = {"f_1":np.zeros([N,len(xs)]), "f_2":np.zeros([N,len(xs)]), "f_3":np.zeros([N,len(xs)]),"f_-1":np.zeros([N,len(xs)]), "f_-2":np.zeros([N,len(xs)]), "f_-3":np.zeros([N,len(xs)]), "f_21":np.zeros([N,len(xs)]),"f_11":np.zeros([N,len(xs)]), "f_22":np.zeros([N,len(xs)]),"f_-11":np.zeros([N,len(xs)]), "f_-22":np.zeros([N,len(xs)])}
 
@@ -49,8 +49,8 @@ fdiff=np.zeros([npair,len(xs)])
 fdiff_sq_sum=np.zeros([len(xs)])
 
 for pid in [1,-1,2,-2,3,-3,21,11,-11,22,-22]:
-    for i in range(0,npair):
-        fdiff[i]=dict["f_{0}".format(pid)][i+1]-dict["f_{0}".format(pid)][i+npair+1]
+    for i in range(1,npair+1):
+        fdiff[i-1]=dict["f_{0}".format(pid)][2*i-1]-dict["f_{0}".format(pid)][2*i]
     fdiff_sq=np.square(fdiff)
     for i in range(len(xs)):
         fdiff_sq_sum[i]=np.sum(fdiff_sq[:,i])

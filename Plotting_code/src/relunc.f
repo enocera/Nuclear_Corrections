@@ -10,7 +10,7 @@
       integer ipt, npt
       parameter(npt=36)
       integer iwrap, nwrap
-      parameter(nwrap=4)
+      parameter(nwrap=5)
       integer irep, nrep
       integer ifl
 
@@ -38,6 +38,7 @@
       read(5,*) wrapfile(2)
       read(5,*) wrapfile(3)
       read(5,*) wrapfile(4)
+      read(5,*) wrapfile(5)
       
 *     Initialise rescaling factor
       if(trim(wrapfile(1)).eq."DSSZ_NLO_Fe56".or.
@@ -177,39 +178,37 @@
       enddo
 
 *     Compute the relative difference
-      write(outfile,102) "../res/", trim(wrapfile(1)),
-     1     "/relunc.res"
+      do ifl=-2,3,1
 
-      open(unit=10, status="unknown", file=outfile)
-
-      do ifl=-3, 3, 1
-
-         write(10,103) "Flavour ", ifl
-
-         write(10,104) " IPT              X",
-     1        "         CV(25)        CV(100)       CV(1000)",
-     1        "         ER(25)        ER(100)       ER(1000)"
-
+         if(ifl.lt.0)then
+            write(outfile,102) "../res/", trim(wrapfile(1)),
+     1           "/relunc_", ifl, ".res"
+            
+         else
+            write(outfile,103) "../res/", trim(wrapfile(1)),
+     1           "/relunc_", ifl, ".res"
+            
+         endif
+         
+         open(unit=10, status="unknown", file=outfile)
+         
          do ipt=1, npt
-
+            
             write(10,101) ipt, x(ipt),
-     1           (1d0 - pdf_cv(ifl,ipt,2)/pdf_cv(ifl,ipt,1))*100,
-     1           (1d0 - pdf_cv(ifl,ipt,3)/pdf_cv(ifl,ipt,1))*100,
-     1           (1d0 - pdf_cv(ifl,ipt,4)/pdf_cv(ifl,ipt,1))*100,
-     1           (1d0 - pdf_er(ifl,ipt,2)/pdf_er(ifl,ipt,1))*100,
-     1           (1d0 - pdf_er(ifl,ipt,3)/pdf_er(ifl,ipt,1))*100,
-     1           (1d0 - pdf_er(ifl,ipt,4)/pdf_er(ifl,ipt,1))*100
-
+     1           pdf_cv(ifl,ipt,1), pdf_er(ifl,ipt,1),
+     1           pdf_cv(ifl,ipt,2), pdf_er(ifl,ipt,2),
+     1           pdf_cv(ifl,ipt,3), pdf_er(ifl,ipt,3),
+     1           pdf_cv(ifl,ipt,4), pdf_er(ifl,ipt,4),
+     1           pdf_cv(ifl,ipt,5), pdf_er(ifl,ipt,5)
          enddo
-
+         
       enddo
-
+      
       close(10)
 
- 101  format(i4,8(f15.7))
- 102  format(a,a,a)
- 103  format(a,i3)
- 104  format(a,a,a)
+ 101  format(i4,100(f15.7))
+ 102  format(a,a,a,i2,a)
+ 103  format(a,a,a,i1,a)
 
       stop
       end
