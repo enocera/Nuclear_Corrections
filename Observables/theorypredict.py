@@ -134,16 +134,16 @@ for irep in range(1,nrep+1):
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-    with open('/res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iset]), 'w') as output:
+        with open('/res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iset]), 'w') as output:
 
-        output.write(str(obs[iexp][iset]) + "\t" + str(npt[iexp][iset]) + "\n")
+            output.write(str(obs[iexp][iset]) + "\t" + str(npt[iexp][iset]) + "\n")
 
-        for irep in range (1,nrep+1):
+            for irep in range (1,nrep+1):
 
-            output.write(str(irep) + "\n")
+                output.write(str(irep) + "\n")
 
-            for ipt in range(1,int(npt[iexp][iset])+1):
+                for ipt in range(1,int(npt[iexp][iset])+1):
 
-                output.write(str(ipt) + "\t" + str(x[ipt][iexp][iset]
-                            + "\t" + str(thobs[irep][ipt][iexp][iset] + "\t"
-                            + str(exobs[ipt][iexp][iset] + "\n"))
+                    output.write(str(ipt) + "\t" + str(x[ipt][iexp][iset])
+                                + "\t" + str(thobs[irep][ipt][iexp][iset]) + "\t"
+                                + str(exobs[ipt][iexp][iset])+ "\n")
