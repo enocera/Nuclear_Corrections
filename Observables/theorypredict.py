@@ -28,7 +28,7 @@ expset   = [["NU", "NB"], ["NUDMN", "NBDMN"]]
 
 
 # Read in PDF set name from command line and initialise PDF file
-pdfset   =  input("Please enter the PDF set name: ")
+pdfset   =  raw_input("Please enter the PDF set name: ")
 print("PDF set: " + pdfset)
 
 pdfs     =  lhapdf.mkPDFs(pdfset)
@@ -113,21 +113,21 @@ for irep in range(0,nrep+1):
 
                 if float(Q[ipt][iexp][iset]) > 1e0:
 
-                    print("Q > 1")
+                    # print("Q > 1")
                     apfel.ComputeStructureFunctionsAPFEL(Q0,float(Q[ipt][iexp][iset]))
-                    print("Test 1")
+                    # print("Test 1")
                     apfel.SetFKObservable(obs[iexp][iset])
-                    print("Test 2")
+                    # print("Test 2")
 
-                    thobs[irep][ipt][iexp][iset] = apfel.FKObservables(x[ipt][iexp][iset],
-                                                                        Q[ipt][iexp][iset],
-                                                                        y[ipt][iexp][iset])
+                    thobs[irep][ipt][iexp][iset] = apfel.FKObservables(float(x[ipt][iexp][iset]),
+                                                                        float(Q[ipt][iexp][iset]),
+                                                                        float(y[ipt][iexp][iset]))
 
-                    print("Theory observable:  " + str(thobs[irep][ipt][iexp][iset]))
+                    # print("Theory observable:  " + str(thobs[irep][ipt][iexp][iset]))
 
                 else:
 
-                     print("Q < 1, setting theory result to 0")
+                    #  print("Q < 1, setting theory result to 0")
                      thobs[irep][ipt][iexp][iset]  =  0e0
 
 # Writing results to file
