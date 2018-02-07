@@ -45,7 +45,7 @@ Q2       = list3D(maxpoint,nexp,nset)
 y        = list3D(maxpoint,nexp,nset)
 exobs    = list3D(maxpoint,nexp,nset)
 Q        = list3D(maxpoint,nexp,nset)
-thobs    = list4D(nrep,maxpoint,nexp,nset)
+thobs    = list4D(nrep+1,maxpoint,nexp,nset)
 
 # Reading data
 for iexp in range(0,nexp):
@@ -103,7 +103,7 @@ apfel.InitializeAPFEL()
 apfel.InitializeAPFEL_DIS()
 
 # Compute predictions
-for irep in range(1,nrep+1):
+for irep in range(0,nrep+1):
 
     apfel.SetReplica(irep)
 
@@ -134,11 +134,11 @@ for irep in range(1,nrep+1):
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-        with open('/res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iset]), 'w') as output:
+        with open('res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iexp][iset]), 'w') as output:
 
             output.write(str(obs[iexp][iset]) + "\t" + str(npt[iexp][iset]) + "\n")
 
-            for irep in range (1,nrep+1):
+            for irep in range (0,nrep+1):
 
                 output.write(str(irep) + "\n")
 
