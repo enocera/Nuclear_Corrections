@@ -10,7 +10,7 @@
       integer ipt, npt
       parameter(npt=36)
       integer iwrap, nwrap
-      parameter(nwrap=5)
+      parameter(nwrap=3)
       integer irep, nrep
       integer ifl
 
@@ -37,8 +37,6 @@
       read(5,*) wrapfile(1)
       read(5,*) wrapfile(2)
       read(5,*) wrapfile(3)
-      read(5,*) wrapfile(4)
-      read(5,*) wrapfile(5)
       
 *     Initialise rescaling factor
       if(trim(wrapfile(1)).eq."DSSZ_NLO_Fe56".or.
@@ -195,11 +193,10 @@
          do ipt=1, npt
             
             write(10,101) ipt, x(ipt),
-     1           pdf_cv(ifl,ipt,1), pdf_er(ifl,ipt,1),
-     1           pdf_cv(ifl,ipt,2), pdf_er(ifl,ipt,2),
-     1           pdf_cv(ifl,ipt,3), pdf_er(ifl,ipt,3),
-     1           pdf_cv(ifl,ipt,4), pdf_er(ifl,ipt,4),
-     1           pdf_cv(ifl,ipt,5), pdf_er(ifl,ipt,5)
+     1           pdf_cv(ifl,ipt,2)/pdf_cv(ifl,ipt,1), 
+     1           pdf_er(ifl,ipt,2)/pdf_er(ifl,ipt,1),
+     1           pdf_cv(ifl,ipt,3)/pdf_cv(ifl,ipt,1), 
+     1           pdf_er(ifl,ipt,3)/pdf_er(ifl,ipt,1)
          enddo
          
       enddo
