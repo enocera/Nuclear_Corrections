@@ -33,6 +33,7 @@
 #include <time.h>
 #include <boost/foreach.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 using namespace boost::algorithm;
