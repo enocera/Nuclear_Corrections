@@ -28,7 +28,7 @@ expset   = [["NU", "NB"], ["NUDMN", "NBDMN"]]
 
 
 # Read in PDF set name from command line and initialise PDF file
-pdfset   =  input("Please enter the PDF set name: ")
+pdfset   =  raw_input("Please enter the PDF set name: ")
 print("PDF set: " + pdfset)
 
 pdfs     =  lhapdf.mkPDFs(pdfset)
@@ -45,7 +45,7 @@ Q2       = list3D(maxpoint,nexp,nset)
 y        = list3D(maxpoint,nexp,nset)
 exobs    = list3D(maxpoint,nexp,nset)
 Q        = list3D(maxpoint,nexp,nset)
-thobs    = list4D(nrep,maxpoint,nexp,nset)
+thobs    = list4D(nrep+1,maxpoint,nexp,nset)
 
 # Reading data
 for iexp in range(0,nexp):
@@ -103,7 +103,7 @@ apfel.InitializeAPFEL()
 apfel.InitializeAPFEL_DIS()
 
 # Compute predictions
-for irep in range(1,nrep+1):
+for irep in range(0,nrep+1):
 
     apfel.SetReplica(irep)
 
@@ -113,32 +113,32 @@ for irep in range(1,nrep+1):
 
                 if float(Q[ipt][iexp][iset]) > 1e0:
 
-                    print("Q > 1")
+                    # print("Q > 1")
                     apfel.ComputeStructureFunctionsAPFEL(Q0,float(Q[ipt][iexp][iset]))
-                    print("Test 1")
+                    # print("Test 1")
                     apfel.SetFKObservable(obs[iexp][iset])
-                    print("Test 2")
+                    # print("Test 2")
 
-                    thobs[irep][ipt][iexp][iset] = apfel.FKObservables(x[ipt][iexp][iset],
-                                                                        Q[ipt][iexp][iset],
-                                                                        y[ipt][iexp][iset])
+                    thobs[irep][ipt][iexp][iset] = apfel.FKObservables(float(x[ipt][iexp][iset]),
+                                                                        float(Q[ipt][iexp][iset]),
+                                                                        float(y[ipt][iexp][iset]))
 
-                    print("Theory observable:  " + str(thobs[irep][ipt][iexp][iset]))
+                    # print("Theory observable:  " + str(thobs[irep][ipt][iexp][iset]))
 
                 else:
 
-                     print("Q < 1, setting theory result to 0")
+                    #  print("Q < 1, setting theory result to 0")
                      thobs[irep][ipt][iexp][iset]  =  0e0
 
 # Writing results to file
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-        with open('/res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iset]), 'w') as output:
+        with open('res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iexp][iset]), 'w') as output:
 
             output.write(str(obs[iexp][iset]) + "\t" + str(npt[iexp][iset]) + "\n")
 
-            for irep in range (1,nrep+1):
+            for irep in range (0,nrep+1):
 
                 output.write(str(irep) + "\n")
 
