@@ -103,7 +103,7 @@ apfel.InitializeAPFEL()
 apfel.InitializeAPFEL_DIS()
 
 # Compute predictions
-for irep in range(0,nrep+1):
+for irep in range(0,nrep):
 
     apfel.SetReplica(irep)
 
@@ -134,11 +134,11 @@ for irep in range(0,nrep+1):
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-        with open('res/pyres/pOBS_{0}{1}.res'.format(exp[iexp],expset[iexp][iset]), 'w') as output:
+        with open('res/pyres/pOBS_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],pdfset), 'w') as output:
 
-            output.write(str(obs[iexp][iset]) + "\t" + str(npt[iexp][iset]) + "\n")
+            output.write(str(obs[iexp][iset]) + "\t" + str(npt[iexp][iset]) + "\t" + str(nrep) + "\n")
 
-            for irep in range (0,nrep+1):
+            for irep in range (0,nrep):
 
                 output.write(str(irep) + "\n")
 
