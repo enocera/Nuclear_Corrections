@@ -116,7 +116,7 @@
       call InitializeAPFEL_DIS()
 
 *     Compute predictions
-      do irep=1, nrep 
+      do irep=1, nrep
 
          call SetReplica(irep)
          
@@ -158,7 +158,8 @@
          do iset=1, nset
 
             write(outfile,101) "res/OBS_", trim(nameexp(iexp)),
-     1           trim(nameset(iexp,iset)), ".res"
+     1           trim(nameset(iexp,iset)), "_",
+     1           trim(pdffile), ".res"
 
             open(unit=20, file=outfile, status="unknown")
 
@@ -185,7 +186,7 @@
 
       enddo
 
- 101  format(a,a,a,a)
+ 101  format(a,a,a,a,a,a)
  102  format(a,i4)
  103  format(i4)
  104  format(i4,3(f12.7))
