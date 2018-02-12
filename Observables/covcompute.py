@@ -7,7 +7,7 @@ import sys
 import matplotlib.pyplot as plt
 
 # Read in PDF set names
-nuclearpdf  =  input("***** Please choose iron or lead: ")
+nuclearpdf  =  raw_input("***** Please choose iron or lead: ")
 if nuclearpdf != "iron" and nuclearpdf != "lead":
     print("Error: Invalid choice of element")
     sys.exit()
@@ -59,33 +59,32 @@ for iexp in range(0,nexp):
              print("-----------------------------------------------------------------")
              with open(file) as contents:
                  contents = contents.read()
-                 
+
              lines = contents.split('\n')
-             tabs  = [line.split('\t') for line in lines] 
+             tabs  = [line.split('\t') for line in lines]
 
 
-             nrep[ipdf] = int(tabs[0][2])
+             nrep[ipdf]     = int(tabs[0][2])
              print("Number of replicas for pdf " + str(pdfs[ipdf]) + ": " + str(nrep[ipdf]))
 
              npt[iexp,iset] = int(tabs[0][1])
              print("Number of data points: " + str(npt[iexp,iset]))
 
              for irep in range(0,nrep[ipdf]):
-                 datalines = [2 + irep*(1 + npt[iexp,iset]), 
-                             1 + (irep + 1)*(1 + npt[iexp,iset])]
+                 datalines   = [2 + irep*(1 + npt[iexp,iset]),
+                                1 + (irep + 1)*(1 + npt[iexp,iset])]
 
-                 
+
                  for fileline in range(datalines[0],datalines[1]):
                      ipt                            = 1 + fileline - datalines[0]
                      thobs[ipdf,irep,ipt,iexp,iset] = float(tabs[fileline][2])
-
 
 # Calculating central proton observable
 for iexp in range(0,nexp):
     for iset in range(0,nset):
         for ipt in range(1,npt[iexp][iset]+1):
 
-            F_p[ipt,iexp,iset] = (1/(nrep[0]))*np.sum(thobs[0,1:,ipt,iexp,iset])
+            F_p[ipt,iexp,iset] = (1/(float(nrep[0])))*np.sum(thobs[0,1:,iexp,iset])
 
 # Calculate theory covariance matrix
 #   1.  Combine nuclear PDF sets
@@ -99,7 +98,7 @@ for ipdf in range(1,npdf):
 #   2.  Calculate total N_rep for combined set
 
 nrepnuc = np.sum(nrep) - nrep[0] - len(nuclearpdfs)
-print("Combined nuclear set replica number: " + str(nrepnuc))
+
 
 #   3.  Find covariance matrix
 
@@ -110,9 +109,11 @@ for iexp in range(0,nexp):
 
         for i in range(0,npt[iexp,iset]):
             for j in range(0,npt[iexp,iset]):
-                s[i,j,iexp,iset] = (1/nrepnuc)*np.sum(
+
+                s[i,j,iexp,iset] = (1/float(nrepnuc))*np.sum(
                                      (thobs_nuc[:,i,iexp,iset] - F_p[i,iexp,iset])*(
-                                      thobs_nuc[:,j,iexp,iset] - F_p[j,iexp,iset])) 
+                                      thobs_nuc[:,j,iexp,iset] - F_p[j,iexp,iset]))
+
 
 #   4.  Normalise to central theory as percentage
 
@@ -124,31 +125,28 @@ for iexp in range(0,nexp):
         for i in range(0,npt[iexp,iset]):
             for j in range(0,npt[iexp,iset]):
 
-                spct[i,j,iexp,iset] = 100*s[i,j,iexp,iset]/np.sqrt(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset])
+                spct[i,j,iexp,iset] = (100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset])
 
 
-print(thobs[0,0,:,1,1])
-print(s[34,34,1,1])
-print(s[23,34,1,1])
-print(s[12,32,1,1])
-print(s[33,21,1,1])
-print(s[31,39,1,1])
-print(s[14,37,1,1])
-#   5.  Plot percentage covariance matrix
+#   5.  Plot covariance matrices
 
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
-        plt.gca().invert_yaxis()
-        cmap = ax1.pcolor(np.abs(spct[:int(npt[iexp,iset]),
+        cmap = ax1.matshow(np.abs(s[:int(npt[iexp,iset]),
+                                      :int(npt[iexp,iset]), iexp,iset]))
+        fig.colorbar(cmap, label = "Absolute value")
+        plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.savefig("res/pyres/cov/covmat_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.show()
+
+        fig=plt.figure()
+        ax1 = fig.add_subplot(111)
+        cmap = ax1.matshow(np.abs(spct[:int(npt[iexp,iset]),
                                       :int(npt[iexp,iset]), iexp,iset]))
         fig.colorbar(cmap, label = "% of theory")
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.savefig("res/pyres/cov/covmat_%_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
-
-
-
-
-
