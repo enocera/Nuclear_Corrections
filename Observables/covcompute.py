@@ -130,23 +130,32 @@ for iexp in range(0,nexp):
 
 #   5.  Plot covariance matrices
 
+# Setting limits on plotting scale for % plot
+if nuclearpdf == "iron":
+
+    plotlims = [[1,3],[10,50]]
+
+elif nuclearpdf == "lead":
+
+    plotlims = [[1,3],[10,50]]
+
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
-        cmap = ax1.matshow(np.abs(s[:int(npt[iexp,iset]),
+        mat = ax1.matshow(np.abs(s[:int(npt[iexp,iset]),
                                       :int(npt[iexp,iset]), iexp,iset]))
-        fig.colorbar(cmap, label = "Absolute value")
+        fig.colorbar(mat, label = "Absolute value")
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.savefig("res/pyres/cov/covmat_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
-        cmap = ax1.matshow(np.abs(spct[:int(npt[iexp,iset]),
-                                      :int(npt[iexp,iset]), iexp,iset]))
-        fig.colorbar(cmap, label = "% of theory")
+        mat = ax1.matshow(np.abs(spct[:int(npt[iexp,iset]),
+                                      :int(npt[iexp,iset]), iexp,iset]), vmin=0, vmax=plotlims[iexp][iset])
+        fig.colorbar(mat, label = "% of theory")
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.savefig("res/pyres/cov/covmat_%_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
