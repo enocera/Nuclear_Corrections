@@ -9,7 +9,7 @@
 
 
       integer iwrap, nwrap
-      parameter(nwrap=7)
+      parameter(nwrap=4)
       integer iexp, nexp
       parameter(nexp=2)
       integer iset, nset
@@ -19,33 +19,34 @@
       integer ipt, npt(nexp,nset), mxpt
       parameter(mxpt=1000)
       integer idum
+      integer i, j
 
       double precision x(mxpt,nexp,nset)
       double precision thobs(nwrap,mxrep,nexp,nset,mxpt)
       double precision mean_p(nexp,nset,mxpt)
+      double precision sigma(mxpt,mxpt,nexp,nset)
 
-      character*100 wrapfile(nwrap), infile(nwrap,nexp,nset)
+      character*100 wrapfile(nwrap,nexp)
+      character*100 infile(nwrap,nexp,nset), outfile(nexp,nset)
       character*20  nameexp(nexp)
       character*20  nameset(nexp,nset)
       character*20  obs(nexp,nset)
 
 *     Define wrapfiles
-      wrapfile(1)="DSSZ_NLO_Fe56_MC_1000_compressed_250"
-      wrapfile(2)="DSSZ_NLO_Pb208_MC_1000_compressed_250"
-      wrapfile(3)="EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_250"
-      wrapfile(4)="EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_250"
-      wrapfile(5)="nCTEQ15FullNuc_208_82_MC_1000_compressed_250"
-      wrapfile(6)="nCTEQ15FullNuc_56_26_MC_1000_compressed_250"
-      wrapfile(7)="NNPDF31_nlo_pch_as_0118"
+      wrapfile(1,1)="DSSZ_NLO_Pb208_MC_1000_compressed_250"
+      wrapfile(1,2)="DSSZ_NLO_Fe56_MC_1000_compressed_250"
+      wrapfile(2,1)="EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_250"
+      wrapfile(2,2)="EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_250"
+      wrapfile(3,1)="nCTEQ15FullNuc_208_82_MC_1000_compressed_250"
+      wrapfile(3,2)="nCTEQ15FullNuc_56_26_MC_1000_compressed_250"
+      wrapfile(4,1)="NNPDF31_nlo_pch_as_0118"
+      wrapfile(4,2)="NNPDF31_nlo_pch_as_0118"
 
 *     Initialise number of replicas in each set
       nrep(1)=250
       nrep(2)=250
       nrep(3)=250
-      nrep(4)=250
-      nrep(5)=250
-      nrep(6)=250
-      nrep(7)=100
+      nrep(4)=100
 
 *     Initialise experiments
       nameexp(1)="CHORUS"
@@ -65,13 +66,27 @@
             do iset=1, nset
                
                write(infile(iwrap,iexp,iset),101) 
-     1              "../Observables/res/OBS_",
+     1              "res/OBS_",
      1              trim(nameexp(iexp)),
      1              trim(nameset(iexp,iset)), "_",
-     1              trim(wrapfile(iwrap)), ".res"
-               
+     1              trim(wrapfile(iwrap,iexp)), ".res"
+
             enddo
             
+         enddo
+
+      enddo
+
+*     Define output files
+      do iexp=1, nexp
+
+         do iset=1, nset
+
+            write(outfile(iexp,iset),102)
+     1           "res/COV_",
+     1           trim(nameexp(iexp)),
+     1           trim(nameset(iexp,iset)), ".res"
+
          enddo
 
       enddo
@@ -108,7 +123,7 @@
 
       enddo
 
-*     Compute mean value
+*     Compute mean value (free proton PDFs)
       do iexp=1, nexp
 
          do iset=1, nset
@@ -117,11 +132,11 @@
 
                mean_p(iexp,iset,ipt) = 0d0
 
-               do irep=1, nrep(7)
+               do irep=1, nrep(4)
 
                   mean_p(iexp,iset,ipt) 
      1                 = mean_p(iexp,iset,ipt) 
-     1                 + thobs(7,irep,iexp,iset,ipt)/nrep(7)
+     1                 + thobs(4,irep,iexp,iset,ipt)/nrep(4)
 
                enddo
 
@@ -132,11 +147,65 @@
       enddo
 
 *     Compute covariance matrix
-      
+      do iexp=1, nexp
 
+         do iset=1, nset
 
+            do i=1, npt(iexp,iset)
+
+               do j=1, npt(iexp,iset)
+
+                  sigma(i,j,iexp,iset) = 0d0
+
+                  do iwrap=1, nwrap-1
+
+                     do irep=1, nrep(iwrap)
+
+                        sigma(i,j,iexp,iset) 
+     1                       = sigma(i,j,iexp,iset) 
+     1                       + ( thobs(iwrap,irep,iexp,iset,i) 
+     1                       - mean_p(iexp,iset,i) )
+     1                       * ( thobs(iwrap,irep,iexp,iset,j) 
+     1                       - mean_p(iexp,iset,j) )
+                     
+                     enddo
+
+                  enddo
+
+                  sigma(i,j,iexp,iset) 
+     1                 = sigma(i,j,iexp,iset) 
+     1                 / ( nrep(1) + nrep(2) + nrep(3) )
+
+               enddo
+
+            enddo
+
+         enddo
+
+      enddo
+
+*     Write results on file
+      do iexp=1, nexp
+
+         do iset=1, nset
+
+            open(unit=20, status="unknown", file=outfile(iexp,iset))
+
+            do i=1, npt(iexp,iset)
+
+               write(20,103) (sigma(i,j,iexp,iset), j=1, npt(iexp,iset))
+
+            enddo
+
+            close(20)
+            
+         enddo
+
+      enddo
 
  101  format(a,a,a,a,a,a)
+ 102  format(a,a,a,a)
+ 103  format(1000(f10.5))
 
       stop
       end
