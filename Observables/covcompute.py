@@ -84,7 +84,7 @@ for iexp in range(0,nexp):
     for iset in range(0,nset):
         for ipt in range(1,npt[iexp][iset]+1):
 
-            F_p[ipt,iexp,iset] = (1/(float(nrep[0])))*np.sum(thobs[0,1:,iexp,iset])
+            F_p[ipt,iexp,iset] = (1/(float(nrep[0])))*np.sum(thobs[0,1:,ipt,iexp,iset])
 
 # Calculate theory covariance matrix
 #   1.  Combine nuclear PDF sets
@@ -125,7 +125,7 @@ for iexp in range(0,nexp):
         for i in range(0,npt[iexp,iset]):
             for j in range(0,npt[iexp,iset]):
 
-                spct[i,j,iexp,iset] = (100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset])
+                spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset]))
 
 
 #   5.  Plot covariance matrices
