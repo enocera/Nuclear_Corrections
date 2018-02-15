@@ -5,7 +5,7 @@ import sys
 import matplotlib.pyplot as plt
 
 # Read in PDF set names
-nuclearpdf  =  input("***** Please choose iron or lead: ")
+nuclearpdf  =  raw_input("***** Please choose iron or lead: ")
 if nuclearpdf != "iron" and nuclearpdf != "lead":
     print("Error: Invalid choice of element")
     sys.exit()
@@ -77,6 +77,8 @@ for iexp in range(0,nexp):
                      ipt                            = 1 + fileline - datalines[0]
                      thobs[ipdf,irep,ipt,iexp,iset] = float(tabs[fileline][2])
 
+thobs = thobs[:,1:]
+
 # Calculating central proton observable
 for iexp in range(0,nexp):
     for iset in range(0,nset):
@@ -91,7 +93,7 @@ thobs_nuc = np.zeros(((len(nrep)-1)*maxrep,maxpoint,nexp,nset))
 
 for ipdf in range(1,npdf):
 
-    thobs_nuc[(ipdf-1)*maxrep:ipdf*maxrep] = thobs[ipdf]
+    thobs_nuc[(ipdf-1)*(maxrep-1):ipdf*(maxrep-1)] = thobs[ipdf]
 
 #   2.  Calculate total N_rep for combined set
 
@@ -149,6 +151,7 @@ for iexp in range(0,nexp):
         plt.show()
         
         np.savetxt('res/pyres/pCOV_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
+        np.savetxt('res/pyres/pCOV_full_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[:,:, iexp, iset])
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
