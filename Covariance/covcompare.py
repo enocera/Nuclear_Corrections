@@ -22,16 +22,6 @@ for iexp in range(0,nexp):
         Rcov = np.loadtxt("res/pyres/pCOV_{0}{1}_{2}.res".format(exp[iexp], 
                                                       expset[iexp][iset], element[iexp]))
 
-        # Plot covariance matrices
-
-## Setting limits on plotting scale for % plot
-#if nuclearpdf == "iron":
-
-#    plotlims = [[1,3],[10,50]]
-
-#elif nuclearpdf == "lead":
-
-#    plotlims = [[1,3],[10,50]]
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
