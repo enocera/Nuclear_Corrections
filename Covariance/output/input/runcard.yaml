@@ -1,0 +1,28 @@
+meta:
+   author: Rosalyn Pearson
+   title: DIS experimental covariance matrices retrieval
+
+theoryid: 52
+
+pdf: NNPDF31_nlo_pch_as_0118
+
+use_cuts: False
+
+fit: NNPDF31_nlo_pch_as_0118_1000
+
+experiments:
+   - experiment: CHORUS
+     datasets:
+         - dataset: CHORUSNU
+         - dataset: CHORUSNB
+
+   - experiment: NTV
+     datasets:
+         - dataset: NTVNUDMN
+         - dataset: NTVNBDMN
+
+actions_:
+   - experiments:
+        experiment:
+            - experiments_covmat
+
