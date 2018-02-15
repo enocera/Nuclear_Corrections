@@ -7,7 +7,7 @@ import sys
 import matplotlib.pyplot as plt
 
 # Read in PDF set names
-nuclearpdf  =  raw_input("***** Please choose iron or lead: ")
+nuclearpdf  =  input("***** Please choose iron or lead: ")
 if nuclearpdf != "iron" and nuclearpdf != "lead":
     print("Error: Invalid choice of element")
     sys.exit()
@@ -127,8 +127,7 @@ for iexp in range(0,nexp):
 
                 spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset]))
 
-
-#   5.  Plot covariance matrices
+#   6.  Save and plot covariance matrices
 
 # Setting limits on plotting scale for % plot
 if nuclearpdf == "iron":
@@ -150,6 +149,8 @@ for iexp in range(0,nexp):
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.savefig("res/pyres/covmat_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
+        
+        np.savetxt('res/pyres/pCOV_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
@@ -159,3 +160,5 @@ for iexp in range(0,nexp):
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.savefig("res/pyres/covmat_%_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
+
+        np.savetxt('res/pyres/pCOV_%_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),spct[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
