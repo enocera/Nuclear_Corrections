@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-import lhapdf
-import apfel
 import numpy as np
 import sys
 import matplotlib.pyplot as plt
