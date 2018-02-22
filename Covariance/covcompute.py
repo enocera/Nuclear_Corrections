@@ -46,7 +46,7 @@ thobs     = np.zeros((npdf,maxrep,maxpoint,nexp,nset))
 F_p       = np.zeros((maxpoint,nexp,nset))
 
 
- # Read data
+# Read data
 for iexp in range(0,nexp):
     for iset in range(0,nset):
         for ipdf in range(0,npdf):
@@ -77,28 +77,32 @@ for iexp in range(0,nexp):
                      ipt                            = 1 + fileline - datalines[0]
                      thobs[ipdf,irep,ipt,iexp,iset] = float(tabs[fileline][2])
 
-thobs = thobs[:,1:]
-
+#thobs = thobs[:,1:]
+    
 # Calculating central proton observable
 for iexp in range(0,nexp):
     for iset in range(0,nset):
         for ipt in range(1,npt[iexp][iset]+1):
 
-            F_p[ipt,iexp,iset] = (1/(float(nrep[0])))*np.sum(thobs[0,1:,ipt,iexp,iset])
+            F_p[ipt,iexp,iset] = (1/(float(nrep[0])-1))*np.sum(thobs[0,1:,ipt,iexp,iset])
 
 # Calculate theory covariance matrix
 #   1.  Combine nuclear PDF sets
 
-thobs_nuc = np.zeros(((len(nrep)-1)*maxrep,maxpoint,nexp,nset))
+thobs_nuc = np.zeros(((len(nrep)-1)*(maxrep-1),maxpoint,nexp,nset))
 
-for ipdf in range(1,npdf):
-
-    thobs_nuc[(ipdf-1)*(maxrep-1):ipdf*(maxrep-1)] = thobs[ipdf]
+for iexp in range(0,nexp):
+    for iset in range(0,nset):
+        for ipt in range(1,npt[iexp][iset]+1):
+            for ipdf in range(1,npdf):
+                for irep in range(1,maxrep):
+                    
+                    inucl=irep+(ipdf-1)*(maxrep-1)-1
+                    thobs_nuc[inucl,ipt,iexp,iset] = thobs[ipdf,irep,ipt,iexp,iset]
 
 #   2.  Calculate total N_rep for combined set
 
 nrepnuc = np.sum(nrep) - nrep[0] - len(nuclearpdfs)
-
 
 #   3.  Find covariance matrix
 
@@ -107,12 +111,12 @@ s = np.zeros((maxpoint,maxpoint,nexp,nset))
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-        for i in range(0,npt[iexp,iset]):
-            for j in range(0,npt[iexp,iset]):
+        for i in range(1,npt[iexp,iset]+1):
+            for j in range(1,npt[iexp,iset]+1):
 
                 s[i,j,iexp,iset] = (1/float(nrepnuc))*np.sum(
-                                     (thobs_nuc[:,i,iexp,iset] - F_p[i,iexp,iset])*(
-                                      thobs_nuc[:,j,iexp,iset] - F_p[j,iexp,iset]))
+                                     (thobs_nuc[1:,i,iexp,iset] - F_p[i,iexp,iset])*(
+                                      thobs_nuc[1:,j,iexp,iset] - F_p[j,iexp,iset]))
 
 
 #   4.  Normalise to central theory as percentage
@@ -122,8 +126,8 @@ spct = np.zeros((maxpoint,maxpoint,nexp,nset))
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-        for i in range(0,npt[iexp,iset]):
-            for j in range(0,npt[iexp,iset]):
+        for i in range(1,npt[iexp,iset]+1):
+            for j in range(1,npt[iexp,iset]+1):
 
                 spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset]))
 
@@ -150,8 +154,8 @@ for iexp in range(0,nexp):
         plt.savefig("res/pyres/covmat_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
         
-        np.savetxt('res/pyres/pCOV_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
-        np.savetxt('res/pyres/pCOV_full_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[:,:, iexp, iset])
+        np.savetxt('res/pyres/pCOV_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:int(npt[iexp,iset]+1), 1:int(npt[iexp,iset]+1), iexp, iset])
+        np.savetxt('res/pyres/pCOV_full_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:,1:, iexp, iset])
 
         fig=plt.figure()
         ax1 = fig.add_subplot(111)
