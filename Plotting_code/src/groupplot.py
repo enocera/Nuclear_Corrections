@@ -34,7 +34,7 @@ print("Loading data")
 print("----------------------")
 for i in range(len(sys.argv[3:])):
     print("pdfset_{0}".format(i))
-    filenames = glob.glob('../res/{0}/ratio_{1}_{0}*q{2}.txt'.format(dict["pdfset_{0}".format(i)],pid,qstring))
+    filenames = glob.glob('../res/{0}/data_{1}_{0}*q{2}.txt'.format(dict["pdfset_{0}".format(i)],pid,qstring))
     print("Files to be plotted:")
     print(filenames)
     if len(filenames)>1:
@@ -55,10 +55,10 @@ for i in range(len(sys.argv[3:])):
     dict["ax_{0}".format(i)].plot(x,dict["r_{0}".format(i)], label=dict["pdfset_{0}".format(i)])
     dict["ax_{0}".format(i)].fill_between(x,dict["r_{0}".format(i)]+np.absolute(dict["rerr_{0}".format(i)]), dict["r_{0}".format(i)]-np.absolute(dict["rerr_{0}".format(i)]),alpha=0.5)
 plt.legend()
-plt.title("Ratios for PID={0} and Q={1} GeV".format(pid,q))
+plt.title("PID={0} and Q={1} GeV".format(pid,q))
 plt.xlabel("x")
 plt.ylabel("R")
-plt.ylim(0,1.8)
+#plt.ylim(0,1.8)
 plt.xlim(1e-3,1)
-plt.savefig('../plots/groupratio{0}{1}_q{2}'.format(pdfstring,pid,qstring))
+plt.savefig('../plots/groupdata{0}{1}_q{2}'.format(pdfstring,pid,qstring))
 

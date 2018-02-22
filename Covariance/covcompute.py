@@ -5,7 +5,7 @@ import sys
 import matplotlib.pyplot as plt
 
 # Read in PDF set names
-nuclearpdf  =  raw_input("***** Please choose iron or lead: ")
+nuclearpdf  =  input("***** Please choose iron or lead: ")
 if nuclearpdf != "iron" and nuclearpdf != "lead":
     print("Error: Invalid choice of element")
     sys.exit()

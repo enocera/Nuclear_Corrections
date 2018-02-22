@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PDFsets[1]="nCTEQ15FullNuc_208_82 EPPS16nlo_CT14nlo_Pb208 DSSZ_NLO_Pb208"
-PDFsets[2]="nCTEQ15FullNuc_56_26 EPPS16nlo_CT14nlo_Fe56 DSSZ_NLO_Fe56"
+PDFsets[1]="nCTEQ15FullNuc_208_82_MC_1000_compressed_25 EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_25 DSSZ_NLO_Pb208_MC_1000_compressed_25"
+PDFsets[2]="nCTEQ15FullNuc_56_26_MC_1000_compressed_25 EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_25 DSSZ_NLO_Fe56_MC_1000_compressed_25"
 PDFsets[3]="DSSZ_NLO_Fe56 DSSZ_NLO_Fe56_MC DSSZ_NLO_Fe56_MC_100"
 PDFsets[4]="DSSZ_NLO_Pb208 DSSZ_NLO_Pb208_MC DSSZ_NLO_Pb208_MC_100"
 PDFsets[5]="nCTEQ15FullNuc_56_26 nCTEQ15FullNuc_56_26_MC nCTEQ15FullNuc_56_26_MC_100"
@@ -26,29 +26,29 @@ PID[7]=-22
 
 #This is the energy scale
 Q[1]=10     #GeV
-Q[2]=3.16227766017 #GeV
+Q[2]=3.1622 #GeV
 Q[3]=2 #GeV
 
-#for icomb in `seq 1 6`
-#do
-#for iPID in `seq 1 7`
-#do
-#for iQ in `seq 1 3`
-#do
-#python groupplot.py ${PID[iPID]} ${Q[iQ]} ${PDFsets[icomb]}
-#done
-#done
-#done
-
-for iMC in `seq 1 6`
+for icomb in `seq 1 2`
 do
 for iPID in `seq 1 7`
 do
 for iQ in `seq 2 2`
 do
-python groupplot.py ${PID[iPID]} ${Q[iQ]} "${MCset[iMC]}" "${MCset[iMC]}_MC" "${MCset[iMC]}_MC_100" "${MCset[iMC]}_MC_1000" "${MCset[iMC]}_MC_1000_compressed_25"
+python groupplot.py ${PID[iPID]} ${Q[iQ]} ${PDFsets[icomb]}
 done
 done
 done
+
+#for iMC in `seq 1 6`
+#do
+#for iPID in `seq 1 7`
+#do
+#for iQ in `seq 2 2`
+#do
+#python groupplot.py ${PID[iPID]} ${Q[iQ]} "${MCset[iMC]}" "${MCset[iMC]}_MC" "${MCset[iMC]}_MC_100" "${MCset[iMC]}_MC_1000" "${MCset[iMC]}_MC_1000_compressed_25"
+#done
+#done
+#done
 
 exit 0
