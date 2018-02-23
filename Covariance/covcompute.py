@@ -78,7 +78,7 @@ for iexp in range(0,nexp):
                      thobs[ipdf,irep,ipt,iexp,iset] = float(tabs[fileline][2])
 
 #thobs = thobs[:,1:]
-    
+
 # Calculating central proton observable
 for iexp in range(0,nexp):
     for iset in range(0,nset):
@@ -96,7 +96,7 @@ for iexp in range(0,nexp):
         for ipt in range(1,npt[iexp][iset]+1):
             for ipdf in range(1,npdf):
                 for irep in range(1,maxrep):
-                    
+
                     inucl=irep+(ipdf-1)*(maxrep-1)-1
                     thobs_nuc[inucl,ipt,iexp,iset] = thobs[ipdf,irep,ipt,iexp,iset]
 
@@ -153,7 +153,7 @@ for iexp in range(0,nexp):
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.savefig("res/pyres/covmat_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.show()
-        
+
         np.savetxt('res/pyres/pCOV_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:int(npt[iexp,iset]+1), 1:int(npt[iexp,iset]+1), iexp, iset])
         np.savetxt('res/pyres/pCOV_full_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:,1:, iexp, iset])
 
