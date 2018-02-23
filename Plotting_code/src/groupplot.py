@@ -47,18 +47,32 @@ for i in range(len(sys.argv[3:])):
 #for index in range(len(x)):
 #    print(str(x[index]) + "\t" + str(dict["r_1"][index]) + "\t" + str(dict["rerr_1"][index]) + "\n")
 
-# Plotting
+# Creating legend labels of shorter PDF names for plotting
+for i in range(len(sys.argv[3:])):
+    dict["pdflabel_{0}".format(i)] = dict["pdfset_{0}".format(i)].split("1")[0].split("_")[0]
+
+dict["parton_11"] = "u"
+dict["parton_-11"] = "u bar"
+dict["parton_22"] = "d"
+dict["parton_-22"] = "d bar"
+dict["parton_3"] = "s"
+dict["parton_-3"] = "s bar"
+dict["parton_21"] = "g"
+
 fig=plt.figure()
 for i in range(len(sys.argv[3:])):
     dict["ax_{0}".format(i)] = fig.add_subplot(111)
     dict["ax_{0}".format(i)].set_xscale('log')
-    dict["ax_{0}".format(i)].plot(x,dict["r_{0}".format(i)], label=dict["pdfset_{0}".format(i)])
+    dict["ax_{0}".format(i)].plot(x,dict["r_{0}".format(i)], label=dict["pdflabel_{0}".format(i)])
     dict["ax_{0}".format(i)].fill_between(x,dict["r_{0}".format(i)]+np.absolute(dict["rerr_{0}".format(i)]), dict["r_{0}".format(i)]-np.absolute(dict["rerr_{0}".format(i)]),alpha=0.5)
 plt.legend()
-plt.title("PID={0} and Q={1} GeV".format(pid,q))
+#plt.title("".format(pid,q))
 plt.xlabel("x")
-plt.ylabel("R")
-#plt.ylim(0,1.8)
+plt.ylabel("x{0}(x)".format(dict["parton_{0}".format(pid)]))
+if pid == 21:
+    plt.ylim(0,14)
+else:
+    plt.ylim(0,0.8)
 plt.xlim(1e-3,1)
 plt.savefig('../plots/groupdata{0}{1}_q{2}'.format(pdfstring,pid,qstring))
 
