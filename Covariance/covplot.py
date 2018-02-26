@@ -63,21 +63,21 @@ for iexp in range(0,nexp):
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(spct, vmin=0, vmax=plotlims[iexp][iset])
+        mat = ax1.matshow(abs(spct), vmin=0, vmax=plotlims[iexp][iset])
         fig.colorbar(mat, label = "% of central theory")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_%_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(s)
+        mat = ax1.matshow(abs(s))
         fig.colorbar(mat, label = "Absolute value")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow((s+sigma[iexp][iset])/sigma[iexp][iset],vmin=0, vmax=plotlims[iexp][iset])
+        mat = ax1.matshow(abs((s+sigma[iexp][iset])/sigma[iexp][iset]),vmin=0, vmax=plotlims[iexp][iset])
         fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_impact_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
@@ -85,7 +85,7 @@ for iexp in range(0,nexp):
         
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(corrmat_th)
+        mat = ax1.matshow(abs(corrmat_th))
         fig.colorbar(mat, label = "Absolute value")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/corrplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
