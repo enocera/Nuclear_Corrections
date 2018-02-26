@@ -20,7 +20,7 @@ sigma    = [[np.zeros((npt[0],npt[0])),np.zeros((npt[0],npt[0]))] ,
 
 # Load experimental covariance matrix
 
-sigmadf  = pd.read_table("output/tables/experiments_covmat.csv")
+sigmadf      = pd.read_table("output/tables/experiments_covmat.csv")
 sigma_tot    = sigmadf.iloc[3:,3:].values.astype(np.float)
 
 if len(sigma_tot) != len(npt)*sum(npt):
@@ -34,6 +34,10 @@ sigma[0][1] = sigma_tot[npt[0]:2*npt[0],npt[0]:2*npt[0]]
 sigma[1][0] = sigma_tot[2*npt[0]:(2*npt[0]+npt[1]),2*npt[0]:(2*npt[0]+npt[1])]
 sigma[1][1] = sigma_tot[(2*npt[0]+npt[1]):2*(npt[0]+npt[1]),(2*npt[0]+npt[1]):2*(npt[0]+npt[1])]
 
+plotlims       = [[3,3],[None,None]]
+corrplotlims   = [[3,3],[None,None]]
+
+    
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
@@ -55,11 +59,11 @@ for iexp in range(0,nexp):
 
         data   = np.nan_to_num(np.sqrt(np.diag(norms))) 
         
-        # % matrix plot
+        #  matrix plots
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(spct)
+        mat = ax1.matshow(spct, vmin=0, vmax=plotlims[iexp][iset])
         fig.colorbar(mat, label = "% of central theory")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_%_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
@@ -73,7 +77,7 @@ for iexp in range(0,nexp):
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow((s+sigma[iexp][iset])/sigma[iexp][iset])
+        mat = ax1.matshow((s+sigma[iexp][iset])/sigma[iexp][iset],vmin=0, vmax=plotlims[iexp][iset])
         fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_impact_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
