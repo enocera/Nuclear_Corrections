@@ -66,7 +66,7 @@ for iexp in range(0,nexp):
         mat = ax1.matshow(abs(spct), vmin=0, vmax=plotlims[iexp][iset])
         fig.colorbar(mat, label = "% of central theory")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_%_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_pc_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
@@ -100,7 +100,7 @@ for iexp in range(0,nexp):
         plt.ylabel(r"$\frac{\sqrt{cov_{ii}}}{T_i}$", fontsize=15)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot1_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot1_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot(np.sqrt(np.diag(sigma[iexp][iset])),'.', label="Experiment", color="orange")
@@ -110,7 +110,7 @@ for iexp in range(0,nexp):
         plt.ylabel(r"$\sqrt{cov_{ii}}$", fontsize=15)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot3_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot3_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5)/data,'.', label="Experiment", color="orange")
@@ -120,7 +120,7 @@ for iexp in range(0,nexp):
         plt.ylabel(r"$\frac{1}{T_i}\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot2_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot2_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5),'.', label="Experiment", color="orange")
@@ -130,6 +130,6 @@ for iexp in range(0,nexp):
         plt.ylabel(r"$\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot4_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot4_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
     
