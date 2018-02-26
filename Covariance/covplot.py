@@ -45,16 +45,16 @@ for iexp in range(0,nexp):
         spct   = np.loadtxt("res/pyres/pCOV_%_{0}{1}_{2}.res".format(exp[iexp],
                                                       expset[iexp][iset], element[iexp]))
 
+
+        diag_minus_half = (np.diagonal(s))**(-0.5)
+        corrmat_th      = np.nan_to_num( diag_minus_half*s*diag_minus_half[:,np.newaxis])
         
         # Calculate theory central value
         
         norms  = 100*s/spct
 
         data   = np.nan_to_num(np.sqrt(np.diag(norms))) 
-
-        d = np.nan_to_num(np.diag(np.sqrt(100*s/spct)))
-
-
+        
         # % matrix plot
 
         fig = plt.figure()
@@ -71,6 +71,21 @@ for iexp in range(0,nexp):
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111)
+        mat = ax1.matshow((s+sigma[iexp][iset])/sigma[iexp][iset])
+        fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_impact_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+
+        
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111)
+        mat = ax1.matshow(corrmat_th)
+        fig.colorbar(mat, label = "Absolute value")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/corrplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+
         # sqrt(diagonal)/data comparison
 
         fig = plt.figure()
@@ -83,6 +98,15 @@ for iexp in range(0,nexp):
         plt.tight_layout()
         plt.savefig("plots/plot1_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
+        fig = plt.figure()
+        plt.plot(np.sqrt(np.diag(sigma[iexp][iset])),'.', label="Experiment", color="orange")
+        plt.plot(np.sqrt(np.diag(s)),'.', label="Theory", color="darkorchid")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.xlabel("Data point")
+        plt.ylabel(r"$\sqrt{cov_{ii}}$", fontsize=15)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig("plots/plot3_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5)/data,'.', label="Experiment", color="orange")
@@ -93,5 +117,15 @@ for iexp in range(0,nexp):
         plt.legend()
         plt.tight_layout()
         plt.savefig("plots/plot2_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+
+        fig = plt.figure()
+        plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5),'.', label="Experiment", color="orange")
+        plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5),'.', label="Experiment + Theory", color="mediumseagreen")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.xlabel("Data point")
+        plt.ylabel(r"$\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig("plots/plot4_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
     
