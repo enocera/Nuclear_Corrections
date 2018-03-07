@@ -1,8 +1,9 @@
 ********************************************************************************
 *                                                                              *
 *     This program generates the LHAPDF grids for each eigenvector of the      *
-*     DSSZ sets. Nuclear PDFs are reconstructed from the ratio R according     *
-*     to Eqs.(6),(14) in arXiv:1112:6324                                       *
+*     DSSZ sets. Bound prootn nuclear PDFs are reconstructed from the ratio    *
+*     R according to Eqs.(6),(14) in arXiv:1112:6324. It is implicitly assumed *
+*     that the free proton PDF ucnertainty is already included in the ratio R  *
 *                                                                              *
 ********************************************************************************
 
@@ -13,15 +14,27 @@
       common / replica / irepB
 
       double precision Qin
-      double precision A, Z
-      common / DSSpars / A, Z
+      double precision A
 
-      A     = 208d0 !Pb
-      Z     = 82d0 !Pb
+      common / Anumber / A
 
-      Qin   = -1d0 !GeV 
-      
+      character*50 wrapfile
+
+      Qin   = -1d0   !GeV 
       irepb = -1
+
+      write(*,*) "Insert the atomic number ",
+     1     "(iron=56; lead=208)"
+      read(5,*) A
+
+      if(A.eq.56d0)then
+         wrapfile="DSSZ_NLO_Fe56"
+      elseif(A.eq.208d0)then
+         wrapfile="DSSZ_NLO_Pb208"
+      else
+         write(*,*) "Atomic number not available"
+         stop
+      endif
 
       call initPDFsetbyname("MSTW2008nlo68cl")
       call initPDF(0)
@@ -36,7 +49,7 @@
       call SetLHgridParameters(100,50,1d-5,1d-1,1d0,50,
      1                         1.0000000001d0,99999.998d0)
       
-      call LHAPDFgrid(50,Qin,"DSSZ_NLO_Pb208")
+      call LHAPDFgrid(50,Qin,trim(wrapfile))
 
       call CleanUp
 
@@ -49,21 +62,23 @@
 
       implicit none
       
-      integer fini, is, irep, irepb
+      integer fini, is, irep, irepb, ipdf
       common / fragini / fini
       common / replica / irepb
-
-      double precision A, Z
 
       double precision x, Q, Q2
       double precision RUV, RDV, RUB, RDB, RS, RC, RB, RG
       double precision xpdflh(-6:7), xf(-6:7)
-      common / DSSpars / A, Z 
-
+      double precision deltachi2, tolerance
+      parameter(deltachi2=20d0)
+      double precision A
+      common / Anumber / A
+      
       if(irep.ne.irepb)then
          fini = 0
       endif
 
+      tolerance = dsqrt(deltachi2)
       Q2 = Q * Q
 
       if(irep.gt.0)then
@@ -81,29 +96,31 @@
       call evolvePDF(x,Q,xpdflh)
 
       xf(-6) = 0d0
-      xf(-5) = RB * xpdflh(-5)
-      xf(-4) = RC * xpdflh(-4)
-      xf(-3) = RS * xpdflh(-3)
-      xf(-2) = Z/A * RUB * xpdflh(-2)
-     1       + (A-Z)/A * RDB * xpdflh(-1)
-      xf(-1) = Z/A * RDB * xpdflh(-1)
-     1       + (A-Z)/A * RUB * xpdflh(-2)
-      xf(0)  = RG * xpdflh(0)
-      xf(1)  = Z/A * (RDV * (xpdflh(+1) - xpdflh(-1)) )
-     1       + Z/A * (RDB * xpdflh(-1) )
-     1       + (A-Z)/A * (RUV * (xpdflh(+2) - xpdflh(-2)) )
-     1       + (A-Z)/A * (RUB * xpdflh(-2) )
-      xf(2)  = Z/A * (RUV * (xpdflh(+2) - xpdflh(-2)) )
-     1       + Z/A * (RUB * xpdflh(-2) )
-     1       + (A-Z)/A * (RDV * (xpdflh(+1) - xpdflh(-1)) )
-     1       + (A-Z)/A * (RDB * xpdflh(-1) )
+      xf(-5) = RB  * xpdflh(-5)
+      xf(-4) = RC  * xpdflh(-4)
+      xf(-3) = RS  * xpdflh(-3)
+      xf(-2) = RUB * xpdflh(-2)
+      xf(-1) = RDB * xpdflh(-1)
+      xf(0)  = RG  * xpdflh(0)
+      xf(1)  = RDV * ( xpdflh(+1) - xpdflh(-1) )
+     1       + RDB * xpdflh(-1)
+      xf(2)  = RUV * ( xpdflh(+2) - xpdflh(-2) )
+     1       + RUB * xpdflh(-2)
       xf(3)  = RS * xpdflh(+3)
       xf(4)  = RC * xpdflh(+4)
       xf(5)  = RB * xpdflh(+5)
       xf(6)  = 0d0
       xf(7)  = 0d0
 
+      do ipdf=-6,7,1
+
+         xf(ipdf) = tolerance * xf(ipdf)
+
+      enddo
+
       irepb = irep
 
       return
       end
+
+********************************************************************************
