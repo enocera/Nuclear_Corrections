@@ -3,7 +3,7 @@
 DSSZ_NLO_Pb208           # input PDF ensemble from LHAPDF6 
 DSSZ_NLO_Pb208_MC        # output PDF ensemble, its directory with output 
 he68                     # input error type, he68/he90/mc=Hessian 68%/90%/MC
-25                       # number of MC replicas to generate          
+300                      # number of MC replicas to generate          
 1001                     # the ID of the first MC replica to generate 
 3                        # ktype
 ../inc/xgrid-npdfs.dat   # grid with x values for output LHAPDF grids 

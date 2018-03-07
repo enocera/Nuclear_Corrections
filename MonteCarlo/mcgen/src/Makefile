@@ -7,7 +7,7 @@
 
 CXX=g++
 
-CXXFLAGS=-O3  #optimized compilation 
+#CXXFLAGS=-O3  #optimized compilation 
 #CXXFLAGS=-g   #debugging
 
 ifeq ($(LHALIB),)
