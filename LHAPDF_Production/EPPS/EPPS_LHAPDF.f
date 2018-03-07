@@ -27,7 +27,7 @@
      1     "(iron=56; lead=208)"
       read(5,*) A
 
-      write(*,*) "insert the atomic number Z",
+      write(*,*) "Insert the atomic number Z",
      1     "(iron=26; lead=82)"
 
       read(5,*) Z
