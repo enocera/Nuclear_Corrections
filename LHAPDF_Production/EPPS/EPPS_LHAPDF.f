@@ -18,8 +18,6 @@
 
       common / Anumber / A, Z
 
-      character*30 wrapfilein, wrapfileou
-
       Qin   = -1d0   !GeV 
       irepb = -1
 
@@ -32,21 +30,8 @@
 
       read(5,*) Z
 
-      if(A.eq.56d0.and.Z.eq.26)then
-         wrapfilein="EPPS16nlo_CT14nlo_Fe56"
-         wrapfileou="EPPS16nlo_CT14nlo_Fe56_bound"
-      elseif(A.eq.208d0.and.Z.eq.82)then
-         wrapfilein="EPPS16nlo_CT14nlo_Pb208"
-         wrapfileou="EPPS16nlo_CT14nlo_Pb208_bound"
-      else
-         write(*,*) "Atomic number not available"
-         stop
-      endif
-
-      call initpdfsetbyname(wrapfilein)
-
       call setPerturbativeOrder(1)
-      call SetPoleMasses(1.3d0,4.75d0,172d10)
+      call SetPoleMasses(1.3d0,4.75d0,172d0)
       call SetAlphaEvolution("exact")
       call SetAlphaQCDref(0.118d0,91.1876d0)
       call SetMaxFlavourPDFs(5)
@@ -55,7 +40,15 @@
       call SetLHgridParameters(100,50,1d-5,1d-1,1d0,50,
      1                         1.0000000001d0,99999.998d0)
       
-      call LHAPDFgrid(96,Qin,trim(wrapfileou))
+      if(A.eq.56d0.and.Z.eq.26d0)then
+         call initpdfsetbyname("EPPS16nlo_CT14nlo_Fe56")
+         call LHAPDFgrid(96,Qin,"EPPS16nlo_CT14nlo_Fe56_bd")
+      elseif(A.eq.208d0.and.Z.eq.82d0)then
+         call initpdfsetbyname("EPPS16nlo_CT14nlo_Pb208")
+         call LHAPDFgrid(96,Qin,"EPPS16nlo_CT14nlo_Pb208_bd")
+      else
+         call exit(-1)
+      endif
 
       call CleanUp
 
