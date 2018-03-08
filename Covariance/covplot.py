@@ -4,39 +4,45 @@ import numpy as np
 import pandas as pd
 import sys
 import matplotlib.pyplot as plt
+import numpy.linalg as la
+from matplotlib import cm
 
 # Initialise data files to be read
 exp      = ["CHORUS", "NTV"]
 expset   = [["NU", "NB"], ["NUDMN", "NBDMN"]]
 element  = ["lead", "iron"]
-npt      = [600, 45]
+npt      = [607, 45]
+
+nexp     = 2
+nset     = 2
 
 sigma    = [[np.zeros((npt[0],npt[0])),np.zeros((npt[0],npt[0]))] ,
-            [np.zeros((npt[1],npt[1])),np.zeros((npt[1],npt[1]))]]
-
-nexp      = 2
-nset      = 2
+[np.zeros((npt[1],npt[1])),np.zeros((npt[1],npt[1]))]]
 
 # Load experimental covariance matrix
 
-# with open("output/tables/experiments_covmat.csv") as f:
-#     ncols = len(f.readline().split(','))
-#
-# sigma_tot = np.loadtxt(open("output/tables/experiments_covmat.csv"), delimiter="\t", skiprows=4, usecols=range(4,ncols))
-#
-# sigma[0][0] = sigma_tot[3:605,4:606]
-# sigma[0][1] = sigma_tot[605:1213,606:1214]
-# sigma[1][0] = sigma_tot[1213:1259,1214:1260]
-# sigma[1][1] = sigma_tot[1259:1305,1260,1306]
+sigmadf      = pd.read_table("output/tables/experiments_covmat.csv")
+sigma_tot    = sigmadf.iloc[3:,3:].values.astype(np.float)
 
-sigmadf = pd.read_table("output/tables/experiments_covmat.csv")
-sigma   = sigmadf.as_matrix()
-print(sigma)
+if len(sigma_tot) != len(npt)*sum(npt):
+    print("Error: Experimental covariance matrix dimensions do not match dataset values")
+    sys.exit()
 
+
+# Splitting it up into entries corresponding to the four data sets
+sigma[0][0] = sigma_tot[0:npt[0],0:npt[0]]
+sigma[0][1] = sigma_tot[npt[0]:2*npt[0],npt[0]:2*npt[0]]
+sigma[1][0] = sigma_tot[2*npt[0]:(2*npt[0]+npt[1]),2*npt[0]:(2*npt[0]+npt[1])]
+sigma[1][1] = sigma_tot[(2*npt[0]+npt[1]):2*(npt[0]+npt[1]),(2*npt[0]+npt[1]):2*(npt[0]+npt[1])]
+
+plotlims       = [[3,3],[3,None]]
+corrplotlims   = [[3,3],[3,None]]
+
+    
 for iexp in range(0,nexp):
     for iset in range(0,nset):
 
-        # Load theoretical covariance matrix
+        # Load theoretical covariance matrix (and extracting data from this)
 
         s      = np.loadtxt("res/pyres/pCOV_{0}{1}_{2}.res".format(exp[iexp],
                                                       expset[iexp][iset], element[iexp]))
@@ -44,43 +50,92 @@ for iexp in range(0,nexp):
         spct   = np.loadtxt("res/pyres/pCOV_%_{0}{1}_{2}.res".format(exp[iexp],
                                                       expset[iexp][iset], element[iexp]))
 
+
+        diag_minus_half = (np.diagonal(s))**(-0.5)
+        corrmat_th      = np.nan_to_num( diag_minus_half*s*diag_minus_half[:,np.newaxis])
+        
         # Calculate theory central value
+        
+        norms  = 100*s/spct
 
-        d = np.nan_to_num(np.sqrt(100*s/spct))
-
-        # % matrix plot
+        data   = np.nan_to_num(np.sqrt(np.diag(norms))) 
+        
+        #  matrix plots
+        uplim    = plotlims[iexp][iset]
+        if isinstance(uplim,int) == True:
+            lowlim = -uplim
+        else:
+            lowlim = None
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(spct)
+        mat = ax1.matshow(spct, cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
         fig.colorbar(mat, label = "% of central theory")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_%_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_pc_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(s)
+        mat = ax1.matshow(s, cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
         fig.colorbar(mat, label = "Absolute value")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111)
+        mat = ax1.matshow((s+sigma[iexp][iset])/sigma[iexp][iset], cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
+        fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_impact_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+
+        
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111)
+        mat = ax1.matshow(corrmat_th, cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
+        fig.colorbar(mat, label = "Absolute value")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/corrplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+
         # sqrt(diagonal)/data comparison
 
         fig = plt.figure()
-        ax1 = fig.add_subplot(111)
-        plt.plot(np.sqrt(np.diag(spct/100)),'.', color="darkorchid")
+        plt.plot(np.sqrt(np.diag(sigma[iexp][iset]))/data,'.', label="Experiment", color="orange")
+        plt.plot(np.sqrt(np.diag(s))/data,'.', label="Theory", color="darkorchid")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
-        plt.ylabel(r"$\frac{\sqrt{s_{ii}}}{D_i}$")
-        plt.savefig("plots/plot1_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
-
+        plt.ylabel(r"$\frac{\sqrt{cov_{ii}}}{T_i}$", fontsize=15)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig("plots/plot1_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
-        ax1 = fig.add_subplot(111)
-        plt.plot(np.sqrt(np.diag(s)),'.', color="deepskyblue")
+        plt.plot(np.sqrt(np.diag(sigma[iexp][iset])),'.', label="Experiment", color="orange")
+        plt.plot(np.sqrt(np.diag(s)),'.', label="Theory", color="darkorchid")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
-        plt.ylabel(r"$\sqrt{s_{ii}}$")
-        plt.savefig("plots/plot2_%_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.ylabel(r"$\sqrt{cov_{ii}}$", fontsize=15)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig("plots/plot3_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
-      #  plt.show()
+        fig = plt.figure()
+        plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5)/data,'.', label="Experiment", color="orange")
+        plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5)/data,'.', label="Experiment + Theory", color="mediumseagreen")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.xlabel("Data point")
+        plt.ylabel(r"$\frac{1}{T_i}\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig("plots/plot2_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+
+        fig = plt.figure()
+        plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5),'.', label="Experiment", color="orange")
+        plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5),'.', label="Experiment + Theory", color="mediumseagreen")
+        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.xlabel("Data point")
+        plt.ylabel(r"$\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig("plots/plot4_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+
+    

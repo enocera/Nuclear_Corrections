@@ -21,6 +21,9 @@
  MCharm:   1.3999999999999999     
  MBottom:   4.7500000000000000     
  MTop:   10000000000.000000     
+ ThresholdCharm:   1.3999999999999999     
+ ThresholdBottom:   4.7500000000000000     
+ ThresholdTop:   319.22776285456024     
  AlphaS_MZ:  0.12017899999999999     
  AlphaS_OrderQCD:           1
  AlphaS_Type: ipol

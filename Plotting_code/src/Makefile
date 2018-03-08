@@ -14,8 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = DSSZ_test relunc
-MODULES = DSSZ-bandgen
+MAIN = relunc xPDFs
 
 ############################## do not change #############################
 
@@ -31,7 +30,7 @@ LDFLAGS += $(shell lhapdf-config --ldflags)
 
 FLINKER=$(FF) 
 
-PGMSF= $(MAIN) $(MODULES)
+PGMSF= $(MAIN)
 
 -include $(addsuffix .d,$(PGMS))
 
@@ -43,7 +42,7 @@ $(addsuffix .o,$(PGMSF)): %.o: %.f Makefile
 # rule to link object files
 
 $(MAIN): %: %.o  $(addsuffix .o,$(MODULES)) Makefile
-	$(FLINKER) $< $(addsuffix .o,$(MODULES)) $(LDFLAGS) -o $@
+	$(FLINKER) $< $(LDFLAGS) -o $@
 
 # produce executables
 
