@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = DSSZ_test relunc
+MAIN = DSSZ_test relunc xPDFs
 MODULES = DSSZ-bandgen
 
 ############################## do not change #############################
