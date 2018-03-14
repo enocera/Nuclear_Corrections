@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #DSSZ-Fe
 wrapfile="DSSZ_NLO_Fe56_MC"
 

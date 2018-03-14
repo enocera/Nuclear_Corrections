@@ -47,7 +47,7 @@
      1     trim(wrapfile(1)).eq."DSSZ_NLO_Pb208")then
          factor=1d0
       else
-         factor=1d0/1.65d0
+         factor=1d0
       endif
 
 
@@ -72,7 +72,6 @@
          
          call initpdfsetbyname(wrapfile(iwrap))
          call numberpdf(nrep)
-         
          
          do irep=1, nrep
             
@@ -127,7 +126,7 @@
          do ipt=1, npt
             
             write(10,101) ipt, x(ipt),
-     1           pdf_cv(ifl,ipt,1), pdf_er(ifl,ipt,1)
+     1           pdf_cv(ifl,ipt,1), factor*pdf_er(ifl,ipt,1)
             
          enddo
          
