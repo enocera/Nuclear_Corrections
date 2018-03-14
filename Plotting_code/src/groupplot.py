@@ -51,10 +51,10 @@ for i in range(len(sys.argv[3:])):
 for i in range(len(sys.argv[3:])):
     dict["pdflabel_{0}".format(i)] = dict["pdfset_{0}".format(i)].split("1")[0].split("_")[0]
 
-dict["parton_11"] = "u"
-dict["parton_-11"] = "u bar"
-dict["parton_22"] = "d"
-dict["parton_-22"] = "d bar"
+dict["parton_11"] = "d"
+dict["parton_-11"] = "d bar"
+dict["parton_22"] = "u"
+dict["parton_-22"] = "u bar"
 dict["parton_3"] = "s"
 dict["parton_-3"] = "s bar"
 dict["parton_21"] = "g"
