@@ -2,7 +2,7 @@
 # Parameters for generation of random replicas
 DSSZ_NLO_Pb208           # input PDF ensemble from LHAPDF6 
 DSSZ_NLO_Pb208_MC        # output PDF ensemble, its directory with output 
-he68                     # input error type, he68/he90/mc=Hessian 68%/90%/MC
+dssz                     # input error type, he68/he90/mc=Hessian 68%/90%/MC
 300                      # number of MC replicas to generate          
 1001                     # the ID of the first MC replica to generate 
 3                        # ktype
