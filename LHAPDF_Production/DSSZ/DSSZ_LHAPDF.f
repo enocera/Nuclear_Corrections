@@ -50,7 +50,8 @@
      1                         1.0000000001d0,99999.998d0)
       
       call LHAPDFgrid(50,Qin,trim(wrapfile))
-
+      !call LHAPDFgrid(10,Qin,trim("DSSZ_NLO_Fe56_nr"))
+      
       call CleanUp
 
       stop
@@ -69,8 +70,6 @@
       double precision x, Q, Q2
       double precision RUV, RDV, RUB, RDB, RS, RC, RB, RG
       double precision xpdflh(-6:7), xf(-6:7)
-      double precision deltachi2, tolerance
-      parameter(deltachi2=20d0)
       double precision A
       common / Anumber / A
       
@@ -78,7 +77,6 @@
          fini = 0
       endif
 
-      tolerance = dsqrt(deltachi2)
       Q2 = Q * Q
 
       if(irep.gt.0)then
@@ -111,12 +109,6 @@
       xf(5)  = RB * xpdflh(+5)
       xf(6)  = 0d0
       xf(7)  = 0d0
-
-      do ipdf=-6,7,1
-
-         xf(ipdf) = tolerance * xf(ipdf)
-
-      enddo
 
       irepb = irep
 

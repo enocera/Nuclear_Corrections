@@ -56,6 +56,7 @@
 C...
       INTEGER NX, NQ, NARG, NNA
       PARAMETER (NX=49, NQ=23, NARG=3, NNA=4)
+      INTEGER IISET
 C...
       DOUBLE PRECISION XUVF(NX,NQ,NNA), XDVF(NX,NQ,NNA), 
      1     XUBF(NX,NQ,NNA), XDBF(NX,NQ,NNA), XSF(NX,NQ,NNA),
@@ -66,22 +67,40 @@ C...
       DOUBLE PRECISION ARRF(NX+NQ+NNA) 
       DOUBLE PRECISION X,A,Q
       DOUBLE PRECISION DSSZFINT
+      DOUBLE PRECISION deltachi2, tolerance
+      !PARAMETER(deltachi2=30d0)
+      PARAMETER(Deltachi2=1d0)
 C...
       COMMON/ DSSZGRID / XUVF, XDVF, XUBF, XDBF, XSF, XCF, XBF, XGF,
      1                   ARRF, NA
+      COMMON/ SET / IISET
+
 C---INTERPOLATAION AND OUTPUT
        xt(1)=x
        xt(2)=dlog(Q*Q)
        xt(3)=A
+
+       tolerance = dsqrt(deltachi2)
 C....
-       RUV = DSSZFINT(NARG,XT,NA,ARRF,XUVF) 
-       RDV = DSSZFINT(NARG,XT,NA,ARRF,XDVF) 
-       RUB = DSSZFINT(NARG,XT,NA,ARRF,XUBF) 
-       RDB = DSSZFINT(NARG,XT,NA,ARRF,XDBF) 
-       RS = DSSZFINT(NARG,XT,NA,ARRF,XSF)
-       RC = DSSZFINT(NARG,XT,NA,ARRF,XCF)
-       RB = DSSZFINT(NARG,XT,NA,ARRF,XBF)
-       RG = DSSZFINT(NARG,XT,NA,ARRF,XGF)       
+       if(IISET.eq.0)then
+          RUV = DSSZFINT(NARG,XT,NA,ARRF,XUVF) 
+          RDV = DSSZFINT(NARG,XT,NA,ARRF,XDVF) 
+          RUB = DSSZFINT(NARG,XT,NA,ARRF,XUBF) 
+          RDB = DSSZFINT(NARG,XT,NA,ARRF,XDBF) 
+          RS  = DSSZFINT(NARG,XT,NA,ARRF,XSF)
+          RC  = DSSZFINT(NARG,XT,NA,ARRF,XCF)
+          RB  = DSSZFINT(NARG,XT,NA,ARRF,XBF)
+          RG  = DSSZFINT(NARG,XT,NA,ARRF,XGF)   
+       else
+          RUV = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XUVF) 
+          RDV = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XDVF) 
+          RUB = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XUBF) 
+          RDB = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XDBF) 
+          RS  = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XSF)
+          RC  = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XCF)
+          RB  = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XBF)
+          RG  = tolerance * DSSZFINT(NARG,XT,NA,ARRF,XGF)   
+       endif
 C...
        RETURN
        END
@@ -91,7 +110,7 @@ C-----------------------------
 C-----------------------------
       IMPLICIT NONE
 C...
-      INTEGER NX, NQ, NARG, NNA, ISET
+      INTEGER NX, NQ, NARG, NNA, ISET, IISET
       PARAMETER (NX=49, NQ=23, NARG=3, NNA=4)
 C...
       DOUBLE PRECISION XUVF(NX,NQ,NNA), XDVF(NX,NQ,NNA), 
@@ -114,6 +133,7 @@ C...
 C...
       COMMON/ DSSZGRID / XUVF, XDVF, XUBF, XDBF, XSF, XCF, XBF, XGF,
      1                   ARRF, NA
+      COMMON/ SET / IISET
 C...
 C...TABLE OF (X,Q2) SUPPORT POINTS 
 C...
@@ -134,6 +154,8 @@ C...SUPPORTED NUCLEI: Be, Fe, Au, Pb
 C...
       DATA XA/ 9.D0, 56.D0, 197.D0, 208.D0/
 C...
+      IISET = ISET
+
       FNAME3='.grid'
       DUMMY0='0'
 C...
