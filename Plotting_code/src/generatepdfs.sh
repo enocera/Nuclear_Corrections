@@ -36,6 +36,12 @@ namePDFset[33]="EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_25"
 namePDFset[34]="EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_25"
 namePDFset[35]="nCTEQ15FullNuc_208_82_MC_1000_compressed_25"
 namePDFset[36]="nCTEQ15FullNuc_56_26_MC_1000_compressed_25"
+namePDFset[37]="EPPS16nlo_CT14nlo_Fe56_bd"
+namePDFset[38]="nCTEQ15_56_26_MC"
+namePDFset[39]="EPPS16nlo_CT14nlo_Pb208_bd"
+namePDFset[40]="nCTEQ15_208_82_MC"
+namePDFset[41]="DSSZ_NLO_Fe56_MC"
+namePDFset[42]="DSSZ_NLO_Pb208_MC"
 
 # Fill in the corresponding proton and mass numbers for each PDF set
 A[1]=1
@@ -74,6 +80,12 @@ A[33]=56
 A[34]=208
 A[35]=208
 A[36]=56
+A[37]=56
+A[38]=56
+A[39]=208
+A[40]=208
+A[41]=56
+A[42]=208
 
 
 Z[1]=1
@@ -112,26 +124,33 @@ Z[33]=26
 Z[34]=82
 Z[35]=82
 Z[36]=26
+Z[37]=26
+Z[38]=26
+Z[39]=82
+Z[40]=82
+Z[41]=26
+Z[42]=82
 
 #This is the energy scale
 Q[1]=10     #GeV
 Q[2]=3.16227766017 #GeV
 Q[3]=2 #GeV
 
-for ipdf in `seq 1 12`
-do
-for iQ in `seq 1 3`
-do
-python genpdf.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
-done
-done
 
-# for ipdf in `seq 13 36`
-# do
-# for iQ in `seq 1 3`
-# do
-# python genmc.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
-# done
-# done
+#for ipdf in `seq 37 42`
+#do
+#for iQ in `seq 2 2`
+#do
+#python genpdf.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
+#done
+#done
+
+ for ipdf in `seq 37 42`
+ do
+ for iQ in `seq 2 2`
+ do
+ python genmc.py "${namePDFset[ipdf]}" ${A[ipdf]} ${Z[ipdf]} ${Q[iQ]}
+ done
+ done
 
 exit 0
