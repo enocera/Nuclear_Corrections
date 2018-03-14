@@ -188,7 +188,9 @@ int MCGenerateLHAPDF()
   //Prepare random displacements for conversion of Hessian replicas
   if (strcmp(err_type.c_str(),"he90")==0)
     ErrorScaling=1/1.65; 
-  else
+  else if (strcmp(err_type.c_str(),"dssz")==0)
+    ErrorScaling=5.477225575;
+  else 
     ErrorScaling=1.0;
   
    //Open the LHAPDF6 object for the input PDFs 
@@ -672,6 +674,8 @@ int MCStdDevs()
   //Prepare random displacements for conversion of Hessian replicas
   if (strcmp(err_type.c_str(),"he90")==0)
     ErrorScaling=1/1.65; 
+  else if (strcmp(err_type.c_str(),"dssz")==0)
+    ErrorScaling=5.477225575; 
   else
     ErrorScaling=1.0; 
 
@@ -815,6 +819,10 @@ int MCStdDevs()
           pdfu1[iq][ix][ifl]=sqrt(sumup);
           pdfd1[iq][ix][ifl]=sqrt(sumdn);
           if (strcmp(err_type.c_str(),"he90")==0 ) {
+            pdfu1[iq][ix][ifl] *= ErrorScaling;
+            pdfd1[iq][ix][ifl] *= ErrorScaling;
+          }
+          if (strcmp(err_type.c_str(),"dssz")==0 ) {
             pdfu1[iq][ix][ifl] *= ErrorScaling;
             pdfd1[iq][ix][ifl] *= ErrorScaling;
           }
