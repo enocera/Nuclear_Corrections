@@ -189,7 +189,7 @@ int MCGenerateLHAPDF()
   if (strcmp(err_type.c_str(),"he90")==0)
     ErrorScaling=1/1.65; 
   else if (strcmp(err_type.c_str(),"dssz")==0)
-    ErrorScaling=5.477225575;
+    ErrorScaling=5.477225575/2;
   else 
     ErrorScaling=1.0;
   
@@ -675,7 +675,7 @@ int MCStdDevs()
   if (strcmp(err_type.c_str(),"he90")==0)
     ErrorScaling=1/1.65; 
   else if (strcmp(err_type.c_str(),"dssz")==0)
-    ErrorScaling=5.477225575; 
+    ErrorScaling=5.477225575/2; 
   else
     ErrorScaling=1.0; 
 
