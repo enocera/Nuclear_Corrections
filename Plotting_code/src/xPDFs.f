@@ -24,7 +24,7 @@
       character*100 wrapfile(nwrap), outfile
       
 *     Initialise energy scale
-      Q2 = 100d0 !GeV2
+      Q2 = 10d0 !GeV2
       Q  = dsqrt(Q2)
 
 *     Initialise x space
