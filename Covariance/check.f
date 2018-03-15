@@ -35,8 +35,8 @@
       wrapfile(1,2)="EPPS16nlo_CT14nlo_Fe56_MC"
       wrapfile(2,1)="nCTEQ15_208_82_MC"
       wrapfile(2,2)="nCTEQ15_56_26_MC"
-      wrapfile(3,1)="DSSZ_NLO_Fe56_MC"
-      wrapfile(3,2)="DSSZ_NLO_Pb208_MC"
+      wrapfile(3,1)="DSSZ_NLO_Pb208_MC"
+      wrapfile(3,2)="DSSZ_NLO_Fe56_MC"
       wrapfile(4,1)="NNPDF31_nlo_pch_as_0118"
       wrapfile(4,2)="NNPDF31_nlo_pch_as_0118"
 
@@ -45,7 +45,7 @@
       nrep(1)=300
       nrep(2)=300
       nrep(3)=300
-      nrep(2)=100
+      nrep(4)=100
 
 *     Initialise experiments
       nameexp(1)="CHORUS"
@@ -130,11 +130,11 @@
 
 *     Compute mean value (free proton PDFs)
       do iexp=1, nexp
-         
+
          do iset=1, nset
             
             do ipt=1, npt(iexp,iset)
-
+               
                mean_p(iexp,iset,ipt) = 0d0
 
                do irep=1, nrep(4)
