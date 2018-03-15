@@ -8,6 +8,8 @@ PDFsets[5]="nCTEQ15FullNuc_56_26 nCTEQ15FullNuc_56_26_MC nCTEQ15FullNuc_56_26_MC
 PDFsets[6]="nCTEQ15FullNuc_208_82 nCTEQ15FullNuc_208_82_MC nCTEQ15FullNuc_208_82_MC_100"
 PDFsets[7]="EPPS16nlo_CT14nlo_Fe56 EPPS16nlo_CT14nlo_Fe56_MC EPPS16nlo_CT14nlo_Fe56_MC_100"
 PDFsets[8]="EPPS16nlo_CT14nlo_Pb208 EPPS16nlo_CT14nlo_Pb208_MC EPPS16nlo_CT14nlo_Pb208_MC_100"
+PDFsets[9]="EPPS16nlo_CT14nlo_Fe56_bd nCTEQ15_56_26_MC"
+PDFsets[10]="EPPS16nlo_CT14nlo_Pb208_bd nCTEQ15_208_82_MC"
 
 MCset[1]="DSSZ_NLO_Fe56"
 MCset[2]="DSSZ_NLO_Pb208"
@@ -29,7 +31,7 @@ Q[1]=10     #GeV
 Q[2]=3.1622 #GeV
 Q[3]=2 #GeV
 
-for icomb in `seq 1 2`
+for icomb in `seq 9 10`
 do
 for iPID in `seq 1 7`
 do

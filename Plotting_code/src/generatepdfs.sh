@@ -36,9 +36,9 @@ namePDFset[33]="EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_25"
 namePDFset[34]="EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_25"
 namePDFset[35]="nCTEQ15FullNuc_208_82_MC_1000_compressed_25"
 namePDFset[36]="nCTEQ15FullNuc_56_26_MC_1000_compressed_25"
-namePDFset[37]="EPPS16nlo_CT14nlo_Fe56_bd"
+namePDFset[37]="EPPS16nlo_CT14nlo_Fe56_MC"
 namePDFset[38]="nCTEQ15_56_26_MC"
-namePDFset[39]="EPPS16nlo_CT14nlo_Pb208_bd"
+namePDFset[39]="EPPS16nlo_CT14nlo_Pb208_MC"
 namePDFset[40]="nCTEQ15_208_82_MC"
 namePDFset[41]="DSSZ_NLO_Fe56_MC"
 namePDFset[42]="DSSZ_NLO_Pb208_MC"
@@ -133,7 +133,7 @@ Z[42]=82
 
 #This is the energy scale
 Q[1]=10     #GeV
-Q[2]=3.16227766017 #GeV
+Q[2]=3.1622 #GeV
 Q[3]=2 #GeV
 
 
