@@ -18,6 +18,8 @@
       integer idum
       integer ptord, nflmax
       integer nsys
+      integer startrep, endrep
+      parameter(startrep=0,endrep=0)
 
       double precision x(mxpt,nexp,nset), y(mxpt,nexp,nset)
       double precision Q2(mxpt,nexp,nset), Q(mxpt,nexp,nset), Q0
@@ -105,7 +107,7 @@
       call SetAlphaQCDRef(alphaQCDref,QalphaQCDref)
       call SetAlphaQEDRef(alphaQEDref,QalphaQEDref)
       call SetPoleMasses(mcpole,mbpole,mtpole)
-      call EnableIntrinsicCharm(.true.)
+      call EnableIntrinsicCharm(.false.)
       call EnableDampingFONLL(.false.)
       call EnableTargetMassCorrections(.true.)
       call SetPDFEvolution("truncated")
@@ -116,7 +118,7 @@
       call InitializeAPFEL_DIS()
 
 *     Compute predictions
-      do irep=1, nrep
+      do irep=startrep, endrep
 
          call SetReplica(irep)
          
@@ -128,9 +130,10 @@
 
                   if(Q(ipt,iexp,iset).gt.1d0)then
                      
+                     call SetFKObservable(trim(obs(iexp,iset)))
+
                      call ComputeStructureFunctionsAPFEL
      1                    (Q0,Q(ipt,iexp,iset))
-                     call SetFKObservable(trim(obs(iexp,iset)))
                    
                      thobs(irep,iexp,iset,ipt) = 
      1                    FKObservables
@@ -165,7 +168,7 @@
 
             write(20,102) obs(iexp, iset), npt(iexp,iset)
             
-            do irep=1, nrep
+            do irep=startrep, endrep
 
                write(20,103) irep
 
@@ -173,6 +176,7 @@
 
                   write(20,104) ipt, 
      1                 x(ipt,iexp,iset),
+     1                 Q2(ipt,iexp,iset),
      1                 thobs(irep,iexp,iset,ipt),
      1                 exobs(ipt,iexp,iset)
 
@@ -189,7 +193,7 @@
  101  format(a,a,a,a,a,a)
  102  format(a,i4)
  103  format(i4)
- 104  format(i4,3(f12.7))
+ 104  format(i4,4(f12.7))
 
       stop
       end
