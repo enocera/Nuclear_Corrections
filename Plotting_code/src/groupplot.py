@@ -51,10 +51,10 @@ for i in range(len(sys.argv[3:])):
 for i in range(len(sys.argv[3:])):
     dict["pdflabel_{0}".format(i)] = dict["pdfset_{0}".format(i)].split("1")[0].split("_")[0]
 
-dict["parton_11"] = "d"
-dict["parton_-11"] = "d bar"
-dict["parton_22"] = "u"
-dict["parton_-22"] = "u bar"
+dict["parton_1"] = "d"
+dict["parton_-1"] = "d bar"
+dict["parton_2"] = "u"
+dict["parton_-2"] = "u bar"
 dict["parton_3"] = "s"
 dict["parton_-3"] = "s bar"
 dict["parton_21"] = "g"
@@ -70,9 +70,9 @@ plt.legend()
 plt.xlabel("x")
 plt.ylabel("x{0}(x)".format(dict["parton_{0}".format(pid)]))
 if pid == 21:
-    plt.ylim(0,14)
+    plt.ylim(0,20)
 else:
-    plt.ylim(0,0.8)
+    plt.ylim(0,1)
 plt.xlim(1e-3,1)
 plt.savefig('../plots/groupdata{0}{1}_q{2}'.format(pdfstring,pid,qstring))
 
