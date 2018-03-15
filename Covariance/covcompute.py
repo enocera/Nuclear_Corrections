@@ -21,15 +21,15 @@ expset   = [["NU", "NB"], ["NUDMN", "NBDMN"]]
 
 if nuclearpdf == "iron":
 
-    nuclearpdfs = ["DSSZ_NLO_Fe56_MC_1000_compressed_250",
-                   "EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_250",
-                   "nCTEQ15FullNuc_56_26_MC_1000_compressed_250"]
+    nuclearpdfs = ["DSSZ_NLO_Fe56_MC",
+                   "EPPS16nlo_CT14nlo_Fe56_MC",
+                   "nCTEQ15_56_26_MC"]
 
 elif nuclearpdf == "lead":
 
-    nuclearpdfs = ["DSSZ_NLO_Pb208_MC_1000_compressed_250",
-                   "EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_250",
-                   "nCTEQ15FullNuc_208_82_MC_1000_compressed_250"]
+    nuclearpdfs = ["DSSZ_NLO_Pb208_MC",
+                   "EPPS16nlo_CT14nlo_Pb208_MC",
+                   "nCTEQ15_208_82_MC"]
 
 pdfs     = [protonpdf] + nuclearpdfs
 
@@ -45,13 +45,15 @@ thobs     = np.zeros((npdf,maxrep,maxpoint,nexp,nset))
 
 F_p       = np.zeros((maxpoint,nexp,nset))
 
+# Setting nrep manually as it is the same for all: 301
+nrep = [101,301,301,301]
 
 # Read data
 for iexp in range(0,nexp):
     for iset in range(0,nset):
         for ipdf in range(0,npdf):
 
-             file = "../Observables/res/pyres/pOBS_{0}{1}_{2}.res".format(exp[iexp],expset[iexp][iset],pdfs[ipdf])
+             file = "../Observables/res/res_store/OBS_{0}{1}_{2}.res".format(exp[iexp],expset[iexp][iset],pdfs[ipdf])
              print("-----------------------------------------------------------------")
              print("File being read is " + str(file))
              print("-----------------------------------------------------------------")
@@ -59,13 +61,14 @@ for iexp in range(0,nexp):
                  contents = contents.read()
 
              lines = contents.split('\n')
-             tabs  = [line.split('\t') for line in lines]
+             print(lines[0])
+             tabs  = [line.split() for line in lines] 
+         #    tabs  = [line.split('\t') for line in lines] -- to read Rosalyn's files
 
+#             nrep[ipdf]     = int(tabs[0][2])
+#             print("Number of replicas for pdf " + str(pdfs[ipdf]) + ": " + str(nrep[ipdf])) <-- have set replica number manually above
 
-             nrep[ipdf]     = int(tabs[0][2])
-             print("Number of replicas for pdf " + str(pdfs[ipdf]) + ": " + str(nrep[ipdf]))
-
-             npt[iexp,iset] = int(tabs[0][1])
+             npt[iexp,iset] = int(tabs[0][1]) 
              print("Number of data points: " + str(npt[iexp,iset]))
 
              for irep in range(0,nrep[ipdf]):
@@ -75,7 +78,7 @@ for iexp in range(0,nexp):
 
                  for fileline in range(datalines[0],datalines[1]):
                      ipt                            = 1 + fileline - datalines[0]
-                     thobs[ipdf,irep,ipt,iexp,iset] = float(tabs[fileline][2])
+                     thobs[ipdf,irep,ipt,iexp,iset] = float(tabs[fileline][3]) # <<--this corresponds to Emanuele's files only. It was 2 for Rosalyn's.
 
 #thobs = thobs[:,1:]
 
