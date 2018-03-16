@@ -7,7 +7,6 @@
       program covariance
       implicit none
 
-
       integer iwrap, nwrap
       parameter(nwrap=4)
       integer iexp, nexp
@@ -21,7 +20,7 @@
       integer idum
       integer i, j
 
-      double precision x(mxpt,nexp,nset)
+      double precision x(mxpt,nexp,nset), Q2(mxpt,nexp,nset) 
       double precision thobs(nwrap,mxrep,nexp,nset,mxpt)
       double precision mean_p(nexp,nset,mxpt)
       double precision sigma(mxpt,mxpt,nexp,nset)
@@ -33,19 +32,19 @@
       character*20  obs(nexp,nset)
 
 *     Define wrapfiles
-      wrapfile(1,1)="DSSZ_NLO_Pb208_MC_1000_compressed_250"
-      wrapfile(1,2)="DSSZ_NLO_Fe56_MC_1000_compressed_250"
-      wrapfile(2,1)="EPPS16nlo_CT14nlo_Pb208_MC_1000_compressed_250"
-      wrapfile(2,2)="EPPS16nlo_CT14nlo_Fe56_MC_1000_compressed_250"
-      wrapfile(3,1)="nCTEQ15FullNuc_208_82_MC_1000_compressed_250"
-      wrapfile(3,2)="nCTEQ15FullNuc_56_26_MC_1000_compressed_250"
+      wrapfile(1,1)="EPPS16nlo_CT14nlo_Pb208_MC"
+      wrapfile(1,2)="EPPS16nlo_CT14nlo_Fe56_MC"
+      wrapfile(2,1)="nCTEQ15_208_82_MC"
+      wrapfile(2,2)="nCTEQ15_56_26_MC"
+      wrapfile(3,1)="DSSZ_NLO_Pb208_MC"
+      wrapfile(3,2)="DSSZ_NLO_Fe56_MC"
       wrapfile(4,1)="NNPDF31_nlo_pch_as_0118"
       wrapfile(4,2)="NNPDF31_nlo_pch_as_0118"
 
 *     Initialise number of replicas in each set
-      nrep(1)=250
-      nrep(2)=250
-      nrep(3)=250
+      nrep(1)=300
+      nrep(2)=300
+      nrep(3)=300
       nrep(4)=100
 
 *     Initialise experiments
@@ -66,7 +65,7 @@
             do iset=1, nset
                
                write(infile(iwrap,iexp,iset),101) 
-     1              "res/OBS_",
+     1              "../Observables/res/res_store/OBS_",
      1              trim(nameexp(iexp)),
      1              trim(nameset(iexp,iset)), "_",
      1              trim(wrapfile(iwrap,iexp)), ".res"
@@ -102,13 +101,14 @@
 
                read(10,*) obs(iexp,iset),  npt(iexp,iset)
                
-               do irep=1, nrep(iwrap)
+               do irep=0, nrep(iwrap)
 
                   read(10,*) repdum
 
                   do ipt=1, npt(iexp,iset)
 
                      read(10,*) idum, x(ipt,iexp,iset),
+     1                    Q2(ipt,iexp,iset),
      1                    thobs(iwrap,irep,iexp,iset,ipt)
 
                   enddo
