@@ -34,16 +34,16 @@ set ytics(  0.0 0, "" 0.02 1, "" 0.04 1, "" 0.06 1, "" 0.08 1,\
           ""0.9 0, "" 0.92 1, "" 0.94 1, "" 0.96 1, "" 0.98 1,\
             1.0 0)
 
-plot infile11 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
-     infile11 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
-     infile11 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+plot infile11 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
+     infile11 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     infile11 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
      infile11 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 4\
-     lt 1 lc rgb "red" t "DSSZ12",\
-     infile12 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
-     infile12 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
-     infile12 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     lt 1 lc rgb "blue" t "DSSZ12",\
+     infile12 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
+     infile12 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+     infile12 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
      infile12 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 5\
-     lt 1 lc rgb "blue" t "EPPS16",\
+     lt 1 lc rgb "red" t "EPPS16",\
      infile13 u 2:3 w l lw 3 lt 3 lc rgb "#006400" notitle,\
      infile13 u 2:($3+$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
      infile13 u 2:($3-$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
@@ -51,6 +51,7 @@ plot infile11 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
      lt 1 lc rgb "#006400" t "nCTEQ15"
 
 unset label
+unset key
 
 set o outfile2
 set term post enh col 20 linewidth 1  'Helvetica,20' size 10,7
@@ -60,18 +61,17 @@ set xrange[1e-3:1]
 set yrange[0:1]
 
 set label "xu^{p/Pb}(x,Q^2)" at 0.22,0.94 font 'Helvetica,22'
-set label "Q^2=10 GeV^2" at 0.22,0.86 font 'Helvetica,20'
 
-plot infile21 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
-     infile21 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
-     infile21 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+plot infile21 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
+     infile21 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     infile21 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
      infile21 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 4\
-     lt 1 lc rgb "red" t "DSSZ12",\
-     infile22 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
-     infile22 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
-     infile22 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     lt 1 lc rgb "blue" t "DSSZ12",\
+     infile22 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
+     infile22 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+     infile22 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
      infile22 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 5\
-     lt 1 lc rgb "blue" t "EPPS16",\
+     lt 1 lc rgb "red" t "EPPS16",\
      infile23 u 2:3 w l lw 3 lt 3 lc rgb "#006400" notitle,\
      infile23 u 2:($3+$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
      infile23 u 2:($3-$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\

@@ -18,10 +18,11 @@ set format x "10^{%T}"
 set xlabel "x" font 'Helvetica,28'
 
 set key at 0.01,4.4 spacing 1.5 font 'Helvetica,22'
-set label "xg^{p/Fe}(x,Q^2)" at 0.22,18.88 font 'Helvetica,22'
-set label "Q^2=10 GeV^2" at 0.22,17.2 font 'Helvetica,20'
+set label "xg^{p/Fe}(x,Q^2)" at 0.22,9.4 font 'Helvetica,22'
+#set label "Q^2=10 GeV^2" at 0.22,17.2 font 'Helvetica,20'
+unset key
 
-set yrange[0:20]
+set yrange[0:10]
 set ytics(   0 0, "" 0.2 1, "" 0.4 1, "" 0.6 1, "" 0.8 1,\
           "" 1 0, "" 1.2 1, "" 1.4 1, "" 1.6 1, "" 1.8 1,\
              2 0, "" 2.2 1, "" 2.4 1, "" 2.6 1, "" 2.8 1,\
@@ -44,16 +45,16 @@ set ytics(   0 0, "" 0.2 1, "" 0.4 1, "" 0.6 1, "" 0.8 1,\
           ""19 0, ""19.2 1, ""19.4 1, ""19.6 1, ""19.8 1,\
             20 0)
 
-plot infile11 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
-     infile11 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
-     infile11 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+plot infile11 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
+     infile11 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     infile11 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
      infile11 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 4\
-     lt 1 lc rgb "red" t "DSSZ12",\
-     infile12 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
-     infile12 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
-     infile12 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     lt 1 lc rgb "blue" t "DSSZ12",\
+     infile12 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
+     infile12 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+     infile12 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
      infile12 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 5\
-     lt 1 lc rgb "blue" t "EPPS16",\
+     lt 1 lc rgb "red" t "EPPS16",\
      infile13 u 2:3 w l lw 3 lt 3 lc rgb "#006400" notitle,\
      infile13 u 2:($3+$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
      infile13 u 2:($3-$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
@@ -61,13 +62,14 @@ plot infile11 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
      lt 1 lc rgb "#006400" t "nCTEQ15"
 
 unset label
+unset key
 
 set o outfile2
 set term post enh col 20 linewidth 1  'Helvetica,20' size 10,7
 
 set logscale x
 set xrange[1e-3:1]
-set yrange[0:20]
+set yrange[0:10]
 set ytics(   0 0, "" 0.2 1, "" 0.4 1, "" 0.6 1, "" 0.8 1,\
           "" 1 0, "" 1.2 1, "" 1.4 1, "" 1.6 1, "" 1.8 1,\
              2 0, "" 2.2 1, "" 2.4 1, "" 2.6 1, "" 2.8 1,\
@@ -90,19 +92,19 @@ set ytics(   0 0, "" 0.2 1, "" 0.4 1, "" 0.6 1, "" 0.8 1,\
           ""19 0, ""19.2 1, ""19.4 1, ""19.6 1, ""19.8 1,\
             20 0)
 
-set label "xg^{p/Pb}(x,Q^2)" at 0.22,18.8 font 'Helvetica,22'
-set label "Q^2=10 GeV^2" at 0.22,17.2 font 'Helvetica,20'
+set label "xg^{p/Pb}(x,Q^2)" at 0.22,9.4 font 'Helvetica,22'
+#set label "Q^2=10 GeV^2" at 0.22,17.2 font 'Helvetica,20'
 
-plot infile21 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
-     infile21 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
-     infile21 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+plot infile21 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
+     infile21 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     infile21 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
      infile21 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 4\
-     lt 1 lc rgb "red" t "DSSZ12",\
-     infile22 u 2:3 w l lw 3 lt 3 lc rgb "blue" notitle,\
-     infile22 u 2:($3+$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
-     infile22 u 2:($3-$4) w l lw 3 lt 1 lc rgb "blue" notitle,\
+     lt 1 lc rgb "blue" t "DSSZ12",\
+     infile22 u 2:3 w l lw 3 lt 3 lc rgb "red" notitle,\
+     infile22 u 2:($3+$4) w l lw 3 lt 1 lc rgb "red" notitle,\
+     infile22 u 2:($3-$4) w l lw 3 lt 1 lc rgb "red" notitle,\
      infile22 u 2:($3+$4):($3-$4) w filledcu fs transparent pattern 5\
-     lt 1 lc rgb "blue" t "EPPS16",\
+     lt 1 lc rgb "red" t "EPPS16",\
      infile23 u 2:3 w l lw 3 lt 3 lc rgb "#006400" notitle,\
      infile23 u 2:($3+$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
      infile23 u 2:($3-$4) w l lw 3 lt 1 lc rgb "#006400" notitle,\
