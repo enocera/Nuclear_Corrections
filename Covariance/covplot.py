@@ -5,7 +5,7 @@ import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 import numpy.linalg as la
-from matplotlib import cm
+from matplotlib import cm, colors as mcolors
 
 # Initialise data files to be read
 exp      = ["CHORUS", "NTV"]
@@ -35,8 +35,12 @@ sigma[0][1] = sigma_tot[npt[0]:2*npt[0],npt[0]:2*npt[0]]
 sigma[1][0] = sigma_tot[2*npt[0]:(2*npt[0]+npt[1]),2*npt[0]:(2*npt[0]+npt[1])]
 sigma[1][1] = sigma_tot[(2*npt[0]+npt[1]):2*(npt[0]+npt[1]),(2*npt[0]+npt[1]):2*(npt[0]+npt[1])]
 
-plotlims       = [[3,3],[3,None]]
-corrplotlims   = [[3,3],[3,None]]
+impactthresh       = [[10,10],[10,10]]
+covthresh          = [[1,1],[1,1]]
+impactlim          = [[10000,10000],[10000,10000]]
+covlim             = [[1000,1000],[1000,1000]]
+
+
 
     
 for iexp in range(0,nexp):
@@ -61,62 +65,73 @@ for iexp in range(0,nexp):
         data   = np.nan_to_num(np.sqrt(np.diag(norms))) 
         
         #  matrix plots
-        uplim    = plotlims[iexp][iset]
-        if isinstance(uplim,int) == True:
-            lowlim = -uplim
-        else:
-            lowlim = None
+ #       uplim    = plotlims[iexp][iset]
+ #       if isinstance(uplim,int) == True:
+ #           lowlim = -uplim
+ #       else:
+ #           lowlim = None
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(spct, cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
+        mat = ax1.matshow(spct, cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=covthresh[iexp][iset], linscale=10, vmin=-covlim[iexp][iset], vmax=covlim[iexp][iset]))
         fig.colorbar(mat, label = "% of central theory")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_pc_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} theory covariance matrix".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_pc_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(s, cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
-        fig.colorbar(mat, label = "Absolute value")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+        mat = ax1.matshow(100*sigma[iexp][iset]/np.sqrt(np.outer(data,data)), cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=covthresh[iexp][iset], linscale=10, vmin=-covlim[iexp][iset], vmax=covlim[iexp][iset]))
+        fig.colorbar(mat, label = "% of central theory")
+        plt.title("{0} {1} experiment covariance matrix".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_exp_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+
+     #   fig = plt.figure()
+     #   ax1 = fig.add_subplot(111)
+     #   mat = ax1.matshow(s, cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=0.1, linscale=10, vmin=-s.max(), vmax=s.max()))
+     #   fig.colorbar(mat, label = "Absolute value")
+     #   plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+     #   plt.savefig("plots/covplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow((s+sigma[iexp][iset])/sigma[iexp][iset], cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
+        matrix = (s+sigma[iexp][iset])/sigma[iexp][iset]
+        mat = ax1.matshow(matrix, cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=impactthresh[iexp][iset], linscale=10, vmin=-impactlim[iexp][iset], vmax=impactlim[iexp][iset]))
         fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} impact".format(exp[iexp], expset[iexp][iset]))
         plt.savefig("plots/covplot_impact_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
 
         
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
-        mat = ax1.matshow(corrmat_th, cmap=cm.Spectral_r, vmin=lowlim, vmax=uplim)
-        fig.colorbar(mat, label = "Absolute value")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/corrplot_{0}{1}_Rosalyn".format(exp[iexp], expset[iexp][iset]))
+        mat = ax1.matshow(corrmat_th, cmap=cm.Spectral_r, vmin=-1, vmax=1)
+        fig.colorbar(mat)
+        plt.title("{0} {1} theory correlation matrix".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/corrplot_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         # sqrt(diagonal)/data comparison
 
         fig = plt.figure()
         plt.plot(np.sqrt(np.diag(sigma[iexp][iset]))/data,'.', label="Experiment", color="orange")
         plt.plot(np.sqrt(np.diag(s))/data,'.', label="Theory", color="darkorchid")
+        plt.plot(np.sqrt(np.diag(s+sigma[iexp][iset]))/data,'.', label="Experiment + Theory", color="teal")
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
         plt.ylabel(r"$\frac{\sqrt{cov_{ii}}}{T_i}$", fontsize=15)
+        plt.ylim(0,1)
         plt.legend()
         plt.tight_layout()
         plt.savefig("plots/plot1_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
-        fig = plt.figure()
-        plt.plot(np.sqrt(np.diag(sigma[iexp][iset])),'.', label="Experiment", color="orange")
-        plt.plot(np.sqrt(np.diag(s)),'.', label="Theory", color="darkorchid")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.xlabel("Data point")
-        plt.ylabel(r"$\sqrt{cov_{ii}}$", fontsize=15)
-        plt.legend()
-        plt.tight_layout()
-        plt.savefig("plots/plot3_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+      #  fig = plt.figure()
+       # plt.plot(np.sqrt(np.diag(sigma[iexp][iset])),'.', label="Experiment", color="orange")
+      #  plt.plot(np.sqrt(np.diag(s)),'.', label="Theory", color="darkorchid")
+      #  plt.plot(np.sqrt(np.diag(s+sigma[iexp][iset])),'.', label="Experiment + Theory", color="teal")
+      #  plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+      #  plt.xlabel("Data point")
+      #  plt.ylabel(r"$\sqrt{cov_{ii}}$", fontsize=15)
+      #  plt.legend()
+      #  plt.tight_layout()
+      #  plt.savefig("plots/plot3_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5)/data,'.', label="Experiment", color="orange")
@@ -124,18 +139,19 @@ for iexp in range(0,nexp):
         plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
         plt.ylabel(r"$\frac{1}{T_i}\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
+        plt.ylim(0,0.5)
         plt.legend()
         plt.tight_layout()
         plt.savefig("plots/plot2_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
-        fig = plt.figure()
-        plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5),'.', label="Experiment", color="orange")
-        plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5),'.', label="Experiment + Theory", color="mediumseagreen")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
-        plt.xlabel("Data point")
-        plt.ylabel(r"$\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
-        plt.legend()
-        plt.tight_layout()
-        plt.savefig("plots/plot4_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+     #   fig = plt.figure()
+     #   plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5),'.', label="Experiment", color="orange")
+     #   plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5),'.', label="Experiment + Theory", color="mediumseagreen")
+     #   plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+     #   plt.xlabel("Data point")
+     #   plt.ylabel(r"$\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
+     #   plt.legend()
+     #   plt.tight_layout()
+     #   plt.savefig("plots/plot4_{0}{1}".format(exp[iexp], expset[iexp][iset]))
 
     
