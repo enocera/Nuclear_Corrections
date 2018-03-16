@@ -17,9 +17,9 @@ set term post enh col 20 linewidth 1 'Helvetica,20' size 20,10
 set key at 46,3.4 font 'Helvetica,28' spacing 1.5
 set label "NuTev (antineutrinos)" at 1,3.3 font 'Helvetica,24' 
 
-plot infile2 u ($2-0.2):1 w p pt 5 ps 0.5 lc rgb "blue" t "DSSZ12",\
-     infile1 u 2:1 w p pt 5 ps 0.5 lc rgb "red" t "EPPS16",\
-     infile3 u ($2+0.2):1 w p pt 5 ps 0.5 lc rgb "#006400" t "nCTEQ15",\
+plot infile2 u ($2-0.2):1 w p lt 7 ps 0.9 lc rgb "blue" t "DSSZ12",\
+     infile1 u 2:1 w p lt 7 ps 0.9 lc rgb "red" t "EPPS16",\
+     infile3 u ($2+0.2):1 w p lt 7 ps 0.9 lc rgb "#006400" t "nCTEQ15",\
      1 w l lw 3 lt 7 lc rgb "black" notitle
 
 unset label
@@ -43,9 +43,9 @@ set term post enh col 20 linewidth 1 'Helvetica,20' size 20,10
 set key at 46,3.4 font 'Helvetica,28' spacing 1.5
 set label "NuTev (neutrinos)" at 1,3.3 font 'Helvetica,24' 
 
-plot infile2 u ($2-0.2):1 w p pt 5 ps 0.5 lc rgb "blue" t "DSSZ12",\
-     infile1 u 2:1 w p pt 5 ps 0.5 lc rgb "red" t "EPPS16",\
-     infile3 u ($2+0.2):1 w p pt 5 ps 0.5 lc rgb "#006400" t "nCTEQ15",\
+plot infile2 u ($2-0.2):1 w p lt 7 ps 0.9 lc rgb "blue" t "DSSZ12",\
+     infile1 u 2:1 w p lt 7 ps 0.9 lc rgb "red" t "EPPS16",\
+     infile3 u ($2+0.2):1 w p lt 7 ps 0.9 lc rgb "#006400" t "nCTEQ15",\
      1 w l lw 3 lt 7 lc rgb "black" notitle
 
 unset label
@@ -69,9 +69,9 @@ set term post enh col 20 linewidth 1 'Helvetica,20' size 20,10
 set key at 620,3.4 font 'Helvetica,28' spacing 1.5
 set label "CHORUS (antineutrinos)" at 5,3.3 font 'Helvetica,24' 
 
-plot infile2 u 2:1 w p pt 5 ps 0.5 lc rgb "blue" t "DSSZ12",\
-     infile1 u ($2-0.2):1 w p pt 5 ps 0.5 lc rgb "red" t "EPPS16",\
-     infile3 u ($2+0.2):1 w p pt 5 ps 0.5 lc rgb "#006400" t "nCTEQ15",\
+plot infile2 u 2:1 w p lt 7 ps 0.9 lc rgb "blue" t "DSSZ12",\
+     infile1 u ($2-0.2):1 w p lt 7 ps 0.9 lc rgb "red" t "EPPS16",\
+     infile3 u ($2+0.2):1 w p lt 7 ps 0.9 lc rgb "#006400" t "nCTEQ15",\
      1 w l lw 3 lt 7 lc rgb "black" notitle
 
 unset label
@@ -95,9 +95,9 @@ set term post enh col 20 linewidth 1 'Helvetica,20' size 20,10
 set key at 620,3.4 font 'Helvetica,28' spacing 1.5
 set label "CHORUS (neutrinos)" at 5,3.3 font 'Helvetica,24' 
 
-plot infile2 u 2:1 w p pt 5 ps 0.5 lc rgb "blue" t "DSSZ12",\
-     infile1 u ($2-0.2):1 w p pt 5 ps 0.5 lc rgb "red" t "EPPS16",\
-     infile3 u ($2+0.2):1 w p pt 5 ps 0.5 lc rgb "#006400" t "nCTEQ15",\
+plot infile2 u 2:1 w p lt 7 ps 0.9 lc rgb "blue" t "DSSZ12",\
+     infile1 u ($2-0.2):1 w p lt 7 ps 0.9 lc rgb "red" t "EPPS16",\
+     infile3 u ($2+0.2):1 w p lt 7 ps 0.9 lc rgb "#006400" t "nCTEQ15",\
      1 w l lw 3 lt 7 lc rgb "black" notitle
 
 unset label
