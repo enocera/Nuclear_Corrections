@@ -22,13 +22,11 @@ expset   = [["NU", "NB"], ["NUDMN", "NBDMN"]]
 if nuclearpdf == "iron":
 
     nuclearpdfs = ["DSSZ_NLO_Fe56_MC",
-                   "EPPS16nlo_CT14nlo_Fe56_MC",
                    "nCTEQ15_56_26_MC"]
 
 elif nuclearpdf == "lead":
 
     nuclearpdfs = ["DSSZ_NLO_Pb208_MC",
-                   "EPPS16nlo_CT14nlo_Pb208_MC",
                    "nCTEQ15_208_82_MC"]
 
 pdfs     = [protonpdf] + nuclearpdfs
@@ -42,11 +40,12 @@ maxrep    = 301
 nrep      = np.zeros(npdf,dtype=int)
 npt       = np.zeros((nexp,nset),dtype=int)
 thobs     = np.zeros((npdf,maxrep,maxpoint,nexp,nset))
+data      = np.zeros((maxpoint,nexp,nset))
 
 F_p       = np.zeros((maxpoint,nexp,nset))
 
 # Setting nrep manually 
-nrep = [101,301,301,301] 
+nrep = [101,301,301]
 
 # Read data
 for iexp in range(0,nexp):
@@ -134,7 +133,6 @@ for iexp in range(0,nexp):
 
                 spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset]))
 
-
 #   6.  Save and plot covariance matrices
 
 # Setting limits on plotting scale for % plot
@@ -154,11 +152,11 @@ for iexp in range(0,nexp):
         mat = ax1.matshow(np.abs(s[:int(npt[iexp,iset]),
                                       :int(npt[iexp,iset]), iexp,iset]))
         fig.colorbar(mat, label = "Absolute value")
-        plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
-        plt.savefig("res/pyres/covmat_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.title("{0} {1} {2} NO EPPS".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.savefig("res/pyres/covmat_{0}{1}_{2}_NOEPPS".format(exp[iexp], expset[iexp][iset], nuclearpdf))
 
-        np.savetxt('res/pyres/pCOV_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:int(npt[iexp,iset]+1), 1:int(npt[iexp,iset]+1), iexp, iset])
-        np.savetxt('res/pyres/pCOV_full_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:,1:, iexp, iset])
+        np.savetxt('res/pyres/pCOV_{0}{1}_{2}_NOEPPS.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:int(npt[iexp,iset]+1), 1:int(npt[iexp,iset]+1), iexp, iset])
+        np.savetxt('res/pyres/pCOV_full_{0}{1}_{2}_NOEPPS.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),s[1:,1:, iexp, iset])
 
         np.savetxt('res/pyres/cent_th_{0}{1}.res'.format(exp[iexp],expset[iexp][iset]),thobs[0,0,:npt[iexp][iset]+1,iexp,iset])
 
@@ -167,7 +165,7 @@ for iexp in range(0,nexp):
         mat = ax1.matshow(np.abs(spct[:int(npt[iexp,iset]),
                                       :int(npt[iexp,iset]), iexp,iset]), vmin=0, vmax=plotlims[iexp][iset])
         fig.colorbar(mat, label = "% of theory")
-        plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
-        plt.savefig("res/pyres/covmat_%_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.title("{0} {1} {2} NO EPPS".format(exp[iexp], expset[iexp][iset], nuclearpdf))
+        plt.savefig("res/pyres/covmat_%_{0}{1}_{2}_NOEPPS".format(exp[iexp], expset[iexp][iset], nuclearpdf))
 
-        np.savetxt('res/pyres/pCOV_%_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),spct[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
+        np.savetxt('res/pyres/pCOV_%_{0}{1}_{2}_NOEPPS.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),spct[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])

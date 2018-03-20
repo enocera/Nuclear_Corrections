@@ -48,20 +48,23 @@ for iexp in range(0,nexp):
 
         # Load theoretical covariance matrix (and extracting data from this)
 
-        s      = np.loadtxt("res/pyres/pCOV_{0}{1}_{2}.res".format(exp[iexp],
+        s      = np.loadtxt("res/pyres/pCOV_{0}{1}_{2}_NOEPPS.res".format(exp[iexp],
                                                       expset[iexp][iset], element[iexp]))
 
-        spct   = np.loadtxt("res/pyres/pCOV_%_{0}{1}_{2}.res".format(exp[iexp],
+        spct   = np.loadtxt("res/pyres/pCOV_%_{0}{1}_{2}_NOEPPS.res".format(exp[iexp],
                                                       expset[iexp][iset], element[iexp]))
 
         cent_th = np.loadtxt('res/pyres/cent_th_{0}{1}.res'.format(exp[iexp],expset[iexp][iset]))
         cent_th = cent_th[1:]
 
-
         diag_minus_half = (np.diagonal(s))**(-0.5)
         corrmat_th      = np.nan_to_num( diag_minus_half*s*diag_minus_half[:,np.newaxis])
         
         # Calculate theory central value
+        
+        norms  = 100*s/spct
+
+        data   = np.nan_to_num(np.sqrt(np.diag(norms))) 
         
         #  matrix plots
  #       uplim    = plotlims[iexp][iset]
@@ -74,45 +77,45 @@ for iexp in range(0,nexp):
         ax1 = fig.add_subplot(111)
         mat = ax1.matshow(100*s/np.outer(cent_th,cent_th), cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=covthresh[iexp][iset], linscale=10, vmin=-covlim[iexp][iset], vmax=covlim[iexp][iset]))
         fig.colorbar(mat, label = "% of central theory")
-        plt.title("{0} {1} theory covariance matrix".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_pc_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} theory covariance matrix NO EPPS".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_pc_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
         mat = ax1.matshow(100*sigma[iexp][iset]/np.outer(cent_th,cent_th), cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=covthresh[iexp][iset], linscale=10, vmin=-covlim[iexp][iset], vmax=covlim[iexp][iset]))
         fig.colorbar(mat, label = "% of central theory")
-        plt.title("{0} {1} experiment covariance matrix".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_exp_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} experiment covariance matrix NO EPPS".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_exp_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
         mat = ax1.matshow(sigma[iexp][iset], cmap=cm.Spectral_r, vmin=-sigma[iexp][iset].max(), vmax=sigma[iexp][iset].max())
         fig.colorbar(mat, label = "Absolute value")
-        plt.title("{0} {1} experiment covariance matrix".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_exp_abs_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} experiment covariance matrix NO EPPS".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_exp_abs_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
         mat = ax1.matshow(s,cmap=cm.Spectral_r, vmin=-s.max(), vmax=s.max())
         fig.colorbar(mat, label = "Absolute value")
-        plt.title("{0} {1} theory covariance matrix".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} theory covariance matrix NO EPPS".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
         matrix = (s+sigma[iexp][iset])/sigma[iexp][iset]
         mat = ax1.matshow(matrix, cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=impactthresh[iexp][iset], linscale=10, vmin=-impactlim[iexp][iset], vmax=impactlim[iexp][iset]))
         fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
-        plt.title("{0} {1} impact".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/covplot_impact_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} impact NO EPPS".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/covplot_impact_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
         mat = ax1.matshow(corrmat_th, cmap=cm.Spectral_r, vmin=-1, vmax=1)
         fig.colorbar(mat)
-        plt.title("{0} {1} theory correlation matrix".format(exp[iexp], expset[iexp][iset]))
-        plt.savefig("plots/corrplot_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} theory correlation matrix NO EPPS".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/corrplot_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         # sqrt(diagonal)/data comparison
 
@@ -120,45 +123,45 @@ for iexp in range(0,nexp):
         plt.plot(np.sqrt(np.diag(sigma[iexp][iset]))/cent_th,'.', label="Experiment", color="orange")
         plt.plot(np.sqrt(np.diag(s))/cent_th,'.', label="Theory", color="darkorchid")
         plt.plot(np.sqrt(np.diag(s+sigma[iexp][iset]))/cent_th,'.', label="Experiment + Theory", color="teal")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} NO EPPS".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
         plt.ylabel(r"$\frac{\sqrt{cov_{ii}}}{T_i}$", fontsize=15)
         plt.ylim(0,1)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot1_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot1_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot(np.sqrt(np.diag(sigma[iexp][iset])),'.', label="Experiment", color="orange")
         plt.plot(np.sqrt(np.diag(s)),'.', label="Theory", color="darkorchid")
         plt.plot(np.sqrt(np.diag(s+sigma[iexp][iset])),'.', label="Experiment + Theory", color="teal")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} NO EPPS".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
         plt.ylabel(r"$\sqrt{cov_{ii}}$", fontsize=15)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot3_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot3_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5)/cent_th,'.', label="Experiment", color="orange")
         plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5)/cent_th,'.', label="Experiment + Theory", color="mediumseagreen")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} NO EPPS".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
         plt.ylabel(r"$\frac{1}{T_i}\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
         plt.ylim(0,0.5)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot2_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot2_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot((np.diag(la.inv(sigma[iexp][iset])))**(-0.5),'.', label="Experiment", color="orange")
         plt.plot((np.diag(la.inv(s + sigma[iexp][iset])))**(-0.5),'.', label="Experiment + Theory", color="mediumseagreen")
-        plt.title("{0} {1}".format(exp[iexp], expset[iexp][iset]))
+        plt.title("{0} {1} NO EPPS".format(exp[iexp], expset[iexp][iset]))
         plt.xlabel("Data point")
         plt.ylabel(r"$\frac{1}{\sqrt{cov^{-1}}_{ii}}$", fontsize=15)
         plt.legend()
         plt.tight_layout()
-        plt.savefig("plots/plot4_{0}{1}".format(exp[iexp], expset[iexp][iset]))
+        plt.savefig("plots/plot4_{0}{1}_NOEPPS".format(exp[iexp], expset[iexp][iset]))
 
         fig = plt.figure()
         plt.plot(cent_th,'.')
@@ -168,6 +171,3 @@ for iexp in range(0,nexp):
         plt.ylabel("Observable", fontsize=15)
         plt.tight_layout()
         plt.savefig("plots/observable_{0}{1}".format(exp[iexp], expset[iexp][iset]))
-
-
-        
