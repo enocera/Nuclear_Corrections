@@ -88,7 +88,7 @@ for iexp in range(0,nexp):
         for ipt in range(1,npt[iexp][iset]+1):
 
             F_p[ipt,iexp,iset] = (1/(float(nrep[0])-1))*np.sum(thobs[0,1:,ipt,iexp,iset])
-
+            
 # Calculate theory covariance matrix
 #   1.  Combine nuclear PDF sets
 
@@ -118,8 +118,8 @@ for iexp in range(0,nexp):
             for j in range(1,npt[iexp,iset]+1):
 
                 s[i,j,iexp,iset] = (1/float(nrepnuc))*np.sum(
-                                     (thobs_nuc[1:,i,iexp,iset] - F_p[i,iexp,iset])*(
-                                      thobs_nuc[1:,j,iexp,iset] - F_p[j,iexp,iset]))
+                                     (thobs_nuc[0:,i,iexp,iset] - F_p[i,iexp,iset])*(
+                                      thobs_nuc[0:,j,iexp,iset] - F_p[j,iexp,iset]))
 
 
 #   4.  Normalise to central theory as percentage

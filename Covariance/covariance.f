@@ -22,6 +22,7 @@
 
       double precision x(mxpt,nexp,nset), Q2(mxpt,nexp,nset) 
       double precision thobs(nwrap,mxrep,nexp,nset,mxpt)
+      double precision thexp(nwrap,mxrep,nexp,nset,mxpt)
       double precision mean_p(nexp,nset,mxpt)
       double precision sigma(mxpt,mxpt,nexp,nset)
 
@@ -109,7 +110,8 @@
 
                      read(10,*) idum, x(ipt,iexp,iset),
      1                    Q2(ipt,iexp,iset),
-     1                    thobs(iwrap,irep,iexp,iset,ipt)
+     1                    thobs(iwrap,irep,iexp,iset,ipt),
+     1                    thexp(iwrap,irep,iexp,iset,ipt)
 
                   enddo
                  
@@ -138,7 +140,7 @@
      1                 = mean_p(iexp,iset,ipt) 
      1                 + thobs(4,irep,iexp,iset,ipt)/nrep(4)
 
-               enddo
+               enddo 
 
             enddo
 
