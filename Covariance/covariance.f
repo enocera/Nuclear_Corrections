@@ -14,7 +14,7 @@
       integer iset, nset
       parameter(nset=2)
       integer irep, nrep(nwrap), repdum, mxrep
-      parameter(mxrep=250)
+      parameter(mxrep=301)
       integer ipt, npt(nexp,nset), mxpt
       parameter(mxpt=1000)
       integer idum
