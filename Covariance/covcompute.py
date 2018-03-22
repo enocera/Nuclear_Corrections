@@ -63,10 +63,10 @@ for iexp in range(0,nexp):
              lines = contents.split('\n')
              print(lines[0])
              tabs  = [line.split() for line in lines] 
-         #    tabs  = [line.split('\t') for line in lines] -- to read Rosalyn's files
-
-#             nrep[ipdf]     = int(tabs[0][2])
-#             print("Number of replicas for pdf " + str(pdfs[ipdf]) + ": " + str(nrep[ipdf])) <-- have set replica number manually above
+             # tabs  = [line.split('\t') for line in lines] -- to read Rosalyn's files
+             
+             # nrep[ipdf]     = int(tabs[0][2])
+             # print("Number of replicas for pdf " + str(pdfs[ipdf]) + ": " + str(nrep[ipdf])) <-- have set replica number manually above
 
              npt[iexp,iset] = int(tabs[0][1]) 
              print("Number of data points: " + str(npt[iexp,iset]))
@@ -132,8 +132,8 @@ for iexp in range(0,nexp):
         for i in range(1,npt[iexp,iset]+1):
             for j in range(1,npt[iexp,iset]+1):
 
-                spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset]))
-
+                #spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(thobs[0,0,i,iexp,iset]*thobs[0,0,j,iexp,iset]))
+                spct[i,j,iexp,iset] = np.nan_to_num((100*s[i,j,iexp,iset])/(F_p[i,iexp,iset]*F_p[j,iexp,iset]))
 
 #   6.  Save and plot covariance matrices
 
