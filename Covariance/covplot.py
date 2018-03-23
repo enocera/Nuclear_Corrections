@@ -70,6 +70,9 @@ for iexp in range(0,nexp):
  #       else:
  #           lowlim = None
 
+        np.savetxt('res/pyres/cov_exp_th_tot_{0}{1}.res'.format(exp[iexp], expset[iexp][iset]),(s + sigma[iexp][iset]))
+
+
         fig = plt.figure()
         ax1 = fig.add_subplot(111)
         mat = ax1.matshow(100*s/np.outer(cent_th,cent_th), cmap=cm.Spectral_r, norm=mcolors.SymLogNorm(linthresh=covthresh[iexp][iset], linscale=10, vmin=-covlim[iexp][iset], vmax=covlim[iexp][iset]))
