@@ -1,35 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #!/usr/bin/python
 
 import numpy as np
@@ -77,7 +45,7 @@ sigmacomb[1] = sigma_tot[2*npt[0]:2*(npt[0]+npt[1]) , 2*npt[0]:2*(npt[0]+npt[1])
 
        
 impactthresh       = [10,10]
-covthresh          = [1,1]
+covthresh          = [1,0.1]
 impactlim          = [10000,10000]
 covlim             = [1000,1000]
 

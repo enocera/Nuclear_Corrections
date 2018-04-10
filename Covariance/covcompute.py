@@ -170,4 +170,4 @@ for iexp in range(0,nexp):
         plt.title("{0} {1} {2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
         plt.savefig("res/pyres/covmat_%_{0}{1}_{2}".format(exp[iexp], expset[iexp][iset], nuclearpdf))
 
-        np.savetxt('res/pyres/pCOV_%_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),spct[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
+np.savetxt('res/pyres/pCOV_%_{0}{1}_{2}.res'.format(exp[iexp],expset[iexp][iset],nuclearpdf),spct[:int(npt[iexp,iset]), :int(npt[iexp,iset]), iexp, iset])
