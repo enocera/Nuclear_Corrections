@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = covariance splot check
+MAIN = covariance splot check nuisance
 
 ############################## do not change #############################
 
