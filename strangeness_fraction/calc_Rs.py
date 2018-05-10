@@ -42,7 +42,7 @@ for pid in [-1,-2,3,-3]:
 s           = p.xfxQ(3,  x, Q)
 sbar        = p.xfxQ(-3, x, Q)
 ubar        = p.xfxQ(-2, x, Q)
-dbar        = p.xfxQ(2,  x, Q)
+dbar        = p.xfxQ(-1,  x, Q)
 
 Rs          = (s + sbar)/(ubar + dbar)
 
@@ -55,7 +55,7 @@ delRs       = sqrt( (1/(ubar+dbar))*(
 print("***********************************************************")
 print("PDF set {0}   ".format(pdfset))
 print("x = {0}, Q = {1} GeV".format(x,round(Q,3)))
-print("Rs:  ".format(pdfset) + str(round(Rs,2)) + " +/- " + str(round(delRs,3)))
+print("Rs:  ".format(pdfset) + str(round(Rs,4)) + " +/- " + str(round(delRs,4)))
 print("***********************************************************")
 
 
