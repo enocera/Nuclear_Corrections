@@ -46,9 +46,9 @@ dbar        = p.xfxQ(-1,  x, Q)
 
 Rs          = (s + sbar)/(ubar + dbar)
 
-delRs       = sqrt( (1/(ubar+dbar))*(
+delRs       = sqrt( (1/(ubar+dbar)**2)*(
                      (errordict["f_3"])**2 + (errordict["f_-3"])**2
-              +  (1/(ubar+dbar))*(
+              +  (1/(ubar+dbar)**2)*(
                      (errordict["f_-1"])**2 + (errordict["f_-2"])**2)))
 
 
