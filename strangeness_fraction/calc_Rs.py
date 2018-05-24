@@ -45,10 +45,10 @@ R_err         = np.sqrt(np.mean(np.square(R[1:])) - np.square(np.mean(R[1:])))
 
 # 68%CL errors:
 R_sorted_68   = np.sort(R[1:])[16:84]
-R_err2        = np.ptp(R_sorted_68)
+R_err2        = 0.5*np.ptp(R_sorted_68)
 
 # Computing mid-point of 68%CL interval
-R_mid         = 0.5*(R_sorted_68[67]-R_sorted_68[0]) + R_sorted_68[0]
+R_mid         = 0.5*(R_sorted_68[67]+R_sorted_68[0]) 
 
 # Calculating MC PDF errors
 for pid in [-1,-2,3,-3]:
@@ -69,18 +69,20 @@ for k in range (0,N):
 K_cent        = K[0]
 K_err         = np.sqrt(np.mean(np.square(K[1:])) - np.square(np.mean(K[1:])))
 K_sorted_68   = np.sort(K[1:])[16:84]
-K_err2        = np.ptp(K_sorted_68)
+K_err2        = 0.5*np.ptp(K_sorted_68)
 
-K_mid         = 0.5*(K_sorted_68[67]-K_sorted_68[0]) + K_sorted_68[0]
+K_mid         = 0.5*(K_sorted_68[67]+K_sorted_68[0])
 #embed()
 
 print("***********************************************************")
 print("PDF set {0}   ".format(pdfset))
 print("x = {0}, Q = {1} GeV".format(x,round(Q,3)))
 print("R_s:  " + str(round(R_cent, 4)) + " +/- " + 
-      "1 sigma: " + str(round(R_err,4)) + "  68%CL: " + str(round(R_err2,4)))
-print("R_midpoint:  " + str(round(R_mid, 4)))
-print("K_s:  " + str(round(K_cent, 4)) + " +/- "  + 
-      "1 sigma: " + str(round(K_err,4)) + "  68%CL: " + str(round(K_err2,4)))
-print("K_midpoint:  " + str(round(K_mid, 4)))
+       str(round(R_err,4)) + "   (1 sigma)")
+print("R_s:  " + str(round(R_mid,4)) + " +/- " +
+       str(round(R_err2,4)) + "    (68%CL)")
+print("K_s:  " + str(round(K_cent, 4)) + " +/- " + 
+       str(round(K_err,4)) + "   (1 sigma)")
+print("K_s:  " + str(round(K_mid,4)) + " +/- " +
+       str(round(K_err2,4)) + "    (68%CL)")
 print("***********************************************************")
