@@ -67,9 +67,11 @@ for pid in [-1,-2,3,-3]:
 K = np.zeros(N)
 for k in range (0,N):
     numerator    = integrate.quad(lambda t: (pdfs[k].xfxQ(3, t, Q) +
-                                             p.xfxQ(-3, t, Q)), 10**(-5), 1)
+                                             pdfs[k].xfxQ(-3, t, Q)), 
+                                10**(-5), 1, limit=1000)
     denominator  = integrate.quad(lambda t: (pdfs[k].xfxQ(-1, t, Q) + 
-                                             p.xfxQ(-2, t, Q)), 10**(-5), 1)
+                                             pdfs[k].xfxQ(-2, t, Q)),
+                                10**(-5), 1, limit=1000)
 
     K[k] = numerator[0]/denominator[0]
 
