@@ -31,6 +31,10 @@ errordict     = {"f_3":None,
 
 R = np.zeros(N)
 
+##############################
+# Calculating R_s and errors #
+##############################
+
 # Loop over flavours and members to fill matrices with values
 # (ignoring 0th replica) 
 for k in range(0,N):
@@ -56,7 +60,10 @@ for pid in [-1,-2,3,-3]:
         np.mean(np.square(dict["f_{0}".format(pid)]),axis=0)
         - np.square(np.mean(dict["f_{0}".format(pid)],axis=0)))
 
-# Calculating Ks and error
+##########################
+# Doing the same for K_s #
+##########################
+
 K = np.zeros(N)
 for k in range (0,N):
     numerator    = integrate.quad(lambda t: (pdfs[k].xfxQ(3, t, Q) +
@@ -73,6 +80,10 @@ K_err2        = 0.5*np.ptp(K_sorted_68)
 
 K_mid         = 0.5*(K_sorted_68[67]+K_sorted_68[0])
 #embed()
+
+####################
+# Printing results #
+####################
 
 print("***********************************************************")
 print("PDF set {0}   ".format(pdfset))
