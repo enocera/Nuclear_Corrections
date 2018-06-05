@@ -21,8 +21,8 @@ namedict = {"NNPDF31_nnlo_as_0118_NUTEV_DBG":"NuTeV updated BRs",
 dict      = {}
 errordict = {}
 for pdfset in pdfsets:
-    dict["dict_{0}.format{pdfset}"]      = {}
-    errordict["dict_{0}.format{pdfset}"] = {}
+    dict["dict_{0}".format(pdfset)]      = {}
+    errordict["dict_{0}".format(pdfset)] = {}
 
 Q_values = [sqrt(1.9), 91.2] # Q (GeV)
 
@@ -39,13 +39,13 @@ for Q in Q_values:
         N           = len(pdfs)
 
         # Adding PDF arrays to dictionary
-        dict["dict_{0}.format{pdfset}"]   = {"f_3":np.zeros((N, len(x_values))),
+        dict["dict_{0}".format(pdfset)]   = {"f_3":np.zeros((N, len(x_values))),
                                              "f_-1":np.zeros((N, len(x_values))), 
                                              "f_-2":np.zeros((N, len(x_values))), 
                                              "f_-3":np.zeros((N, len(x_values))),
                                              "R":np.zeros(len(x_values))}
 
-        errordict["dict_{0}.format{pdfset}"]   = {"f_3":np.zeros(len(x_values)),
+        errordict["dict_{0}".format(pdfset)]   = {"f_3":np.zeros(len(x_values)),
                                              "f_-1":np.zeros(len(x_values)), 
                                              "f_-2":np.zeros(len(x_values)), 
                                              "f_-3":np.zeros(len(x_values)),
@@ -63,46 +63,45 @@ for Q in Q_values:
             # (ignoring 0th replica) 
             for k in range(0,N):
                 for pid in [-1,-2,3,-3]:
-                     dict["dict_{0}.format{pdfset}"]["f_{0}".format(pid)][k] = pdfs[k].xfxQ(pid, x, Q)
-                     R[k] = (dict["dict_{0}.format{pdfset}"]["f_3"][k] +
-                               dict["dict_{0}.format{pdfset}"]["f_-3"][k])/(
-                               dict["dict_{0}.format{pdfset}"]["f_-2"][k] +
-                               dict["dict_{0}.format{pdfset}"]["f_-1"][k])
+                     dict["dict_{0}".format(pdfset)]["f_{0}".format(pid)][k] = pdfs[k].xfxQ(pid, x, Q)
+                R[k] = (dict["dict_{0}".format(pdfset)]["f_3"][k] +
+                        dict["dict_{0}".format(pdfset)]["f_-3"][k])/(
+                        dict["dict_{0}".format(pdfset)]["f_-2"][k] +
+                        dict["dict_{0}".format(pdfset)]["f_-1"][k])
 
             # 68%CL errors:
             R_sorted_68   = np.sort(R[1:])[16:84]
-            errordict["dict_{0}.format{pdfset}"]["Rerr"][x_index] = 0.5*np.ptp(R_sorted_68[:,x_index])
+            errordict["dict_{0}".format(pdfset)]["Rerr"][x_index] = 0.5*np.ptp(R_sorted_68[:,x_index])
 
             # Computing mid-point of 68%CL interval
-            dict["dict_{0}.format{pdfset}"]["R"][x_index]  = 0.5*(R_sorted_68[67,x_index]
+            dict["dict_{0}".format(pdfset)]["R"][x_index]  = 0.5*(R_sorted_68[67,x_index]
                                                                   +R_sorted_68[0,x_index]) 
 
     ##########################################
     # Plotting Rs against x for each Q value #
     ##########################################
-
     fig = plt.figure()
     for pdfset in pdfsets:
         
         dict["ax_{0}".format(pdfset)] = fig.add_subplot(111)
         dict["ax_{0}".format(pdfset)].set_xscale('log')
         dict["ax_{0}".format(pdfset)].plot(x_values,
-                                      dict["dict_{0}.format{pdfset}"]["R"], 
+                                      dict["dict_{0}".format(pdfset)]["R"], 
                                            label=namedict[pdfset])
         dict["ax_{0}".format(pdfset)].fill_between(x_values,
-                                    dict["dict_{0}.format{pdfset}"]["R"]
-                                + np.absolute(errordict["dict_{0}.format{pdfset}"]["Rerr"]),
-                                    dict["dict_{0}.format{pdfset}"]["R"]
-                                - np.absolute(errordict["dict_{0}.format{pdfset}"]["Rerr"]),
+                                    dict["dict_{0}".format(pdfset)]["R"]
+                                + np.absolute(errordict["dict_{0}".format(pdfset)]["Rerr"]),
+                                    dict["dict_{0}".format(pdfset)]["R"]
+                                - np.absolute(errordict["dict_{0}".format(pdfset)]["Rerr"]),
                                                    alpha=0.5)
         plt.legend()
-        plt.title("{0}".format(Q))
+        plt.title("Q = {0} GeV".format(round(Q,2)))
         plt.xlabel("x")
         plt.ylabel("$R_s$")
         plt.ylim(0.1, 1.7)
         plt.xlim(1e-4,1)
-    qstring = str(Q)
+    qstring = str(round(Q,2))
     qstring = qstring.replace(".","p")
-    plt.savefig('./plots/q_{}.png'.format(qstring))
+    plt.savefig('./plots/q_{0}.png'.format(qstring))
 
 
