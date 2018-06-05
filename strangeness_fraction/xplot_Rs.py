@@ -16,7 +16,7 @@ pdfsets = ["NNPDF31_nnlo_as_0118",
 # Dictionary to label fit names
 namedict = {"NNPDF31_nnlo_as_0118_NUTEV_DBG":"NuTeV updated BRs",
             "NNPDF31_nnlo_GLOBAL_nucl_corr": "Nuclear corrections", 
-            "NNPDF31_nnlo_as_0118":"NNPDF3.1 Baseline"}
+            "NNPDF31_nnlo_as_0118":"NNPDF3.1 baseline"}
 # Creating sub-dictionaries 
 dict      = {}
 errordict = {}
@@ -74,7 +74,8 @@ for Q in Q_values:
             errordict["dict_{0}.format{pdfset}"]["Rerr"][x_index] = 0.5*np.ptp(R_sorted_68[:,x_index])
 
             # Computing mid-point of 68%CL interval
-            dict["dict_{0}.format{pdfset}"]["R"][x_index]  = 0.5*(R_sorted_68[67,x_index]+R_sorted_68[0,x_index]) 
+            dict["dict_{0}.format{pdfset}"]["R"][x_index]  = 0.5*(R_sorted_68[67,x_index]
+                                                                  +R_sorted_68[0,x_index]) 
 
     ##########################################
     # Plotting Rs against x for each Q value #
