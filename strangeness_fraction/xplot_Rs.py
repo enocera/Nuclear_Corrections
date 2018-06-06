@@ -63,19 +63,19 @@ for Q in Q_values:
             # (ignoring 0th replica) 
             for k in range(0,N):
                 for pid in [-1,-2,3,-3]:
-                     dict["dict_{0}".format(pdfset)]["f_{0}".format(pid)][k] = pdfs[k].xfxQ(pid, x, Q)
-                R[k] = (dict["dict_{0}".format(pdfset)]["f_3"][k] +
-                        dict["dict_{0}".format(pdfset)]["f_-3"][k])/(
-                        dict["dict_{0}".format(pdfset)]["f_-2"][k] +
-                        dict["dict_{0}".format(pdfset)]["f_-1"][k])
+                     dict["dict_{0}".format(pdfset)]["f_{0}".format(pid)][k,x_index] = pdfs[k].xfxQ(pid, x, Q)
+                R[k, x_index] = (dict["dict_{0}".format(pdfset)]["f_3"][k,x_index] +
+                                 dict["dict_{0}".format(pdfset)]["f_-3"][k,x_index])/(
+                                    dict["dict_{0}".format(pdfset)]["f_-2"][k,x_index] +
+                                    dict["dict_{0}".format(pdfset)]["f_-1"][k,x_index])
 
             # 68%CL errors:
-            R_sorted_68   = np.sort(R[1:])[16:84]
-            errordict["dict_{0}".format(pdfset)]["Rerr"][x_index] = 0.5*np.ptp(R_sorted_68[:,x_index])
+            R_sorted_68   = np.sort(R[1:,x_index])[16:84]
+            errordict["dict_{0}".format(pdfset)]["Rerr"][x_index] = 0.5*np.ptp(R_sorted_68[:])
 
             # Computing mid-point of 68%CL interval
-            dict["dict_{0}".format(pdfset)]["R"][x_index]  = 0.5*(R_sorted_68[67,x_index]
-                                                                  +R_sorted_68[0,x_index]) 
+            dict["dict_{0}".format(pdfset)]["R"][x_index]  = 0.5*(R_sorted_68[67]
+                                                                  + R_sorted_68[0])  
 
     ##########################################
     # Plotting Rs against x for each Q value #
@@ -103,5 +103,6 @@ for Q in Q_values:
     qstring = str(round(Q,2))
     qstring = qstring.replace(".","p")
     plt.savefig('./plots/q_{0}.png'.format(qstring))
+
 
 
