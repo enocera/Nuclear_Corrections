@@ -129,8 +129,10 @@ for Q in Q_values:
             dict["ax_{0}".format(pdfset)] = fig.add_subplot(111)
             # Calculating ratio and error
             r    = dict["dict_{0}".format(pdfset)]["R"]/dict["dict_NNPDF31_nnlo_as_0118"]["R"]
-            rerr = r*np.sqrt((errordict["dict_{0}".format(pdfset)]["Rerr"]/dict["dict_{0}".format(pdfset)]["R"])**2
-                             + (errordict["dict_NNPDF31_nnlo_as_0118"]["Rerr"]/dict["dict_NNPDF31_nnlo_as_0118"]["R"])**2)
+            rerr = r*np.sqrt((errordict["dict_{0}".format(pdfset)]["Rerr"]/
+                              dict["dict_{0}".format(pdfset)]["R"])**2
+                             + (errordict["dict_NNPDF31_nnlo_as_0118"]["Rerr"]/
+                                dict["dict_NNPDF31_nnlo_as_0118"]["R"])**2)
             if scale == "log":
                 dict["ax_{0}".format(pdfset)].set_xscale('log')
             dict["ax_{0}".format(pdfset)].plot(x_values, r, label=namedict[pdfset])
@@ -139,10 +141,10 @@ for Q in Q_values:
             plt.title("Ratio to NNPDF3.1, Q = {0} GeV".format(round(Q,2)))
             plt.xlabel("x")
             plt.ylabel("$R_s$")
-          #  if scale == "log":
-          #      plt.ylim(0.1, 1.7)
-           # else:
-           #     plt.ylim(-4, 6)
+            if scale == "log":
+                plt.ylim(0, 2.5)
+            else:
+                plt.ylim(-50, 50)
             plt.xlim(1e-4,1)
             qstring = str(round(Q,2))
             qstring = qstring.replace(".","p")
