@@ -18,15 +18,21 @@
 
       common / Anumber / A, Z
 
+      character*30 setname1, setname2, setname3
+
+      setname1="EPPS16nlo_CT14nlo_Fe56_bd"
+      setname2="EPPS16nlo_CT14nlo_Pb208_bd"
+      setname3="EPPS16nlo_CT14nlo_Cu64_bd"
+
       Qin   = -1d0   !GeV 
       irepb = -1
 
       write(*,*) "Insert the atomic number A",
-     1     "(iron=56; lead=208)"
+     1     "(iron=56; lead=208; copper=64)"
       read(5,*) A
 
       write(*,*) "Insert the atomic number Z",
-     1     "(iron=26; lead=82)"
+     1     "(iron=26; lead=82; copper=32)"
 
       read(5,*) Z
 
@@ -42,10 +48,13 @@
       
       if(A.eq.56d0.and.Z.eq.26d0)then
          call initpdfsetbyname("EPPS16nlo_CT14nlo_Fe56")
-         call LHAPDFgrid(96,Qin,"EPPS16nlo_CT14nlo_Fe56_bd")
+         call LHAPDFgrid(96,Qin,trim(setname1))
       elseif(A.eq.208d0.and.Z.eq.82d0)then
          call initpdfsetbyname("EPPS16nlo_CT14nlo_Pb208")
-         call LHAPDFgrid(96,Qin,"EPPS16nlo_CT14nlo_Pb208_bd")
+         call LHAPDFgrid(96,Qin,trim(setname2))
+      elseif(A.eq.64d0.and.Z.eq.32d0)then
+         call initpdfsetbyname("EPPS16nlo_CT14nlo_Cu64")
+         call LHAPDFgrid(96,Qin,trim(setname3))
       else
          call exit(-1)
       endif
