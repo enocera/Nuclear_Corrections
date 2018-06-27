@@ -1,7 +1,7 @@
 ********************************************************************************
 *                                                                              *
 *     This program generates the LHAPDF grids for each eigenvector of the      *
-*     DSSZ sets. Bound prootn nuclear PDFs are reconstructed from the ratio    *
+*     DSSZ sets. Bound proton nuclear PDFs are reconstructed from the ratio    *
 *     R according to Eqs.(6),(14) in arXiv:1112:6324. It is implicitly assumed *
 *     that the free proton PDF ucnertainty is already included in the ratio R  *
 *                                                                              *
@@ -32,7 +32,7 @@
       read(5,*) A
 
       write(*,*) "Insert the atomic number Z",
-     1     "(iron=26; lead=82; copper=32)"
+     1     "(iron=26; lead=82; copper=29)"
 
       read(5,*) Z
 
@@ -52,7 +52,7 @@
       elseif(A.eq.208d0.and.Z.eq.82d0)then
          call initpdfsetbyname("EPPS16nlo_CT14nlo_Pb208")
          call LHAPDFgrid(96,Qin,trim(setname2))
-      elseif(A.eq.64d0.and.Z.eq.32d0)then
+      elseif(A.eq.64d0.and.Z.eq.29d0)then
          call initpdfsetbyname("EPPS16nlo_CT14nlo_Cu64")
          call LHAPDFgrid(96,Qin,trim(setname3))
       else
