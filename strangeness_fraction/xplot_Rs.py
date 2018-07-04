@@ -10,13 +10,18 @@ from IPython import embed
 
 
 pdfsets = ["NNPDF31_nnlo_as_0118",
-           "NNPDF31_nnlo_as_0118_NUTEV_DBG", 
-           "NNPDF31_nnlo_GLOBAL_nucl_corr"]
+           "NNPDF31_nnlo_GLOBAL_nucl_corr",
+           "NNPDF31_nnlo_GLOBAL_nucl_unco"]#,
+        #   "NNPDF31_nnlo_GLOBAL_nucl_shift"]#,
+          # "NNPDF31_nnlo_nonucleardata"]
 
 # Dictionary to label fit names
 namedict = {"NNPDF31_nnlo_as_0118_NUTEV_DBG":"NuTeV updated BRs",
-            "NNPDF31_nnlo_GLOBAL_nucl_corr": "Nuclear corrections", 
-            "NNPDF31_nnlo_as_0118":"NNPDF3.1 baseline"}
+            "NNPDF31_nnlo_GLOBAL_nucl_corr": "Correlated", 
+            "NNPDF31_nnlo_as_0118":"NNPDF3.1 baseline",
+            "NNPDF31_nnlo_GLOBAL_nucl_unco": "Uncorrelated",
+            "NNPDF31_nnlo_GLOBAL_nucl_shift": "Correlated + shift",
+            "NNPDF31_nnlo_nonucleardata": "No nuclear data"}
 # Creating sub-dictionaries 
 dict      = {}
 errordict = {}
@@ -120,6 +125,33 @@ for Q in Q_values:
     else:
         plt.savefig('./plots/linear_q_{0}.png'.format(qstring))
 
+    # Error plots
+    
+    fig = plt.figure()
+    for pdfset in pdfsets:
+        
+        dict["ax_{0}".format(pdfset)] = fig.add_subplot(111)
+        if scale == "log":
+            dict["ax_{0}".format(pdfset)].set_xscale('log')
+        dict["ax_{0}".format(pdfset)].plot(x_values,
+                                      errordict["dict_{0}".format(pdfset)]["Rerr"], 
+                                           label=namedict[pdfset])
+        plt.legend()
+        plt.title("Q = {0} GeV".format(round(Q,2)))
+        plt.xlabel("x")
+        plt.ylabel("$R_s$ error")
+#        if scale == "log":
+#            plt.ylim(0.1, 1.7)
+#        else:
+#            plt.ylim(-4, 6)
+        plt.xlim(1e-4,1)
+    qstring = str(round(Q,2))
+    qstring = qstring.replace(".","p")
+    if scale == "log":
+        plt.savefig('./plots/error_log_q_{0}.png'.format(qstring))
+    else:
+        plt.savefig('./plots/error_linear_q_{0}.png'.format(qstring))
+
     
     # Ratio plots
     if pdfset != "pig":
@@ -152,5 +184,7 @@ for Q in Q_values:
                 plt.savefig('./plots/ratio_log_q_{0}.png'.format(qstring))
             else:
                 plt.savefig('./plots/ratio_linear_q_{0}.png'.format(qstring))    
+
+
 
 
