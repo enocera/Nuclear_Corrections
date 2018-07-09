@@ -4,8 +4,7 @@ This project is about the inclusion of nuclear corrections for fixed-target
 experiments into a typical NNPDF fit.
 
 Table of contents:
-- Papers
-
+- Papers\\
   contains selected papers useful for this project
 - LHAPDF_Production
   contains the code to generate appropriate LHAPDF grids fro the DSSZ and EPPS 
