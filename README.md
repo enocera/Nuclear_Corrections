@@ -3,7 +3,7 @@
 This project is about the inclusion of nuclear corrections for fixed-target
 experiments into a typical NNPDF fit.
 
-##Table of contents##
+## Table of contents
 - Papers
 
   contains selected papers useful for this project
