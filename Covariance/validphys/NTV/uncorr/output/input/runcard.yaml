@@ -1,0 +1,15 @@
+use_cuts: False
+
+fit: NNPDF31_nnlo_nuclear_UNCORR
+
+theoryid: 53
+
+experiments:
+   - experiment: NUTEV
+     datasets:
+         - { dataset: NTVNUDMNnucl, sys: UNCORR }
+         - { dataset: NTVNBDMNnucl, sys: UNCORR }
+
+actions_:
+   - experiments::experiment experiments_covmat
+

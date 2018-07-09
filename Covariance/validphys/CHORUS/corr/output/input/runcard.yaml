@@ -1,0 +1,15 @@
+use_cuts: False
+
+fit: NNPDF31_nnlo_nuclear_CORR
+
+theoryid: 53
+
+experiments:
+   - experiment: CHORUS
+     datasets:
+         - { dataset: CHORUSNUnucl }
+         - { dataset: CHORUSNBnucl }
+
+actions_:
+   - experiments::experiment experiments_covmat
+

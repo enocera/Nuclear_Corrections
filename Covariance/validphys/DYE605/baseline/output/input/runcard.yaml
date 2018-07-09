@@ -1,0 +1,24 @@
+use_cuts: False
+
+fit: NNPDF31_nnlo_as_0118_NUTEV_DBG
+
+theoryid: 53
+
+experiments:
+#   - experiment: CHORUS
+#     datasets:
+#         - dataset: CHORUSNUPb
+#         - dataset: CHORUSNBPb
+#
+#   - experiment: NTV
+#     datasets:
+#         - dataset: NTVNUDMNFe
+#         - dataset: NTVNBDMNFe
+#
+   - experiment: DYE605
+     datasets:
+         - dataset: DYE605
+
+actions_:
+   - experiments::experiment experiments_covmat
+
