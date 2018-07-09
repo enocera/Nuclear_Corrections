@@ -1,0 +1,28 @@
+meta:
+   author: Emanuele R. Nocera
+   title: Theoretical predictions
+
+theoryid: 64
+
+use_cuts: False
+
+pdf: NNPDF31_nlo_pch_as_0118
+
+experiments:
+   - experiment: CHORUS
+     datasets:
+         - dataset: CHORUSNUPb
+         - dataset: CHORUSNBPb
+
+   - experiment: NTV
+     datasets:
+         - dataset: NTVNUDMNFe
+         - dataset: NTVNBDMNFe
+
+   - experiment: DYE605
+     datasets:
+         - dataset: DYE605
+
+actions_:
+   - experiments::experiment experiment_result_table
+

@@ -1,0 +1,19 @@
+meta:
+   author: Emanuele R. Nocera
+   title: Theoretical predictions
+
+theoryid: 64
+
+use_cuts: False
+
+pdf: nCTEQ15_208_82_MC
+
+experiments:
+   - experiment: CHORUS
+     datasets:
+         - dataset: CHORUSNUPb
+         - dataset: CHORUSNBPb
+
+actions_:
+   - experiments::experiment experiment_result_table
+

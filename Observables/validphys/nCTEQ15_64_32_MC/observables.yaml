@@ -1,0 +1,18 @@
+meta:
+   author: Emanuele R. Nocera
+   title: Theoretical predictions
+
+theoryid: 64
+
+use_cuts: False
+
+pdf: nCTEQ15_64_32_MC
+
+experiments:
+   - experiment: DYE605
+     datasets:
+         - dataset: DYE605
+
+actions_:
+   - experiments::experiment experiment_result_table
+
