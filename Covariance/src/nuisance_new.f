@@ -32,11 +32,13 @@
       double precision thobsprot(nrepbase+1,nexp,mxset,mxpt)
       double precision mean_p(nexp,mxset,mxpt)
       double precision np(nexp,mxset,mxpt,nnmax)
+      double precision ratio(nexp,mxset,mxpt,nnmax)
 
       character*20 nameexp(nexp), nameset(nexp,mxset)
       character*100 wrapfile(nexp,mxwrap), basefile
       character*100 infilewrap(nexp,mxwrap), infilebase
       character*100 outfile(nexp,mxset)
+      character*100 ratios(nexp,mxset)
       character*20 cdum(mxdum), ccdum
 
 *     Initialise nset
@@ -102,6 +104,10 @@
          do iset=1, nset(iexp)
 
             write(outfile(iexp,iset),102) "../res/NN_new_",
+     1           trim(nameexp(iexp)),
+     1           trim(nameset(iexp,iset)), ".res"
+
+            write(ratios(iexp,iset),102) "../res/RATIOS_",
      1           trim(nameexp(iexp)),
      1           trim(nameset(iexp,iset)), ".res"
 
@@ -199,6 +205,9 @@
      1                    = ( thobsnucl(iwrap,irep,iexp,iset,ipt) 
      1                    - mean_p(iexp,iset,ipt) )
      1                    / dsqrt(dble( nwrap(iexp) * nrepwrap ))
+                     ratio(iexp,iset,ipt,in)
+     1                    = thobsnucl(iwrap,irep,iexp,iset,ipt) 
+     1                    / mean_p(iexp,iset,ipt)
                      
                   enddo
                   
@@ -218,14 +227,20 @@
          do iset=1, nset(iexp)
 
             open(unit=30, status="unknown", file=outfile(iexp,iset))
+            open(unit=40, status="unknown", file=ratios(iexp,iset))
+
 
             do ipt=1, npt(iexp,iset)
 
-               write(30,103) ipt, (np(iexp,iset,ipt,in), in=1, nn(iexp))
+               write(30,103) ipt, 
+     1              (np(iexp,iset,ipt,in), in=1, nn(iexp))
+               write(40,103) ipt, 
+     1              (ratio(iexp,iset,ipt,in), in=1, nn(iexp))
 
             enddo
 
             close(30)
+            close(40)
             
          enddo
 

@@ -38,7 +38,9 @@
       character*20 nameexp(nexp), nameset(nexp,mxset)
       character*100 wrapfile(nexp,mxwrap), basefile
       character*100 infilewrap(nexp,mxwrap), infilebase
-      character*100 outfile1(nexp,mxset), outfile2(nexp,mxset)
+      character*100 outfile1(nexp,mxset)
+      character*100 outfile2(nexp,mxset)
+      character*100 outfile3(nexp,mxset)
       character*20 cdum(mxdum), ccdum
 
 *     Initialise nset
@@ -108,6 +110,10 @@
      1           trim(nameset(iexp,iset)), ".res"
 
             write(outfile2(iexp,iset),102) "../res/shifts_new_",
+     1           trim(nameexp(iexp)),
+     1           trim(nameset(iexp,iset)), ".res"
+
+            write(outfile3(iexp,iset),102) "../res/shifts_ratios_",
      1           trim(nameexp(iexp)),
      1           trim(nameset(iexp,iset)), ".res"
 
@@ -255,17 +261,21 @@
 
             open(unit=30, status="unknown", file=outfile1(iexp,iset))
             open(unit=40, status="unknown", file=outfile2(iexp,iset))
+            open(unit=50, status="unknown", file=outfile3(iexp,iset))
 
             do ipt=1, npt(iexp,iset)
 
                write(30,103) ipt, (np(iexp,iset,ipt,in), in=1, nn(iexp))
                write(40,103) ipt,
      1              mean_n(iexp,iset,ipt) - mean_p(iexp,iset,ipt)
-
+               write(50,103) ipt,
+     1             mean_p(iexp,iset,ipt) / mean_n(iexp,iset,ipt) 
+               
             enddo
 
             close(30)
             close(40)
+            close(50)
             
          enddo
 
