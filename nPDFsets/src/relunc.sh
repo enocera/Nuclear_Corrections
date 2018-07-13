@@ -37,6 +37,15 @@ wrapfile[2]="EPPS16nlo_CT14nlo_Pb208_MC"
 "${wrapfile[2]}"
 EOF
 
+#EPPS-Cu
+wrapfile[1]="EPPS16nlo_CT14nlo_Cu64_bd"
+wrapfile[2]="EPPS16nlo_CT14nlo_Cu64_MC"
+
+./relunc<<EOF
+"${wrapfile[1]}"
+"${wrapfile[2]}"
+EOF
+
 #nCTEQ-Fe
 wrapfile[1]="nCTEQ15_56_26"
 wrapfile[2]="nCTEQ15_56_26_MC"
@@ -49,6 +58,15 @@ EOF
 #nCTEQ-Pb
 wrapfile[1]="nCTEQ15_208_82"
 wrapfile[2]="nCTEQ15_208_82_MC"
+
+./relunc<<EOF
+"${wrapfile[1]}"
+"${wrapfile[2]}"
+EOF
+
+#nCTEQ-Pb
+wrapfile[1]="nCTEQ15_64_32"
+wrapfile[2]="nCTEQ15_64_32_MC"
 
 ./relunc<<EOF
 "${wrapfile[1]}"

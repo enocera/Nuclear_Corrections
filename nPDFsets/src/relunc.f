@@ -1,6 +1,8 @@
 ********************************************************************************
 *                                                                              *
 *     program relunc                                                           *
+*     This program computes the relative uncertainty between the original      *
+*     Hessian nPDF grid and the corresponding MC grid (in percentage)          *
 *                                                                              *
 ********************************************************************************
 
@@ -40,9 +42,9 @@
 *     Initialise rescaling factor
       if(trim(wrapfile(1)).eq."DSSZ_NLO_Fe56".or.
      1     trim(wrapfile(1)).eq."DSSZ_NLO_Pb208")then
-         factor=1d0
+         factor=5.48d0/2d0 !Rescale by the toleracne t=0.5*sqrt(30)
       else
-         factor=1d0/1.65d0
+         factor=1d0/1.65d0 !Rescale from 90% CM to 68% CL
       endif
 
 
@@ -192,8 +194,8 @@
          do ipt=1, npt
             
             write(10,101) ipt, x(ipt),
-     1           pdf_cv(ifl,ipt,2)/pdf_cv(ifl,ipt,1), 
-     1           pdf_er(ifl,ipt,2)/pdf_er(ifl,ipt,1)
+     1           (1d0 - pdf_cv(ifl,ipt,2)/pdf_cv(ifl,ipt,1))*100, 
+     1           (1d0 - pdf_er(ifl,ipt,2)/pdf_er(ifl,ipt,1))*100
          enddo
          
       enddo

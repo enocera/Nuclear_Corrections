@@ -19,9 +19,10 @@
       parameter(xmin=1d-4,xmax=1d0,xch=1d-1)
       double precision xpdflh(-6:6)
       double precision pdf_cv(-4:4,npt,nwrap), pdf_er(-4:4,npt,nwrap)
-      double precision factor
+      double precision norm(-4:4,npt)
 
-      character*100 wrapfile(nwrap), outfile
+      character*100 wrapfile(nwrap), NNwrapfile
+      character*100 outfile
       
 *     Initialise energy scale
       Q2 = 10d0 !GeV2
@@ -41,15 +42,9 @@
 
 *     Read wrapfiles
       read(5,*) wrapfile(1)
-      
-*     Initialise rescaling factor
-      if(trim(wrapfile(1)).eq."DSSZ_NLO_Fe56".or.
-     1     trim(wrapfile(1)).eq."DSSZ_NLO_Pb208")then
-         factor=1d0
-      else
-         factor=1d0
-      endif
 
+*     Define NNFF reference
+      NNwrapfile="NNPDF31_nlo_pch_as_0118"
 
 *     Initialise arrays
       do iwrap=1, nwrap
@@ -107,7 +102,23 @@
          enddo
          
       enddo
-      
+    
+*     Normalising factor
+      call initpdfsetbyname(NNwrapfile)
+      call initPDF(0)
+
+      do ipt=1, npt
+         
+         call evolvepdf(x(ipt),Q,xpdflh)
+               
+         do ifl=-4, 4, 1
+            
+            norm(ifl,ipt) = xpdflh(ifl)
+            
+         enddo
+
+      enddo
+         
 *     Write results on file
       do ifl=-2,4,1
 
@@ -126,7 +137,7 @@
          do ipt=1, npt
             
             write(10,101) ipt, x(ipt),
-     1           pdf_cv(ifl,ipt,1), factor*pdf_er(ifl,ipt,1)
+     1           pdf_cv(ifl,ipt,1), pdf_er(ifl,ipt,1), norm(ifl,ipt)
             
          enddo
          
