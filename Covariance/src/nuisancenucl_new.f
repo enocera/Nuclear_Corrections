@@ -273,6 +273,10 @@
                
             enddo
 
+            write(50,103) npt(iexp,iset)+1,
+     1             mean_p(iexp,iset,npt(iexp,iset)) 
+     1           / mean_n(iexp,iset,npt(iexp,iset)) 
+
             close(30)
             close(40)
             close(50)
