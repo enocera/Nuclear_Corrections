@@ -3,10 +3,12 @@ infile1="../../Covariance/res/RATIOS_CHORUSNU.res"
 infile2="../../Covariance/res/shifts_ratios_CHORUSNU.res"
 infile3="../../Covariance/res/RATIOS_CHORUSNB.res"
 infile4="../../Covariance/res/shifts_ratios_CHORUSNB.res"
-outfile="../figs/ratio_CHORUS.eps"
+outfile="../figs/ratio_CHORUS.png"
 
 set o outfile
-set term post enh col 20 linewidth 1 'Helvetica,20' size 20,16
+#set term post enh col 20 linewidth 1 'Helvetica,20' size 20,16
+#set term pdf colour enh font 'Helvetica,20' size 20,16
+set term pngcairo font 'Helvetica,20' size 2000,1600 enh
 set multiplot layout 2,1
 
 #First panel
@@ -15,22 +17,22 @@ set bmargin at screen 0.51
 set lmargin at screen 0.05
 set rmargin at screen 0.95
 
-set label "O@^{p/Pb,(k)}_i          /{/Symbol=\341}O@^p_i {/Symbol=\361}" font 'Helvetica,28' at 4,3.25
-set label "CHORUSNU" font 'Helvetica,28' at 530,3.25
+set label "O@^{Pb,(k)}_i         /{/Symbol=\341}O@^p_i {/Symbol=\361}" font 'Helvetica,28' at 7,3.25
+set label "CHORUS (neutrinos)" font 'Helvetica,28' at 487,3.25
 
 set xrange[0:613]
 set xtics("" 50 0, "" 113 0, "" 185 0, "" 259 0, "" 334 0, "" 421 0, "" 498 0, "" 564 0)
 
-set label "0.020<x<0.650" at 4,0.0 font 'Helvetica,22'
-set label "E_{/Symbol n}=25 GeV" at 4,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=35 GeV" at 61,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=45 GeV" at 118,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=55 GeV" at 187,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=70 GeV" at 259,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=90 GeV" at 334,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=110 GeV" at 418,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=130 GeV" at 486,-0.35 font 'Helvetica,22'
-set label "E_{/Symbol n}=170 GeV" at 548,-0.35 font 'Helvetica,22'
+set label "0.020<x<0.650" at 7,0.2 font 'Helvetica,26'
+set label "E_{/Symbol n}=25 GeV" at 7,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=35 GeV" at 70,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=45 GeV" at 133,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=55 GeV" at 200,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=70 GeV" at 267,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=90 GeV" at 334,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=110 GeV" at 400,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=130 GeV" at 469,-0.3 font 'Helvetica,26'
+set label "E_{/Symbol n}=170 GeV" at 538,-0.3 font 'Helvetica,26'
 
 set yrange[-0.5:3.5]
 set ytics(  -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
@@ -49,9 +51,9 @@ set ytics(  -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
           "" 2.75 0, "" 2.80 1, "" 2.85 1, "" 2.90 1, "" 2.95 1,\
              3.00 0, "" 3.05 1, "" 3.10 1, "" 3.15 1, "" 3.20 1,\
           "" 3.25 0, "" 3.30 1, "" 3.35 1, "" 3.40 1, "" 3.45 1,\
-             3.50 0)
+             3.50 0) font 'Helvetica,26'
 
-set key at 610,3.0 font 'Helvetica,26' spacing 1.7
+set key at 610,3.0 font 'Helvetica,26' spacing 1.3
 
 plot infile1 using ($1-0.2):602 w p pt 5 ps 0.9 lc rgb "red" t "DSSZ12",\
      for [i=602:901] infile1 using ($1-0.2):i w p pt 5 ps 0.9 lc rgb "red" notitle,\
@@ -60,8 +62,8 @@ plot infile1 using ($1-0.2):602 w p pt 5 ps 0.9 lc rgb "red" t "DSSZ12",\
      infile1 using ($1+0.2):302 w p pt 63 ps 0.9 lc rgb "#006400" t "nCTEQ15",\
      for [i=302:601] infile1 using ($1+0.2):i w p pt 63 ps 0.9 lc rgb "#006400" notitle,\
      infile2 using ($1-0.5):(1/$2) w steps lt 1 lw 6 lc rgb "#FFD700"\
-     t "{/Symbol=\341}O^{p/Pb}{/Symbol=\361}/{/Symbol=\341}O^p{/Symbol=\361}",\
-     1 w l lw 5 lt 3 lc rgb "black" notitle
+     t "{/Symbol=\341}O@^{Pb}_i   {/Symbol=\361} /{/Symbol=\341}O@^p_i {/Symbol=\361}",\
+     1 w l lw 2 lt 3 lc rgb "black" notitle
 
 unset label
 
@@ -71,10 +73,10 @@ set bmargin at screen 0.05
 set lmargin at screen 0.05
 set rmargin at screen 0.95
 
-set label "CHORUSNB" font 'Helvetica,28' at 530,3.25
+set label "(antineutrinos)" font 'Helvetica,28' at 525,3.25
 
 plot for [i=602:901] infile3 using ($1-0.2):i w p lt 7 ps 0.9 lc rgb "red" notitle,\
      for [i=2:301] infile3 using 1:i w p lt 7 ps 0.9 lc rgb "blue" notitle,\
      for [i=302:601] infile3 using ($1+0.2):i w p lt 7 ps 0.9 lc rgb "#006400" notitle,\
      infile4 using ($1-0.5):(1/$2) w steps lt 1 lw 6 lc rgb "#FFD700" notitle,\
-     1 w l lw 5 lt 3 lc rgb "black" notitle
+     1 w l lw 2 lt 3 lc rgb "black" notitle
