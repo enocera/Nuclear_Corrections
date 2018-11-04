@@ -3,8 +3,8 @@
 *     nuisance.f                                                               *
 *     This program computes the nuisance values due to nuclear uncertainties   *
 *     for the following experiments: CHORUS, NUTEV and DYE605                  *
-*     Input from ../Observables/validphys                                      *
-*     Output to res/res/NN_new_[nameexp][nameset].res                          *
+*     Input from ../../Observables/validphys                                   *
+*     Output to ../res/NN_new_[nameexp][nameset].res                           *
 *                                                                              *
 ********************************************************************************
 
@@ -33,12 +33,14 @@
       double precision mean_p(nexp,mxset,mxpt)
       double precision np(nexp,mxset,mxpt,nnmax)
       double precision ratio(nexp,mxset,mxpt,nnmax)
+      double precision ratio_mv(nexp,mxset,mxpt,mxwrap)
+      double precision ratio_er(nexp,mxset,mxpt,mxwrap)
 
       character*20 nameexp(nexp), nameset(nexp,mxset)
       character*100 wrapfile(nexp,mxwrap), basefile
       character*100 infilewrap(nexp,mxwrap), infilebase
       character*100 outfile(nexp,mxset)
-      character*100 ratios(nexp,mxset)
+      character*100 ratios(nexp,mxset), ratiosm(nexp,mxset)
       character*20 cdum(mxdum), ccdum
 
 *     Initialise nset
@@ -108,6 +110,10 @@
      1           trim(nameset(iexp,iset)), ".res"
 
             write(ratios(iexp,iset),102) "../res/RATIOS_",
+     1           trim(nameexp(iexp)),
+     1           trim(nameset(iexp,iset)), ".res"
+
+            write(ratiosm(iexp,iset),102) "../res/RATIOSM_",
      1           trim(nameexp(iexp)),
      1           trim(nameset(iexp,iset)), ".res"
 
@@ -219,6 +225,42 @@
          
       enddo
 
+*     Compute extra mean values and uncertainties
+      do iexp=1, nexp
+
+         do iwrap=1, nwrap(iexp)
+
+            do iset=1, nset(iexp)
+               
+               do ipt=1, npt(iexp,iset)
+                  
+                  ratio_mv(iexp,iset,ipt,iwrap) = 0d0
+                  ratio_er(iexp,iset,ipt,iwrap) = 0d0
+                  
+                  do in=1 + nrepwrap * (iwrap - 1), nrepwrap * iwrap
+                     
+                     ratio_mv(iexp,iset,ipt,iwrap) = 
+     1                    ratio_mv(iexp,iset,ipt,iwrap)
+     1                    + ratio(iexp,iset,ipt,in)/nrepwrap
+                     ratio_er(iexp,iset,ipt,iwrap) = 
+     1                    ratio_er(iexp,iset,ipt,iwrap)
+     1                    + ratio(iexp,iset,ipt,in)**2d0/nrepwrap
+                     
+                  enddo
+                  
+                  ratio_er(iexp,iset,ipt,iwrap) = 
+     1                 dsqrt(ratio_er(iexp,iset,ipt,iwrap)
+     1                 - ratio_mv(iexp,iset,ipt,iwrap)**2d0)
+                  
+               enddo
+               
+            enddo
+
+         enddo
+
+      enddo
+
+
 *     Write results on file
       do iexp=1, nexp
 
@@ -228,19 +270,25 @@
 
             open(unit=30, status="unknown", file=outfile(iexp,iset))
             open(unit=40, status="unknown", file=ratios(iexp,iset))
+            open(unit=50, status="unknown", file=ratiosm(iexp,iset))
 
 
             do ipt=1, npt(iexp,iset)
 
                write(30,103) ipt, 
      1              (np(iexp,iset,ipt,in), in=1, nn(iexp))
-               write(40,103) ipt, 
+               write(40,103) ipt,  
      1              (ratio(iexp,iset,ipt,in), in=1, nn(iexp))
+               write(50,103) ipt,
+     1              ( ratio_mv(iexp,iset,ipt,iwrap), 
+     1              ratio_er(iexp,iset,ipt,iwrap),
+     1              iwrap=1, nwrap(iexp))
 
             enddo
 
             close(30)
             close(40)
+            close(50)
             
          enddo
 

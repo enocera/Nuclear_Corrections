@@ -1,0 +1,14 @@
+use_cuts: False
+
+fit: NNPDF31_nnlo_nuclear_CORR
+
+theoryid: 53
+
+experiments:
+   - experiment: DYE605nuclshift
+     datasets:
+         - { dataset: DYE605nuclshift}
+
+actions_:
+   - experiments::experiment experiments_covmat
+

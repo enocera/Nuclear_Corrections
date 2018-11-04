@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = nuisance_new nuisancenucl_new check_covariance
+MAIN = nuisance_new nuisancenucl_new check_covariance correlations
 
 ############################## do not change #############################
 
@@ -24,7 +24,7 @@ FF=gfortran
 
 LDFLAGS = -O3 -mcmodel=medium
 LDFLAGS += -Wunused
-#LDFLAGS += $(shell lhapdf-config --ldflags)
+LDFLAGS += $(shell lhapdf-config --ldflags)
 #LDFLAGS += -pg
 #LDFLAGS += -mcmodel=medium
 

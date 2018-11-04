@@ -3,9 +3,9 @@
 *     nuisancenucl.f                                                           *
 *     This program computes the nuisance values due to nuclear uncertainties   *
 *     and the corresponding shifts to be applied to the data                   *
-*     Input from ../Observables/validphys                                      *
-*     Output to res/res/NNnucl_new_[nameexp][nameset].res                      *
-*               res/res/shifts_new_[nameexp][nameset].res                      *
+*     Input from ../../Observables/validphys                                   *
+*     Output to ../res/NNnucl_new_[nameexp][nameset].res                       *
+*               ../res/shifts_new_[nameexp][nameset].res                       *
 *                                                                              *
 ********************************************************************************
 
