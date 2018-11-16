@@ -86,7 +86,7 @@ for iexp in range(0,nexp):
                                               vmax=covlim[iexp]))
     fig.colorbar(mat, label = "% of central theory")
     plt.title("{0}  theory covariance matrix".format(exp[iexp]))
-    plt.savefig("../figs/covplot_nuc_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/covplot_nuc_{0}_def2".format(exp[iexp]))
     
     #####################################################################################
     
@@ -99,7 +99,7 @@ for iexp in range(0,nexp):
                                               vmax=covlim[iexp]))
     fig.colorbar(mat, label = "% of central theory")
     plt.title("{0} experiment covariance matrix".format(exp[iexp]))
-    plt.savefig("../figs/covplot_exp_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/covplot_exp_{0}_def2".format(exp[iexp]))
     
     #####################################################################################
     
@@ -114,7 +114,7 @@ for iexp in range(0,nexp):
                                               vmax=impactlim[iexp]))
     fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
     plt.title("{0} impact".format(exp[iexp]))
-    plt.savefig("../figs/covplot_tot_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/covplot_tot_{0}_def2".format(exp[iexp]))
     
     #####################################################################################
     
@@ -130,7 +130,7 @@ for iexp in range(0,nexp):
     plt.yticks([])
     fig.colorbar(mat)
     plt.title("{0} experimental correlation matrix".format(exp[iexp]))
-    plt.savefig("../figs/corrplot_exp_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/corrplot_exp_{0}_def2".format(exp[iexp]))
     
     #-Nuc
     fig = plt.figure()
@@ -143,7 +143,7 @@ for iexp in range(0,nexp):
     plt.yticks([])
     fig.colorbar(mat)
     plt.title("{0} theoretical correlation matrix".format(exp[iexp]))
-    plt.savefig("../figs/corrplot_nuc_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/corrplot_nuc_{0}_def2".format(exp[iexp]))
 
     #-Tot
     fig = plt.figure()
@@ -156,7 +156,7 @@ for iexp in range(0,nexp):
     plt.yticks([])
     fig.colorbar(mat)
     plt.title("{0} total correlation matrix".format(exp[iexp]))
-    plt.savefig("../figs/corrplot_tot_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/corrplot_tot_{0}_def2".format(exp[iexp]))
     
     #####################################################################################
     #####################################################################################
@@ -186,7 +186,7 @@ for iexp in range(0,nexp):
     plt.ylim(0.01,1)
     plt.legend(loc=2, fontsize=15)
     plt.tight_layout()
-    plt.savefig("../figs/plot1_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/plot1_{0}_def2".format(exp[iexp]))
      
     #####################################################################################
     
@@ -205,7 +205,7 @@ for iexp in range(0,nexp):
     plt.ylim(0,0.5)
     plt.legend()
     plt.tight_layout()
-    plt.savefig("../figs/plot2_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/plot2_{0}_def2".format(exp[iexp]))
      
     fig = plt.figure()
     plt.plot(expdat,'.')
@@ -213,6 +213,6 @@ for iexp in range(0,nexp):
     plt.xlabel("Data point")
     plt.ylabel("Observable", fontsize=15)
     plt.tight_layout()
-    plt.savefig("../figs/observable_{0}_shift".format(exp[iexp]))
+    plt.savefig("../figs/observable_{0}_def2".format(exp[iexp]))
 
     continue

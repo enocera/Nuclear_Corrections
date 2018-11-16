@@ -1,0 +1,22 @@
+use_cuts: False
+
+fit: NNPDF31_nnlo_nuclear_SHIFT
+
+theoryid: 53
+
+experiments:
+   - experiment: CHORUS
+     datasets:
+         - { dataset: CHORUSNUnuclshift }
+         - { dataset: CHORUSNBnuclshift }
+   - experiment: NUTEV
+     datasets:
+         - { dataset: NTVNUDMNnuclshift }
+         - { dataset: NTVNBDMNnuclshift }
+   - experiment: DYE605
+     datasets:
+         - { dataset: DYE605nuclshift }
+
+actions_:
+   - experiments::experiment experiments_covmat
+

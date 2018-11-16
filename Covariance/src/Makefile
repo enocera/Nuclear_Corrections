@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = nuisance_new nuisancenucl_new check_covariance correlations
+MAIN = nuisance_new nuisancenucl_new check_covariance correlations impact
 
 ############################## do not change #############################
 

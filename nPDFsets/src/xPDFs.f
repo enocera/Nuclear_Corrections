@@ -1,6 +1,13 @@
 ********************************************************************************
 *                                                                              *
 *     program xPDFs                                                            *
+*     This program computes the ratio between the (full) nuclear PDF and       *
+*     its (free) proton counterpart (as weighted averages of, respectively,    *
+*     bound proton/bound neutron and proton/neutron PDFs) for each flavour i   *
+*     The proton PDF is hard-wired to NNPDF31_nlo_pch_0118                     *
+*     Input: from screen, the Monte Carlo (bound proton) nPDF set              *
+*            energy scale Q2 (in GeV)                                          *
+*     Output: ../res/<setname>_MC                                              *
 *                                                                              *
 ********************************************************************************
 
@@ -18,15 +25,13 @@
       double precision xmin, xmax, xch
       parameter(xmin=1d-4,xmax=1d0,xch=1d-1)
       double precision xpdflh(-6:6)
-      double precision pdf_cv(-4:4,npt,nwrap), pdf_er(-4:4,npt,nwrap)
-      double precision norm(-4:4,npt)
+      double precision pdf_cv(-3:3,npt,nwrap), pdf_er(-3:3,npt,nwrap)
+      double precision norm(-3:3,npt)
+      double precision A, Z
+      double precision freePDF, nuclPDF
 
       character*100 wrapfile(nwrap), NNwrapfile
       character*100 outfile
-      
-*     Initialise energy scale
-      Q2 = 10d0 !GeV2
-      Q  = dsqrt(Q2)
 
 *     Initialise x space
       do ipt=1, npt
@@ -40,8 +45,12 @@
          
       enddo
 
-*     Read wrapfiles
+*     Read wrapfiles, Q2, A and Z
       read(5,*) wrapfile(1)
+      read(5,*) Q2 !GeV
+      Q  = dsqrt(Q2)
+      read(5,*) A
+      read(5,*) Z
 
 *     Define NNFF reference
       NNwrapfile="NNPDF31_nlo_pch_as_0118"
@@ -51,7 +60,7 @@
 
          do ipt=1, npt
 
-            do ifl=-4, 4, 1
+            do ifl=-3, 3, 1
 
                 pdf_cv(ifl,ipt,iwrap)=0d0
                 pdf_er(ifl,ipt,iwrap)=0d0
@@ -76,12 +85,29 @@
                
                call evolvepdf(x(ipt),Q,xpdflh)
                
-               do ifl=-4, 4, 1
+               do ifl=-3, 3, 1
                   
+                  if(ifl.eq.-2)then
+                     nuclPDF = 
+     1                    Z * xpdflh(-2) + (a - Z) * xpdflh(-1)
+                  elseif(ifl.eq.-1)then
+                     nuclPDF = 
+     1                    Z * xpdflh(-1) + (a - Z) * xpdflh(-2)
+                  elseif(ifl.eq.+1)then
+                     nuclPDF = 
+     1                    Z * xpdflh(1) + (a - Z) * xpdflh(2)
+                  elseif(ifl.eq.+2)then
+                     nuclPDF = 
+     1                    Z * xpdflh(2) + (a - Z) * xpdflh(1)                   
+                  else
+                     nuclPDF = xpdflh(ifl)
+                  endif
+
+
                   pdf_cv(ifl,ipt,iwrap) = pdf_cv(ifl,ipt,iwrap) 
-     1                 + xpdflh(ifl)/nrep
+     1                 + nuclPDF/nrep
                   pdf_er(ifl,ipt,iwrap) = pdf_er(ifl,ipt,iwrap)
-     1                 + xpdflh(ifl)**2d0/nrep
+     1                 + nuclPDF**2d0/nrep
                   
                enddo
                
@@ -91,7 +117,7 @@
 
          do ipt=1, npt
             
-            do ifl=-4, 4, 1
+            do ifl=-3, 3, 1
                
                pdf_er(ifl,ipt,iwrap) 
      1                 = dsqrt(pdf_er(ifl,ipt,iwrap)
@@ -111,16 +137,32 @@
          
          call evolvepdf(x(ipt),Q,xpdflh)
                
-         do ifl=-4, 4, 1
-            
-            norm(ifl,ipt) = xpdflh(ifl)
+         do ifl=-3, 3, 1
+
+            if(ifl.eq.-2)then
+               freePDF = 
+     1              Z * xpdflh(-2) + (A - Z) * xpdflh(-1)
+            elseif(ifl.eq.-1)then
+               freePDF = 
+     1              Z * xpdflh(-1) + (A - Z) * xpdflh(-2)
+            elseif(ifl.eq.+1)then
+               freePDF = 
+     1              Z * xpdflh(1) + (A - Z) * xpdflh(2)
+            elseif(ifl.eq.+2)then
+               freePDF = 
+     1              Z * xpdflh(2) + (A - Z) * xpdflh(1)                   
+            else
+               freePDF = xpdflh(ifl)
+            endif
+
+            norm(ifl,ipt) = freePDF
             
          enddo
 
       enddo
          
 *     Write results on file
-      do ifl=-2,4,1
+      do ifl=-3,3,1
 
          if(ifl.lt.0)then
             write(outfile,102) "../res/", trim(wrapfile(1)),

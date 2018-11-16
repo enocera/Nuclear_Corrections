@@ -1,0 +1,22 @@
+use_cuts: False
+
+fit: NNPDF31_nnlo_nuclear_UNCORR
+
+theoryid: 53
+
+experiments:
+   - experiment: CHORUS
+     datasets:
+         - { dataset: CHORUSNUnucl, sys: UNCORR }
+         - { dataset: CHORUSNBnucl, sys: UNCORR }
+   - experiment: NUTEV
+     datasets:
+         - { dataset: NTVNUDMNnucl, sys: UNCORR }
+         - { dataset: NTVNBDMNnucl, sys: UNCORR }
+   - experiment: DYE605
+     datasets:
+         - { dataset: DYE605nucl, sys: UNCORR }
+
+actions_:
+   - experiments::experiment experiments_covmat
+

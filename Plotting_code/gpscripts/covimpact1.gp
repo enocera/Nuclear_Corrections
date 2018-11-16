@@ -44,10 +44,10 @@ set ytics(   0.0 0, "" 0.02 1, "" 0.04 1, "" 0.06 1, "" 0.08 1,\
           "" 1.1 0, "" 1.12 1, "" 1.14 1, "" 1.16 1, "" 1.18 1,\
              1.2 0) scale 0.5
 
-set label "{/Symbol=\326}cov_{ii}/y_i" at 15,1.06 font 'Helvetica,22'
+set label "{/Symbol=\326}cov_{ii}/y_i" at 25,1.06 font 'Helvetica,22'
 set label "CHORUS ({/Symbol n})" at 15,1.16
 set label "CHORUS (~{/Symbol=\156}\342\200\276 )" at 660,1.16
-set key at 1330,1.12 spacing 0.8
+set key at 430,1.00 spacing 0.8
 
 plot infileCHORUSNU1 u 1:($2!=0?$2:1/0) w p pt 4 lw 1.5 lc rgb "red" t "cov={/Symbol s}",\
      infileCHORUSNU1 u 1:($3!=0?$3:1/0) w p pt 12 lw 1.5 lc rgb "#006400" t "cov=s",\

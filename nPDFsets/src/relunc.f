@@ -3,6 +3,8 @@
 *     program relunc                                                           *
 *     This program computes the relative uncertainty between the original      *
 *     Hessian nPDF grid and the corresponding MC grid (in percentage)          *
+*     The program can be run automatically by launching relunc.sh              *
+*     Output in ../res/<nameset>                                               *
 *                                                                              *
 ********************************************************************************
 

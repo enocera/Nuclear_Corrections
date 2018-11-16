@@ -187,6 +187,7 @@ set rmargin at screen 0.895
 
 set style rect fc rgb "gray" fs transparent pattern 9 noborder
 set obj rect from 0.1,graph 0 to 0.2,2
+set obj rect from 0.3,graph 0 to 0.5,2
 
 set xrange[0.1:0.7]
 set xtics( "" 0.1 0, "" 0.12 1, "" 0.14 1, "" 0.16 1, "" 0.18 1,\
