@@ -1,0 +1,82 @@
+current2:
+  fit: {id: NNPDF31_nnlo_nuclear_SHIFT}
+  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "Baseline"}
+  theory: 
+    from_: fit
+  theoryid: 
+    from_: theory
+  speclabel: "Baseline"
+
+current1:
+  fit: {id: NNPDF31_nnlo_nuclear_CORR}
+  pdf: {id: NNPDF31_nnlo_nuclear_CORR, label: "Th.Unc. (Def 1)"}
+  theory: 
+    from_: fit
+  theoryid: 
+    from_: theory
+  speclabel: "Th.Unc. (Def 1)"
+
+current:
+  fit: {id: NNPDF31_nnlo_nonuclear}
+  pdf: {id: NNPDF31_nnlo_nonuclear, label: "No nuclear"}
+  theory: 
+    from_: fit
+  theoryid: 
+    from_: theory
+  speclabel: "No nuclear"
+
+reference: 
+  fit: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG}
+  pdf: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG, label: "Th.Unc. (Def 2)" }
+  theory: 
+    from_: fit
+  theoryid: 
+    from_: theory
+  speclabel: "Th.Unc. (Def 2)"
+
+pdfs:
+  - from_: current2
+  - from_: current
+  - from_: current1
+  - from_: reference
+
+fits:
+  - from_: reference
+  - from_: current
+  - from_: current1
+  - from_: current2
+
+use_cuts: True
+
+Q: 10
+
+#pdfnormalize:
+#    - normtitle: Absolute
+
+#    - normalize_to: None
+#      normtitle: Ratio
+
+basespecs:
+    - basis: flavour
+      basistitle: Flavour basis
+
+pdfscalespecs:
+    - xscale: linear
+      xscaletitle: Linear
+
+distspecs:
+   - ymin: 0
+     ymax: 0.025
+
+pos_use_kin: True
+
+template: report2dist.md
+
+#normalize:
+#  normalize_to: 1
+
+#datanorm:
+#    normalize_to: data
+
+actions_:
+  - report(main=true)

@@ -1,0 +1,62 @@
+reference:
+  fit: {id: NNPDF31_nnlo_nuclear_CORR}
+  pdf: {id: NNPDF31_nnlo_nuclear_CORR, label: "Th.Unc. (Def 1)"}
+  theory: 
+    from_: fit
+  theoryid: 
+    from_: theory
+  speclabel: "Th.Unc. (Def 1)"
+
+current: 
+  fit: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG}
+  pdf: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG, label: "Baseline" }
+  theory: 
+    from_: fit
+  theoryid: 
+    from_: theory
+  speclabel: "Baseline"
+
+pdfs:
+    - from_: current
+    - from_: reference
+
+fits:
+  - from_: current
+  - from_: reference
+
+use_cuts: True
+
+Q: 10
+
+pdfnormalize:
+    - normtitle: Absolute
+
+    - normalize_to: 1
+      normtitle: Ratio
+
+basespecs:
+    - basis: flavour
+      basistitle: Flavour basis
+
+pdfscalespecs:
+    - xscale: linear
+      xscaletitle: Linear
+
+distspecs:
+   - ymin: 0
+     ymax: 20
+     xmin: 0.001
+     xmax: 0.85
+
+pos_use_kin: True
+
+template: report2dist.md
+
+normalize:
+  normalize_to: 1
+
+datanorm:
+    normalize_to: data
+
+actions_:
+  - report(main=true)
