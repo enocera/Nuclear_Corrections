@@ -39,13 +39,13 @@ basespecs:
       basistitle: Flavour basis
 
 pdfscalespecs:
-    - xscale: linear
-      xscaletitle: Linear
+    - xscale: log
+      xscaletitle: Logarithmic
 
 distspecs:
    - ymin: 0
      ymax: 20
-     xmin: 0.001
+     xmin: 0.01
      xmax: 0.85
 
 pos_use_kin: True

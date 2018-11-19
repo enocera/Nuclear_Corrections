@@ -1,13 +1,13 @@
-current2:
+nuclearshift:
   fit: {id: NNPDF31_nnlo_nuclear_SHIFT}
-  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "Baseline"}
+  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "Th.Unc. (Def 2)"}
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "Baseline"
+  speclabel: "Th.Unc. (Def 2)"
 
-current1:
+nuclearcorr:
   fit: {id: NNPDF31_nnlo_nuclear_CORR}
   pdf: {id: NNPDF31_nnlo_nuclear_CORR, label: "Th.Unc. (Def 1)"}
   theory: 
@@ -27,56 +27,40 @@ current:
 
 reference: 
   fit: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG}
-  pdf: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG, label: "Th.Unc. (Def 2)" }
+  pdf: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG, label: "Baseline" }
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "Th.Unc. (Def 2)"
+  speclabel: "Baseline"
 
 pdfs:
-  - from_: current2
-  - from_: current
-  - from_: current1
-  - from_: reference
-
-fits:
   - from_: reference
   - from_: current
-  - from_: current1
-  - from_: current2
+  - from_: nuclearcorr
+  - from_: nuclearshift
 
 use_cuts: True
 
 Q: 10
-
-#pdfnormalize:
-#    - normtitle: Absolute
-
-#    - normalize_to: None
-#      normtitle: Ratio
 
 basespecs:
     - basis: flavour
       basistitle: Flavour basis
 
 pdfscalespecs:
-    - xscale: linear
-      xscaletitle: Linear
+    - xscale: log
+      xscaletitle: Logarithmic
+      xmin: 0.01
+      xmax: 0.85
 
 distspecs:
    - ymin: 0
-     ymax: 0.025
+     ymax: 0.035
 
 pos_use_kin: True
 
 template: report2dist.md
-
-#normalize:
-#  normalize_to: 1
-
-#datanorm:
-#    normalize_to: data
 
 actions_:
   - report(main=true)
