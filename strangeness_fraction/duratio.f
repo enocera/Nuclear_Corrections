@@ -1,16 +1,16 @@
 ********************************************************************************
 *                                                                              *
-*     program Rs                                                               *
-*     This program computes the ratio Rs as a function of x for the four fits  *
-*     in the NNPDF31nucl paper                                                 *
+*     program duratio                                                          *
+*     This program computes the ratio dbar/ubar as a function of x for the     *
+*     four fits in the NNPDF31nucl paper                                       *
 *     Input:                                                                   *
 *     - Q value from terminal                                                  *
 *     Output                                                                   *
-*     - res/Rs.res                                                             *
+*     - res/duratio.res                                                        *
 *                                                                              *
 ********************************************************************************
 
-      program Rs
+      program duratio
       implicit none
 
       integer iwrap, nwrap
@@ -24,7 +24,7 @@
       double precision xmin, xmax
       parameter(xmin=1d-2,xmax=0.75)
       double precision xpdflh(-6:6)
-      double precision ratio, Rs_cv(npt,nwrap), Rs_er(npt,nwrap)
+      double precision ratio, du_cv(npt,nwrap), du_er(npt,nwrap)
 
       character*100 infile(nwrap), outfile
 
@@ -44,27 +44,26 @@
       read(5,*) Q
 
 *     Define outfile
-      write(outfile,102) "res/Rs_", Q ,".res"
+      write(outfile,102) "res/du_", Q ,".res"
 
-*     Compute Rs central values and ucnertainties
+*     Compute du central values and ucnertainties
       do iwrap=1, nwrap
          call initpdfsetbyname(trim(infile(iwrap)))
          call numberpdf(nrep)
          do ipt=1, npt
 
-            Rs_cv(ipt,iwrap) = 0d0
-            Rs_er(ipt,iwrap) = 0d0
+            du_cv(ipt,iwrap) = 0d0
+            du_er(ipt,iwrap) = 0d0
 
             do irep=1, nrep
                call initpdf(irep)
                call evolvepdf(x(ipt),Q, xpdflh)               
-               ratio = ( xpdflh(+3) + xpdflh(-3) ) 
-     1              / ( xpdflh(-1) + xpdflh(-2) ) 
-               Rs_cv(ipt,iwrap) = Rs_cv(ipt,iwrap) + ratio/nrep
-               Rs_er(ipt,iwrap) = Rs_er(ipt,iwrap) + ratio**2d0/nrep
+               ratio = xpdflh(-1)/xpdflh(-2)
+               du_cv(ipt,iwrap) = du_cv(ipt,iwrap) + ratio/nrep
+               du_er(ipt,iwrap) = du_er(ipt,iwrap) + ratio**2d0/nrep
             enddo
-            Rs_er(ipt,iwrap) = 
-     1           dsqrt(Rs_er(ipt,iwrap) - Rs_cv(ipt,iwrap)**2d0)
+            du_er(ipt,iwrap) = 
+     1           dsqrt(du_er(ipt,iwrap) - du_cv(ipt,iwrap)**2d0)
          enddo
       enddo
 
@@ -72,7 +71,7 @@
       open(unit=10, status="unknown", file=outfile)
       do ipt=1, npt
          write(10,101) ipt, x(ipt), 
-     1        (Rs_cv(ipt,iwrap), Rs_er(ipt,iwrap),iwrap=1, nwrap)
+     1        (du_cv(ipt,iwrap), du_er(ipt,iwrap),iwrap=1, nwrap)
       enddo
       close(10)
 

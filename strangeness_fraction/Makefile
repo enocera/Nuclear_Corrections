@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = Rs
+MAIN = Rs duratio
 
 ############################## do not change #############################
 
