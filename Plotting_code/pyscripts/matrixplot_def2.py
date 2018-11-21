@@ -51,10 +51,16 @@ covlim             = [1000,1000,1000]
 for iexp in range(0,nexp):
     for iset in range(0,nset[iexp]):
         dict["exp_dat_{0}{1}".format(exp[iexp],expset[iexp][iset])] = np.loadtxt(
-            "../../Data/commondata/DATA_{0}{1}nuclshift.dat".format(exp[iexp],expset[iexp][iset]), 
+            "../../Data/commondata/DATA_{0}{1}nuclshift.dat".format(exp[iexp],expset[iexp][iset]),
             delimiter   = "\t",
             skiprows    = 1,
-            usecols     = (5,)    
+            usecols     = (5,)
+        )
+        dict["exp_proton_dat_{0}{1}".format(exp[iexp],expset[iexp][iset])] = np.loadtxt(
+            "../../Data/commondata/DATA_{0}{1}.dat".format(exp[iexp],expset[iexp][iset]),
+            delimiter   = "\t",
+            skiprows    = 1,
+            usecols     = (5,)
         )
 
     if(iexp==0):
@@ -64,19 +70,26 @@ for iexp in range(0,nexp):
     else:
         expdat = dict["exp_dat_{0}{1}".format(exp[iexp],expset[iexp][0])]
 
+    if(iexp==0):
+        expprotondat = np.concatenate((dict["exp_proton_dat_{0}{1}".format(exp[iexp],expset[iexp][0])] , dict["exp_proton_dat_{0}{1}".format(exp[iexp],expset[iexp][1])] ))
+    elif iexp==1:
+        expprotondat = np.concatenate((dict["exp_proton_dat_{0}{1}".format(exp[iexp],expset[iexp][0])] , dict["exp_proton_dat_{0}{1}".format(exp[iexp],expset[iexp][1])] ))
+    else:
+        expprotondat = dict["exp_proton_dat_{0}{1}".format(exp[iexp],expset[iexp][0])]
+
     thcomb[iexp] = expthcomb[iexp] - sigmacomb[iexp]
-    
+
     diag_minus_half_exp   = (np.diagonal(sigmacomb[iexp]))**(-0.5)
     corrmat_exp           =  diag_minus_half_exp*sigmacomb[iexp]*diag_minus_half_exp[:,np.newaxis]
-    
+
     diag_minus_half_nuc   = (np.diagonal(thcomb[iexp]))**(-0.5)
     corrmat_nuc           =  diag_minus_half_nuc*thcomb[iexp]*diag_minus_half_nuc[:,np.newaxis]
-    
+
     diag_minus_half_tot   = (np.diagonal(expthcomb[iexp]))**(-0.5)
     corrmat_tot           =  diag_minus_half_tot*expthcomb[iexp]*diag_minus_half_tot[:,np.newaxis]
-    
+
     #####################################################################################
-    
+
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     mat = ax1.matshow(100*thcomb[iexp]/np.outer(expdat,expdat),
@@ -87,57 +100,57 @@ for iexp in range(0,nexp):
     fig.colorbar(mat, label = "% of central theory")
     plt.title("{0}  theory covariance matrix".format(exp[iexp]))
     plt.savefig("../figs/covplot_nuc_{0}_def2".format(exp[iexp]))
-    
+
     #####################################################################################
-    
+
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     mat = ax1.matshow(100*sigmacomb[iexp]/np.outer(expdat,expdat),
                       cmap=cm.Spectral_r,
-                      norm=mcolors.SymLogNorm(linthresh=covthresh[iexp], 
-                                              linscale=10, vmin=-covlim[iexp], 
+                      norm=mcolors.SymLogNorm(linthresh=covthresh[iexp],
+                                              linscale=10, vmin=-covlim[iexp],
                                               vmax=covlim[iexp]))
     fig.colorbar(mat, label = "% of central theory")
     plt.title("{0} experiment covariance matrix".format(exp[iexp]))
     plt.savefig("../figs/covplot_exp_{0}_def2".format(exp[iexp]))
-    
+
     #####################################################################################
-    
+
     #Plotting impact matrices
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     matrix = (expthcomb[iexp])/sigmacomb[iexp]
-    mat = ax1.matshow(matrix, 
+    mat = ax1.matshow(matrix,
                       cmap=cm.Spectral_r,
                       norm=mcolors.SymLogNorm(linthresh=impactthresh[iexp],
-                                              linscale=10, vmin=-impactlim[iexp], 
+                                              linscale=10, vmin=-impactlim[iexp],
                                               vmax=impactlim[iexp]))
     fig.colorbar(mat, label = r"$\frac{\sigma + s}{\sigma}$")
     plt.title("{0} impact".format(exp[iexp]))
     plt.savefig("../figs/covplot_tot_{0}_def2".format(exp[iexp]))
-    
+
     #####################################################################################
-    
+
     #Plotting correlation matrices
     #-Exp
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    mat = ax1.matshow(corrmat_exp, 
+    mat = ax1.matshow(corrmat_exp,
                       cmap=cm.Spectral_r,
-                      vmin=-1, 
+                      vmin=-1,
                       vmax=1)
     plt.xticks([])
     plt.yticks([])
     fig.colorbar(mat)
     plt.title("{0} experimental correlation matrix".format(exp[iexp]))
     plt.savefig("../figs/corrplot_exp_{0}_def2".format(exp[iexp]))
-    
+
     #-Nuc
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    mat = ax1.matshow(corrmat_nuc, 
+    mat = ax1.matshow(corrmat_nuc,
                       cmap=cm.Spectral_r,
-                      vmin=-1, 
+                      vmin=-1,
                       vmax=1)
     plt.xticks([])
     plt.yticks([])
@@ -148,34 +161,34 @@ for iexp in range(0,nexp):
     #-Tot
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
-    mat = ax1.matshow(corrmat_tot, 
+    mat = ax1.matshow(corrmat_tot,
                       cmap=cm.Spectral_r,
-                      vmin=-1, 
+                      vmin=-1,
                       vmax=1)
     plt.xticks([])
     plt.yticks([])
     fig.colorbar(mat)
     plt.title("{0} total correlation matrix".format(exp[iexp]))
     plt.savefig("../figs/corrplot_tot_{0}_def2".format(exp[iexp]))
-    
+
     #####################################################################################
     #####################################################################################
     # ---- DIAGONAL ELEMENTS PLOTS --- #
     #####################################################################################
     #####################################################################################
-    
+
     fig = plt.figure()
     plt.plot(np.sqrt(np.diag(sigmacomb[iexp]))/expdat,
-             '.', 
-             label="cov=\u03C3", 
+             '.',
+             label="cov=\u03C3",
              color="orange")
     plt.plot(np.sqrt(np.diag(thcomb[iexp]))/expdat,
-             '.', 
+             '.',
              label="cov=s",
              color="darkorchid")
     plt.plot(np.sqrt(np.diag(expthcomb[iexp]))/expdat,
-             '.', 
-             label="cov=\u03C3+s", 
+             '.',
+             label="cov=\u03C3+s",
              color="teal")
 
     plt.legend()
@@ -187,16 +200,16 @@ for iexp in range(0,nexp):
     plt.legend(loc=2, fontsize=15)
     plt.tight_layout()
     plt.savefig("../figs/plot1_{0}_def2".format(exp[iexp]))
-     
+
     #####################################################################################
-    
+
     fig = plt.figure()
     plt.plot((np.diag(la.inv(sigmacomb[iexp])))**(-0.5)/expdat,
-             '.', 
+             '.',
              label="Experiment",
              color="orange")
     plt.plot((np.diag(la.inv(expthcomb[iexp])))**(-0.5)/expdat,
-             '.', 
+             '.',
              label="Experiment + Theory",
              color="mediumseagreen")
     plt.title("{0}".format(exp[iexp]))
@@ -206,7 +219,7 @@ for iexp in range(0,nexp):
     plt.legend()
     plt.tight_layout()
     plt.savefig("../figs/plot2_{0}_def2".format(exp[iexp]))
-     
+
     fig = plt.figure()
     plt.plot(expdat,'.')
     plt.title("{0} Observable".format(exp[iexp]))
@@ -214,5 +227,19 @@ for iexp in range(0,nexp):
     plt.ylabel("Observable", fontsize=15)
     plt.tight_layout()
     plt.savefig("../figs/observable_{0}_def2".format(exp[iexp]))
+   #####################################################################################
+   ########################### SHIFT PLOTS #############################################
+   #####################################################################################
+
+    fig = plt.figure()
+    plt.plot(expdat/expprotondat, '.', label="Nuclear observable")
+    plt.plot(expprotondat/expprotondat, '.', label="Proton observable")
+    plt.plot((expdat-expprotondat)/expprotondat,'.', label="Shift")
+    plt.title("{0} Shift".format(exp[iexp]))
+    plt.xlabel("Data point")
+    plt.ylabel("Ratio to proton observable", fontsize=15)
+    plt.tight_layout()
+    plt.legend()
+    plt.savefig("../figs/shift_{0}_def2".format(exp[iexp]))
 
     continue
