@@ -27,7 +27,7 @@ set ytics(  0.2 0, "" 0.22 1, "" 0.24 1, "" 0.26 1, "" 0.28 1,\
           ""1.5 0, "" 1.52 1, "" 1.54 1, "" 1.56 1, "" 1.58 1,\
             1.6 0)
 
-set label "R_s(x,Q=1.65 GeV)" at 0.012,1.5
+set label "R_s(x,Q=1.38 GeV)" at 0.012,1.5
 set key at 0.05,1.4
 
 plot infile u 2:3 w l lt 3 lw 1 lc rgb "#006400" notitle,\
