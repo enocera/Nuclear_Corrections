@@ -23,7 +23,7 @@ set ytics(  0.50 0, "" 0.55 1, "" 0.60 1, "" 0.65 1, "" 0.70 1,\
             
 
 set label "{~d\342\200\276} /{~u\342\200\276} (x,Q=10 GeV)" at 0.012,2.4
-set key at 0.05,2.3
+set key at 0.035,2.3
 
 plot infile u 2:3 w l lt 3 lw 1 lc rgb "#006400" notitle,\
      infile u 2:($3+$4) w l lt 1 lw 3 lc rgb "#006400" notitle,\
@@ -34,12 +34,12 @@ plot infile u 2:3 w l lt 3 lw 1 lc rgb "#006400" notitle,\
      infile u 2:($5+$6) w l lt 1 lw 3 lc rgb "orange" notitle,\
      infile u 2:($5-$6) w l lt 1 lw 3 lc rgb "orange" notitle,\
      infile u 2:($5+$6):($5-$6) w filledcu fs transparent pattern 5\
-     lt 1 lw 3 lc rgb "orange" t "No nuclear",\
+     lt 1 lw 3 lc rgb "orange" t "NoNuc",\
      infile u 2:7 w l lt 3 lw 1 lc rgb "blue" notitle,\
      infile u 2:($7+$8) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infile u 2:($7-$8) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infile u 2:($7+$8):($7-$8) w filledcu fs transparent pattern 4\
-     lt 1 lw 3 lc rgb "blue" t "Th.Unc. (Def 1)"
+     lt 1 lw 3 lc rgb "blue" t "NucUnc"
 
 unset label
 
@@ -66,7 +66,7 @@ set ytics(  0.50 0, "" 0.55 1, "" 0.60 1, "" 0.65 1, "" 0.70 1,\
             
 
 set label "{~d\342\200\276} /{~u\342\200\276} (x,Q=91.2 GeV)" at 0.012,2.4
-set key at 0.05,2.3
+set key at 0.035,2.3
 
 plot infile u 2:3 w l lt 3 lw 1 lc rgb "#006400" notitle,\
      infile u 2:($3+$4) w l lt 1 lw 3 lc rgb "#006400" notitle,\
@@ -77,12 +77,12 @@ plot infile u 2:3 w l lt 3 lw 1 lc rgb "#006400" notitle,\
      infile u 2:($5+$6) w l lt 1 lw 3 lc rgb "orange" notitle,\
      infile u 2:($5-$6) w l lt 1 lw 3 lc rgb "orange" notitle,\
      infile u 2:($5+$6):($5-$6) w filledcu fs transparent pattern 5\
-     lt 1 lw 3 lc rgb "orange" t "No nuclear",\
+     lt 1 lw 3 lc rgb "orange" t "NoNuc",\
      infile u 2:7 w l lt 3 lw 1 lc rgb "blue" notitle,\
      infile u 2:($7+$8) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infile u 2:($7-$8) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infile u 2:($7+$8):($7-$8) w filledcu fs transparent pattern 4\
-     lt 1 lw 3 lc rgb "blue" t "Th.Unc. (Def 1)"
+     lt 1 lw 3 lc rgb "blue" t "NucUnc"
 
 unset label
 
