@@ -1,29 +1,29 @@
 nuclearshift:
   fit: {id: NNPDF31_nnlo_nuclear_SHIFT}
-  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "Th.Unc. (Def 2)"}
+  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "NucCor"}
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "Th.Unc. (Def 2)"
+  speclabel: "NucCor"
 
 nuclearcorr:
   fit: {id: NNPDF31_nnlo_nuclear_CORR}
-  pdf: {id: NNPDF31_nnlo_nuclear_CORR, label: "Th.Unc. (Def 1)"}
+  pdf: {id: NNPDF31_nnlo_nuclear_CORR, label: "NucUnc"}
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "Th.Unc. (Def 1)"
+  speclabel: "NucUnc"
 
 current:
   fit: {id: NNPDF31_nnlo_nonuclear}
-  pdf: {id: NNPDF31_nnlo_nonuclear, label: "No nuclear"}
+  pdf: {id: NNPDF31_nnlo_nonuclear, label: "NoNuc"}
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "No nuclear"
+  speclabel: "NoNuc"
 
 reference: 
   fit: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG}

@@ -37,7 +37,7 @@ set xtics( "" 0.01 0, "" 0.02 1, "" 0.03 1, "" 0.04 1,\
            "" 0.05 1, "" 0.06 1, "" 0.07 1, "" 0.08 1, "" 0.09 1)
 
 set yrange[-1:1]
-set ytics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
+set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           ""-0.75 0, ""-0.70 1, ""-0.65 1, ""-0.60 1, ""-0.55 1,\
             -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
           ""-0.25 0, ""-0.20 1, ""-0.15 1, ""-0.10 1, ""-0.05 1,\
@@ -45,11 +45,11 @@ set ytics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 0.25 0, "" 0.30 1, "" 0.35 1, "" 0.40 1, "" 0.45 1,\
              0.50 0, "" 0.55 1, "" 0.60 1, "" 0.65 1, "" 0.70 1,\
           "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
-             1.00 0) nomirror
+          "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle,\
-     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black" notitle
+     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF" notitle,\
+     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347" notitle
 
 unset logscale x
 unset border 
@@ -88,9 +88,9 @@ set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
 set key font 'Helvetica,20' at 0.74,0.0 spacing 1.1
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray"\
+     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF"\
      t "CHORUS ({/Symbol=\156})",\
-     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black"\
+     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347"\
      t "CHORUS (~{/Symbol=\156}\342\200\276 )"
 
 unset logscale x
@@ -126,8 +126,8 @@ set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_db_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle,\
-     infilecorr_db_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black" notitle
+     infilecorr_db_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF" notitle,\
+     infilecorr_db_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347" notitle
 
 unset logscale x
 unset border 
@@ -152,7 +152,7 @@ set xtics( "" 0.1 0, "" 0.12 1, "" 0.14 1, "" 0.16 1, "" 0.18 1,\
            "" 0.8 0, "" 0.82 1, "" 0.84 1, "" 0.86 1, "" 0.88 1,\
            "" 0.9 0)
 set y2range[-1:1]
-set y2tics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
+set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            ""-0.75 0, ""-0.70 1, ""-0.65 1, ""-0.60 1, ""-0.55 1,\
              -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
            ""-0.25 0, ""-0.20 1, ""-0.15 1, ""-0.10 1, ""-0.05 1,\
@@ -160,11 +160,11 @@ set y2tics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            "" 0.25 0, "" 0.30 1, "" 0.35 1, "" 0.40 1, "" 0.45 1,\
               0.50 0, "" 0.55 1, "" 0.60 1, "" 0.65 1, "" 0.70 1,\
            "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
-              1.00 0) nomirror
+           "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_db_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray" t"neutrinos",\
-     infilecorr_db_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black" t "antineutrinos"
+     infilecorr_db_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF" t"neutrinos",\
+     infilecorr_db_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347" t "antineutrinos"
 
 unset logscale x
 unset border 
@@ -187,7 +187,7 @@ set xtics( "" 0.01 0, "" 0.02 1, "" 0.03 1, "" 0.04 1,\
            "" 0.05 1, "" 0.06 1, "" 0.07 1, "" 0.08 1, "" 0.09 1)
 
 set yrange[-1:1]
-set ytics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
+set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           ""-0.75 0, ""-0.70 1, ""-0.65 1, ""-0.60 1, ""-0.55 1,\
             -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
           ""-0.25 0, ""-0.20 1, ""-0.15 1, ""-0.10 1, ""-0.05 1,\
@@ -198,8 +198,8 @@ set ytics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle,\
-     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black" notitle
+     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue" notitle,\
+     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red" notitle
 
 unset logscale x
 unset border 
@@ -237,9 +237,9 @@ set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
 set key font 'Helvetica,20' at 0.73,0.0 spacing 1.1
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray"\
+     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue"\
      t "NuTeV ({/Symbol=\156})",\
-     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black"\
+     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red"\
      t "NuTeV (~{/Symbol=\156}\342\200\276 )"
 
 unset logscale x
@@ -275,8 +275,8 @@ set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_sb_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle,\
-     infilecorr_sb_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black" notitle
+     infilecorr_sb_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue" notitle,\
+     infilecorr_sb_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red" notitle
 
 unset logscale x
 unset border 
@@ -301,7 +301,7 @@ set xtics( "" 0.1 0, "" 0.12 1, "" 0.14 1, "" 0.16 1, "" 0.18 1,\
            "" 0.8 0, "" 0.82 1, "" 0.84 1, "" 0.86 1, "" 0.88 1,\
            "" 0.9 0)
 set y2range[-1:1]
-set y2tics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
+set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            ""-0.75 0, ""-0.70 1, ""-0.65 1, ""-0.60 1, ""-0.55 1,\
              -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
            ""-0.25 0, ""-0.20 1, ""-0.15 1, ""-0.10 1, ""-0.05 1,\
@@ -312,8 +312,8 @@ set y2tics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_sb_1 u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle,\
-     infilecorr_sb_2 u 2:4 w p pt 2 ps 1.5 lc rgb "black" notitle
+     infilecorr_sb_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue" notitle,\
+     infilecorr_sb_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red" notitle
 
 unset logscale x
 unset border 
@@ -336,7 +336,7 @@ set xtics(    0.01 0, "" 0.02 1, "" 0.03 1, "" 0.04 1,\
            "" 0.05 1, "" 0.06 1, "" 0.07 1, "" 0.08 1, "" 0.09 1)
 
 set yrange[-1:1]
-set ytics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
+set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           ""-0.75 0, ""-0.70 1, ""-0.65 1, ""-0.60 1, ""-0.55 1,\
             -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
           ""-0.25 0, ""-0.20 1, ""-0.15 1, ""-0.10 1, ""-0.05 1,\
@@ -347,7 +347,7 @@ set ytics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle
+     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57" notitle
 
 unset logscale x
 unset border 
@@ -388,7 +388,7 @@ set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
 set key font 'Helvetica,20' at 0.73,0.0 spacing 1.1
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "gray"\
+     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57"\
      t "E605"
 
 unset logscale x
@@ -424,7 +424,7 @@ set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_db_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle
+     infilecorr_db_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57" notitle
 
 unset logscale x
 unset border 
@@ -452,7 +452,7 @@ set xtics(    0.1 0, "" 0.12 1, "" 0.14 1, "" 0.16 1, "" 0.18 1,\
 set xlabel "x" font 'Helvetica,26' offset -7,+0.5
 
 set y2range[-1:1]
-set y2tics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
+set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            ""-0.75 0, ""-0.70 1, ""-0.65 1, ""-0.60 1, ""-0.55 1,\
              -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
            ""-0.25 0, ""-0.20 1, ""-0.15 1, ""-0.10 1, ""-0.05 1,\
@@ -463,7 +463,7 @@ set y2tics(  -1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            "" 1.00 0) nomirror
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_db_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "gray" notitle
+     infilecorr_db_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57" notitle
 
 unset logscale x
 unset border 

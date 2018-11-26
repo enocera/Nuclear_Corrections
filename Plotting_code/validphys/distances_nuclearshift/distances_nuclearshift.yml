@@ -1,11 +1,11 @@
 reference:
   fit: {id: NNPDF31_nnlo_nuclear_SHIFT}
-  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "Th.Unc. (Def 2)"}
+  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "NucCor"}
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "Th.Unc. (Def 2)"
+  speclabel: "NucCor"
 
 current: 
   fit: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG}

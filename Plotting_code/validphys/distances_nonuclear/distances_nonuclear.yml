@@ -1,11 +1,11 @@
 reference:
   fit: {id: NNPDF31_nnlo_nonuclear}
-  pdf: {id: NNPDF31_nnlo_nonuclear, label: "No nuclear"}
+  pdf: {id: NNPDF31_nnlo_nonuclear, label: "NoNuc"}
   theory: 
     from_: fit
   theoryid: 
     from_: theory
-  speclabel: "No nuclear"
+  speclabel: "NoNuc"
 
 current: 
   fit: {id: NNPDF31_nnlo_as_0118_NUTEV_DBG}
