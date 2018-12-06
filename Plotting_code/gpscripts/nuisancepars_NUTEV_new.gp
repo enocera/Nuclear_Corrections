@@ -17,7 +17,7 @@ set bmargin at screen 0.51
 set lmargin at screen 0.05
 set rmargin at screen 0.95
 
-set label "O@^{Fe}_i    /{/Symbol=\341}O^@p_i {/Symbol=\361}" font 'Helvetica,28' at 1,2.10
+set label "T@^{Fe}_i    [f_{Pb}] /{/Symbol=\341}T@^{Fe}_i    [f_p] {/Symbol=\361}" font 'Helvetica,28' at 1,2.10
 set label "NuTeV ({/Symbol n})" font 'Helvetica,28' at 40.5,2.15
 
 set xrange[0.38:45.62]

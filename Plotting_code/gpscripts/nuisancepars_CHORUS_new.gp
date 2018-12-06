@@ -17,7 +17,7 @@ set bmargin at screen 0.51
 set lmargin at screen 0.05
 set rmargin at screen 0.95
 
-set label "O@^{Pb}_i     /{/Symbol=\341}O@^p_i {/Symbol=\361}" font 'Helvetica,28' at 7,2.10
+set label "T@^{Pb}_i    [f_{Pb}] /{/Symbol=\341}T@^{Pb}_i    [f_p] {/Symbol=\361}" font 'Helvetica,28' at 7,2.10
 set label "CHORUS ({/Symbol n})" font 'Helvetica,28' at 530,2.15
 
 set xrange[0:613]

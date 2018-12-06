@@ -13,7 +13,7 @@ set bmargin at screen 0.05
 set lmargin at screen 0.05
 set rmargin at screen 0.95
 
-set label "O@^{Cu}_i     /{/Symbol=\341}O@^p_i {/Symbol=\361}" font 'Helvetica,28' at 1.2,2.10
+set label "T@^{Cu}_i    [f_{Pb}] /{/Symbol=\341}T@^{Cu}_i    [f_p] {/Symbol=\361}" font 'Helvetica,28' at 1.2,2.10
 set label "E605" font 'Helvetica,28' at 113,2.15
 
 set xrange[0:120]
