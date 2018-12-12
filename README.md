@@ -9,8 +9,8 @@ experiments into a typical NNPDF fit.
   contains selected papers useful for this project
 - LHAPDF_Production
 
-  contains the code to generate appropriate LHAPDF grids fro the DSSZ and EPPS 
-  nucler PDF sets
+  contains the code to generate appropriate LHAPDF grids for the DSSZ and EPPS 
+  nuclear PDF sets
 - MonteCarlo
 
   contains the code and the runcard to generate the Monte Carlo sets for each
@@ -18,7 +18,7 @@ experiments into a typical NNPDF fit.
 - nPDFsets
 
   contains the nuclear PDF sets produced by the bits of code in 
-  LHAPDF_PRoduction and MonteCarlo
+  LHAPDF_Production and MonteCarlo
 - Observables
 
   contains the validphys folder to generate predictions - the NUCLEAR branch
