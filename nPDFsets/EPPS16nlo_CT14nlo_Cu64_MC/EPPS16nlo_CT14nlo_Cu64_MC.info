@@ -10,6 +10,7 @@ OrderQCD: 1
 FlavorScheme: variable
 NumFlavors: 5
 ErrorType: replicas
+ErrorConfLevel: 68
 XMin: 6.144210e-06
 XMax: 1
 QMin: 5.767150e+00
