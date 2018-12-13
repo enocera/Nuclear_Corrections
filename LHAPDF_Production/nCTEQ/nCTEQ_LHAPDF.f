@@ -7,7 +7,7 @@
 *                                                                              *
 ********************************************************************************
 
-      program EPPS_LHAPDF
+      program nCTEQ_LHAPDF
       implicit none
 
       integer IREPB
@@ -20,9 +20,9 @@
 
       character*30 setname1, setname2, setname3
 
-      setname1="EPPS16nlo_CT14nlo_Fe56_bd"
-      setname2="EPPS16nlo_CT14nlo_Pb208_bd"
-      setname3="EPPS16nlo_CT14nlo_Cu64_bd"
+      setname1="nCTEQ15_CT14nlo_Fe56_bd"
+      setname2="nCTEQ15_CT14nlo_Pb208_bd"
+      setname3="nCTEQ15_CT14nlo_Cu64_bd"
 
       Qin   = -1d0   !GeV 
       irepb = -1
@@ -47,20 +47,20 @@
      1                         1.0000000001d0,99999.998d0)
       
       if(A.eq.56d0.and.Z.eq.26d0)then
-         call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Fe56")
+         call initpdfsetbynamem(1,"nCTEQ15_56_26")
          call initpdfsetbynamem(2,"CT14nlo")
          call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
-         call LHAPDFgrid(96,Qin,trim(setname1))
+         call LHAPDFgrid(32,Qin,trim(setname1))
       elseif(A.eq.208d0.and.Z.eq.82d0)then
-         call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Pb208")
+         call initpdfsetbynamem(1,"nCTEQ15_208_82")
          call initpdfsetbynamem(2,"CT14nlo")
          call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
-         call LHAPDFgrid(96,Qin,trim(setname2))
+         call LHAPDFgrid(32,Qin,trim(setname2))
       elseif(A.eq.64d0.and.Z.eq.32d0)then
-         call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Cu64")
+         call initpdfsetbynamem(1,"nCTEQ15_64_32")
          call initpdfsetbynamem(2,"CT14nlo")
          call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
-         call LHAPDFgrid(96,Qin,trim(setname3))
+         call LHAPDFgrid(32,Qin,trim(setname3))
       else
          call exit(-1)
       endif
@@ -104,11 +104,11 @@
       xf(-5) = xpdflh1(-5)
       xf(-4) = xpdflh1(-4)
       xf(-3) = xpdflh1(-3)
-      xf(-2) = ( (Z-A) * xpdflh1(-1) + Z * xpdflh1(-2) ) / (2d0*Z - A)
-      xf(-1) = ( (Z-A) * xpdflh1(-2) + Z * xpdflh1(-1) ) / (2d0*Z - A)
+      xf(-2) = xpdflh1(-2)
+      xf(-1) = xpdflh1(-1)
       xf(0)  = xpdflh1(0)
-      xf(1)  = ( (Z-A) * xpdflh1(+2) + Z * xpdflh1(+1) ) / (2d0*Z - A)
-      xf(2)  = ( (Z-A) * xpdflh1(+1) + Z * xpdflh1(+2) ) / (2d0*Z - A)
+      xf(1)  = xpdflh1(+1)
+      xf(2)  = xpdflh1(+2)
       xf(3)  = xpdflh1(+3)
       xf(4)  = xpdflh1(+4)
       xf(5)  = xpdflh1(+5)
