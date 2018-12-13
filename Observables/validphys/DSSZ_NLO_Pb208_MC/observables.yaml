@@ -6,7 +6,7 @@ theoryid: 64
 
 use_cuts: False
 
-pdf: DSSZ_NLO_Pb208_MC
+pdf: DSSZ_NLO_Pb208_MC_ns
 
 experiments:
    - experiment: CHORUS
