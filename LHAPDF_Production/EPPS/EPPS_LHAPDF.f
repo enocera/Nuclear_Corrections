@@ -32,7 +32,7 @@
       read(5,*) A
 
       write(*,*) "Insert the atomic number Z",
-     1     "(iron=26; lead=82; copper=32)"
+     1     "(iron=26; lead=82; copper=29)"
 
       read(5,*) Z
 
@@ -50,17 +50,17 @@
          call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Fe56")
          call initpdfsetbynamem(2,"CT14nlo")
          call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
-         call LHAPDFgrid(96,Qin,trim(setname1))
+         call LHAPDFgrid(40,Qin,trim(setname1))
       elseif(A.eq.208d0.and.Z.eq.82d0)then
          call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Pb208")
          call initpdfsetbynamem(2,"CT14nlo")
          call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
-         call LHAPDFgrid(96,Qin,trim(setname2))
-      elseif(A.eq.64d0.and.Z.eq.32d0)then
+         call LHAPDFgrid(40,Qin,trim(setname2))
+      elseif(A.eq.64d0.and.Z.eq.29d0)then
          call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Cu64")
          call initpdfsetbynamem(2,"CT14nlo")
          call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
-         call LHAPDFgrid(96,Qin,trim(setname3))
+         call LHAPDFgrid(40,Qin,trim(setname3))
       else
          call exit(-1)
       endif
