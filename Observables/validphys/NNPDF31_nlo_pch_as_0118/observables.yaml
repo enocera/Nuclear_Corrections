@@ -2,11 +2,11 @@ meta:
    author: Emanuele R. Nocera
    title: Theoretical predictions
 
-theoryid: 64
+theoryid: 53
 
 use_cuts: False
 
-pdf: NNPDF31_nlo_pch_as_0118
+pdf: NNPDF31_nnlo_nuclear_CORR_new
 
 experiments:
    - experiment: CHORUS

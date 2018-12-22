@@ -2,11 +2,11 @@ meta:
    author: Emanuele R. Nocera
    title: Theoretical predictions
 
-theoryid: 64
+theoryid: 53
 
 use_cuts: False
 
-pdf: DSSZ_NLO_Fe56_MC_ns
+pdf: DSSZ_NLO_Fe56_MC
 
 experiments:
    - experiment: NUTEV
