@@ -7,7 +7,7 @@
 *                                                                              *
 ********************************************************************************
 
-      program DSSZ_LHAPDF
+      program EPPS_LHAPDF
       implicit none
 
       integer IREPB
@@ -36,8 +36,8 @@
 
       read(5,*) Z
 
-      call setPerturbativeOrder(1)
-      call SetPoleMasses(1.3d0,4.75d0,172d0)
+      call setPerturbativeOrder(2)
+      call SetPoleMasses(1.51d0,4.92d0,172.5d0)
       call SetAlphaEvolution("exact")
       call SetAlphaQCDref(0.118d0,91.1876d0)
       call SetMaxFlavourPDFs(5)
@@ -47,14 +47,20 @@
      1                         1.0000000001d0,99999.998d0)
       
       if(A.eq.56d0.and.Z.eq.26d0)then
-         call initpdfsetbyname("EPPS16nlo_CT14nlo_Fe56")
-         call LHAPDFgrid(96,Qin,trim(setname1))
+         call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Fe56")
+         call initpdfsetbynamem(2,"CT14nlo")
+         call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
+         call LHAPDFgrid(40,Qin,trim(setname1))
       elseif(A.eq.208d0.and.Z.eq.82d0)then
-         call initpdfsetbyname("EPPS16nlo_CT14nlo_Pb208")
-         call LHAPDFgrid(96,Qin,trim(setname2))
+         call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Pb208")
+         call initpdfsetbynamem(2,"CT14nlo")
+         call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
+         call LHAPDFgrid(40,Qin,trim(setname2))
       elseif(A.eq.64d0.and.Z.eq.29d0)then
-         call initpdfsetbyname("EPPS16nlo_CT14nlo_Cu64")
-         call LHAPDFgrid(96,Qin,trim(setname3))
+         call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Cu64")
+         call initpdfsetbynamem(2,"CT14nlo")
+         call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
+         call LHAPDFgrid(40,Qin,trim(setname3))
       else
          call exit(-1)
       endif
@@ -72,32 +78,51 @@
       
       integer irep, irepb
       common / replica / irepb
+      integer ifl
 
       double precision x, Q, Q2
-      double precision xpdflh(-6:7), xf(-6:7)
+      double precision xpdflh1(-6:7) 
+      double precision xpdflh2(-6:7)
+      double precision xpdflh3(-6:7)
+      double precision xf(-6:7)
+      double precision ratio
       double precision A, Z
       common / Anumber / A, Z
 
+      external ratio
+
       Q2 = Q * Q
 
-      call initPDF(irep)
-      call evolvePDF(x,Q,xpdflh)
+      call initPDFm(1,irep)
+      call evolvePDFm(1,x,Q,xpdflh1)
+      call initPDFm(2,0)
+      call evolvePDFm(2,x,Q,xpdflh2)
+      call initPDFm(3,0)
+      call evolvePDFm(3,x,Q,xpdflh3)
 
       xf(-6) = 0d0
-      xf(-5) = xpdflh(-5)
-      xf(-4) = xpdflh(-4)
-      xf(-3) = xpdflh(-3)
-      xf(-2) = ( (Z-A) * xpdflh(-1) + Z * xpdflh(-2) ) / (2d0*Z - A)
-      xf(-1) = ( (Z-A) * xpdflh(-2) + Z * xpdflh(-1) ) / (2d0*Z - A)
-      xf(0)  = xpdflh(0)
-      xf(1)  = ( (Z-A) * xpdflh(+2) + Z * xpdflh(+1) ) / (2d0*Z - A)
-      xf(2)  = ( (Z-A) * xpdflh(+1) + Z * xpdflh(+2) ) / (2d0*Z - A)
-      xf(3)  = xpdflh(+3)
-      xf(4)  = xpdflh(+4)
-      xf(5)  = xpdflh(+5)
+      xf(-5) = xpdflh1(-5)
+      xf(-4) = xpdflh1(-4)
+      xf(-3) = xpdflh1(-3)
+      xf(-2) = ( (Z-A) * xpdflh1(-1) + Z * xpdflh1(-2) ) / (2d0*Z - A)
+      xf(-1) = ( (Z-A) * xpdflh1(-2) + Z * xpdflh1(-1) ) / (2d0*Z - A)
+      xf(0)  = xpdflh1(0)
+      xf(1)  = ( (Z-A) * xpdflh1(+2) + Z * xpdflh1(+1) ) / (2d0*Z - A)
+      xf(2)  = ( (Z-A) * xpdflh1(+1) + Z * xpdflh1(+2) ) / (2d0*Z - A)
+      xf(3)  = xpdflh1(+3)
+      xf(4)  = xpdflh1(+4)
+      xf(5)  = xpdflh1(+5)
       xf(6)  = 0d0
       xf(7)  = 0d0
 
+      do ifl=-6, 7
+         if(xpdflh2(ifl).ne.0d0)then
+            xf(ifl) = xf(ifl) * (xpdflh3(ifl)/xpdflh2(ifl))
+         else
+            xf(ifl) = 0d0
+         endif
+      enddo
+         
       irepb = irep
 
       return

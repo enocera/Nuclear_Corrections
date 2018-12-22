@@ -1,7 +1,7 @@
 ********************************************************************************
 *                                                                              *
 *     This program generates the LHAPDF grids for each eigenvector of the      *
-*     DSSZ sets. Bound prootn nuclear PDFs are reconstructed from the ratio    *
+*     DSSZ sets. Bound proton nuclear PDFs are reconstructed from the ratio    *
 *     R according to Eqs.(6),(14) in arXiv:1112:6324. It is implicitly assumed *
 *     that the free proton PDF ucnertainty is already included in the ratio R  *
 *                                                                              *
@@ -36,11 +36,11 @@
          stop
       endif
 
-      call initPDFsetbyname("MSTW2008nlo68cl")
+      call initPDFsetbyname("NNPDF31_nnlo_nuclear_CORR_new")
       call initPDF(0)
 
-      call setPerturbativeOrder(1)
-      call SetPoleMasses(1.4d0,4.75d0,1d10)
+      call setPerturbativeOrder(2)
+      call SetPoleMasses(1.51d0,4.92d0,172.5d0)
       call SetAlphaEvolution("exact")
       call SetAlphaQCDref(0.120179d0,91.1876d0)
       call SetMaxFlavourPDFs(5)
@@ -50,7 +50,6 @@
      1                         1.0000000001d0,99999.998d0)
       
       call LHAPDFgrid(50,Qin,trim(wrapfile))
-      !call LHAPDFgrid(10,Qin,trim("DSSZ_NLO_Fe56_nr"))
       
       call CleanUp
 

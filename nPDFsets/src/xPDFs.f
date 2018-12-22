@@ -52,8 +52,8 @@
       read(5,*) A
       read(5,*) Z
 
-*     Define NNFF reference
-      NNwrapfile="NNPDF31_nlo_pch_as_0118"
+*     Define NNPDF reference
+      NNwrapfile="NNPDF31_nnlo_nuclear_CORR_new"
 
 *     Initialise arrays
       do iwrap=1, nwrap

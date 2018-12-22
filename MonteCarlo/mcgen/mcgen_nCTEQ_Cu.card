@@ -1,6 +1,6 @@
 # Input parameters for mcgen program; do not modify comments after "#"!
 # Parameters for generation of random replicas
-nCTEQ15_64_32            # input PDF ensemble from LHAPDF6 
+nCTEQ15_CT14nlo_Cu64_bd  # input PDF ensemble from LHAPDF6 
 nCTEQ15_64_32_MC         # output PDF ensemble, its directory with output 
 he90                     # input error type, he68/he90/mc=Hessian 68%/90%/MC
 300                      # number of MC replicas to generate          
