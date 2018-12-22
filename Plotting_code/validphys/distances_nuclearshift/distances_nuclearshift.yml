@@ -1,6 +1,6 @@
 reference:
-  fit: {id: NNPDF31_nnlo_nuclear_SHIFT}
-  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT, label: "NucCor"}
+  fit: {id: NNPDF31_nnlo_nuclear_SHIFT_new_ite}
+  pdf: {id: NNPDF31_nnlo_nuclear_SHIFT_new_ite, label: "NucCor"}
   theory: 
     from_: fit
   theoryid: 

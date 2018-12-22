@@ -10,7 +10,7 @@ from IPython import embed
 # Reading in PDF set and setting x and Q values
 pdfset      = str(sys.argv[1])
 x           = 0.023
-Q           = sqrt(1.9)
+Q           = 1.38
 
 # Reading in PDF sets
 p           = lhapdf.mkPDF(pdfset, 0)

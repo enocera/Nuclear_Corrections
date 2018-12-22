@@ -36,12 +36,11 @@
          stop
       endif
 
-      !call initPDFsetbyname("MSTW2008nlo68cl")
-      call initPDFsetbyname("NNPDF31_nlo_pch_as_0118")
+      call initPDFsetbyname("NNPDF31_nnlo_nuclear_CORR_new")
       call initPDF(0)
 
-      call setPerturbativeOrder(1)
-      call SetPoleMasses(1.4d0,4.75d0,1d10)
+      call setPerturbativeOrder(2)
+      call SetPoleMasses(1.51d0,4.92d0,172.5d0)
       call SetAlphaEvolution("exact")
       call SetAlphaQCDref(0.120179d0,91.1876d0)
       call SetMaxFlavourPDFs(5)
@@ -51,7 +50,6 @@
      1                         1.0000000001d0,99999.998d0)
       
       call LHAPDFgrid(50,Qin,trim(wrapfile))
-      !call LHAPDFgrid(10,Qin,trim("DSSZ_NLO_Fe56_nr"))
       
       call CleanUp
 

@@ -277,7 +277,7 @@
      1                 " i "  , idat,
      1                 " i "  , i
                   write(*,104) "failed"
-                  call exit(-10)
+                  !call exit(-10)
                endif
                
             enddo 
@@ -305,7 +305,7 @@
      1                 " i "  , idat,
      1                 " i "  , i
                   write(*,104) "failed"
-                  call exit(-10)
+                  !call exit(-10)
                endif
                
             enddo 

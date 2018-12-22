@@ -31,8 +31,8 @@
 *     Define infiles
       infile(1) = "NNPDF31_nnlo_as_0118_NUTEV_DBG"
       infile(2) = "NNPDF31_nnlo_nonuclear"
-      infile(3) = "NNPDF31_nnlo_nuclear_CORR"
-      infile(4) = "NNPDF31_nnlo_nuclear_SHIFT"
+      infile(3) = "NNPDF31_nnlo_nuclear_CORR_new_ite"
+      infile(4) = "NNPDF31_nnlo_nuclear_SHIFT_new_ite"
 
 *     Define x slicing
       do ipt=1, npt

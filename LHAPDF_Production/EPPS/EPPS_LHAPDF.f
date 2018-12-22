@@ -36,8 +36,8 @@
 
       read(5,*) Z
 
-      call setPerturbativeOrder(1)
-      call SetPoleMasses(1.3d0,4.75d0,172d0)
+      call setPerturbativeOrder(2)
+      call SetPoleMasses(1.51d0,4.92d0,172.5d0)
       call SetAlphaEvolution("exact")
       call SetAlphaQCDref(0.118d0,91.1876d0)
       call SetMaxFlavourPDFs(5)
@@ -49,17 +49,17 @@
       if(A.eq.56d0.and.Z.eq.26d0)then
          call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Fe56")
          call initpdfsetbynamem(2,"CT14nlo")
-         call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
+         call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
          call LHAPDFgrid(40,Qin,trim(setname1))
       elseif(A.eq.208d0.and.Z.eq.82d0)then
          call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Pb208")
          call initpdfsetbynamem(2,"CT14nlo")
-         call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
+         call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
          call LHAPDFgrid(40,Qin,trim(setname2))
       elseif(A.eq.64d0.and.Z.eq.29d0)then
          call initpdfsetbynamem(1,"EPPS16nlo_CT14nlo_Cu64")
          call initpdfsetbynamem(2,"CT14nlo")
-         call initpdfsetbynamem(3,"NNPDF31_nlo_pch_as_0118")
+         call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
          call LHAPDFgrid(40,Qin,trim(setname3))
       else
          call exit(-1)

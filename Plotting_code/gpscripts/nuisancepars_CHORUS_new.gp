@@ -53,7 +53,7 @@ set ytics(  -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
           "" 3.25 0, "" 3.30 1, "" 3.35 1, "" 3.40 1, "" 3.45 1,\
              3.50 0) font 'Helvetica,26'
 
-set key at 610,2.0 font 'Helvetica,26' spacing 1.3
+set key at 100,0.7 font 'Helvetica,26' spacing 1.3
 
 plot infile1 using ($1-0.2):6:7 w yerrorbars lw 4 lc rgb "red" t "DSSZ12",\
      infile1 using 1:2:3 w yerrorbars lw 4 lc rgb "blue" t "EPPS16",\
