@@ -29,7 +29,7 @@ set bmargin at screen 0.685
 set lmargin at screen 0.1
 set rmargin at screen 0.25
 
-set label "{/Symbol r}_{~u\342\200\276} (x,Q^2)" font 'Helvetica,24' at 0.013,0.75
+set label "{/Symbol r}_{u_V} (x,Q^2)" font 'Helvetica,24' at 0.013,0.75
 
 set xrange[0.01:0.1]
 set logscale x
@@ -47,9 +47,13 @@ set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
           "" 1.00 0) nomirror
 
+set key font 'Helvetica,20' at 0.19,0.0 spacing 1.1
+
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF" notitle,\
-     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347" notitle
+     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF"\
+     t "CHORUS ({/Symbol=\156})",\
+     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347"\
+     t "CHORUS (~{/Symbol=\156}\342\200\276 )"
 
 unset logscale x
 unset border 
@@ -85,13 +89,9 @@ set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
            "" 1.00 0) nomirror
 
-set key font 'Helvetica,20' at 0.74,0.0 spacing 1.1
-
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF"\
-     t "CHORUS ({/Symbol=\156})",\
-     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347"\
-     t "CHORUS (~{/Symbol=\156}\342\200\276 )"
+     infilecorr_ub_1 u 2:4 w p pt 5 ps 1.5 lc rgb "#1E90FF" notitle,\
+     infilecorr_ub_2 u 2:4 w p pt 2 ps 1.5 lc rgb "#FF6347" notitle
 
 unset logscale x
 unset border 
@@ -107,7 +107,7 @@ set bmargin at screen 0.685
 set lmargin at screen 0.505
 set rmargin at screen 0.65
 
-set label "{/Symbol r}_{~d\342\200\276} (x,Q^2)" font 'Helvetica,24' at 0.013,0.75
+set label "{/Symbol r}_{d_V} (x,Q^2)" font 'Helvetica,24' at 0.013,0.75
 
 set xrange[0.01:0.1]
 set logscale x
@@ -197,9 +197,13 @@ set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
           "" 1.00 0) nomirror
 
+set key font 'Helvetica,20' at 0.13,0.0 spacing 1.1
+
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue" notitle,\
-     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red" notitle
+     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue"\
+     t "NuTeV ({/Symbol=\156})",\
+     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red"\
+     t "NuTeV (~{/Symbol=\156}\342\200\276 )"
 
 unset logscale x
 unset border 
@@ -234,13 +238,9 @@ set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
            "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
            "" 1.00 0) nomirror
 
-set key font 'Helvetica,20' at 0.73,0.0 spacing 1.1
-
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue"\
-     t "NuTeV ({/Symbol=\156})",\
-     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red"\
-     t "NuTeV (~{/Symbol=\156}\342\200\276 )"
+     infilecorr_st_1 u 2:4 w p pt 5 ps 1.5 lc rgb "blue" notitle,\
+     infilecorr_st_2 u 2:4 w p pt 2 ps 1.5 lc rgb "red" notitle
 
 unset logscale x
 unset border 
@@ -346,8 +346,11 @@ set ytics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
           "" 0.75 0, "" 0.80 1, "" 0.85 1, "" 0.90 1, "" 0.95 1,\
           "" 1.00 0) nomirror
 
+set key font 'Helvetica,20' at 0.07,0.0 spacing 1.1
+
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57" notitle
+     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57"\
+     t "E605"
 
 unset logscale x
 unset border 
@@ -388,8 +391,7 @@ set y2tics(""-1.00 0, ""-0.95 1, ""-0.90 1, ""-0.85 1, ""-0.80 1,\
 set key font 'Helvetica,20' at 0.73,0.0 spacing 1.1
 
 plot 0 w l lw 1 lc rgb "black" notitle,\
-     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57"\
-     t "E605"
+     infilecorr_ub_1_DY u 2:4 w p pt 5 ps 1.5 lc rgb "#2E8B57" notitle
 
 unset logscale x
 unset border 
