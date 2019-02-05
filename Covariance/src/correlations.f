@@ -228,11 +228,19 @@
      1                       Q(iexp,iset,ipt),xpdflh)
                         xPDF2(iexp,iset,iwrap,ipt,irep)
      1                       = xpdflh(ifl) 
-                     else
+                     elseif(iexp.eq.2)then
                         call evolvePDF(x(iexp,iset,ipt),
      1                       Q(iexp,iset,ipt),xpdflh)
                         xPDF(iexp,iset,iwrap,ipt,irep)
-     1                       = xpdflh(ifl)  
+     1                       = xpdflh(ifl)
+                     elseif(iexp.eq.1)then
+                        call evolvePDF(x(iexp,iset,ipt),
+     1                       Q(iexp,iset,ipt),xpdflh)
+                        xPDF(iexp,iset,iwrap,ipt,irep)
+     1                       = -1d0*(xpdflh(ifl)-xpdflh(-1*ifl))
+                     else
+                        write(*,*) "Experiment unavailable"
+                        call exit(-1)
                      endif
 
                   enddo
