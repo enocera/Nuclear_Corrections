@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = relunc xPDFs
+MAIN = relunc Rs
 
 ############################## do not change #############################
 
