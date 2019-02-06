@@ -55,7 +55,7 @@ set ytics(  -0.50 0, ""-0.45 1, ""-0.40 1, ""-0.35 1, ""-0.30 1,\
 
 set key at 100,0.7 font 'Helvetica,26' spacing 1.3
 
-plot infile1 using ($1-0.2):6:7 w yerrorbars lw 4 lc rgb "red" t "DSSZ12",\
+plot infile1 using ($1-0.2):6:($7/2) w yerrorbars lw 4 lc rgb "red" t "DSSZ12",\
      infile1 using 1:2:3 w yerrorbars lw 4 lc rgb "blue" t "EPPS16",\
      infile1 using ($1+0.2):4:5 w yerrorbars lw 4 lc rgb "#006400" t "nCTEQ15",\
      infile2 using ($1-0.5):(1/$2) w steps lt 1 lw 4 lc rgb "#FFD700"\
@@ -72,7 +72,7 @@ set rmargin at screen 0.95
 
 set label "CHORUS (~{/Symbol=\156}\342\200\276 )" font 'Helvetica,28' at 530,2.15
 
-plot infile3 using ($1-0.2):6:7 w yerrorbars lw 4 lc rgb "red" notitle,\
+plot infile3 using ($1-0.2):6:($7/2) w yerrorbars lw 4 lc rgb "red" notitle,\
      infile3 using 1:2:3 w yerrorbars lw 4 lc rgb "blue" notitle,\
      infile3 using ($1+0.2):4:5 w yerrorbars lw 4 lc rgb "#006400" notitle,\
      infile4 using ($1-0.5):(1/$2) w steps lt 1 lw 4 lc rgb "#FFD700" notitle,\
