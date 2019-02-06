@@ -48,17 +48,17 @@
       
       if(A.eq.56d0.and.Z.eq.26d0)then
          call initpdfsetbynamem(1,"nCTEQ15_56_26")
-         call initpdfsetbynamem(2,"CT14nlo")
+         call initpdfsetbynamem(2,"cteq61")
          call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
          call LHAPDFgrid(32,Qin,trim(setname1))
       elseif(A.eq.208d0.and.Z.eq.82d0)then
          call initpdfsetbynamem(1,"nCTEQ15_208_82")
-         call initpdfsetbynamem(2,"CT14nlo")
+         call initpdfsetbynamem(2,"cteq61")
          call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
          call LHAPDFgrid(32,Qin,trim(setname2))
       elseif(A.eq.64d0.and.Z.eq.32d0)then
          call initpdfsetbynamem(1,"nCTEQ15_64_32")
-         call initpdfsetbynamem(2,"CT14nlo")
+         call initpdfsetbynamem(2,"cteq61")
          call initpdfsetbynamem(3,"NNPDF31_nnlo_nuclear_CORR_new")
          call LHAPDFgrid(32,Qin,trim(setname3))
       else

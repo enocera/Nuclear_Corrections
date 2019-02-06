@@ -14,7 +14,8 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = nCTEQ_LHAPDF
+MAIN    = nCTEQ_LHAPDF cteq61_LHAPDF
+MODULES = Cteq6Pdf-2010
 
 ############################## do not change #############################
 
@@ -42,7 +43,7 @@ $(addsuffix .o,$(PGMSF)): %.o: %.f Makefile
 # rule to link object files
 
 $(MAIN): %: %.o  $(addsuffix .o,$(MODULES)) Makefile
-	$(FLINKER) $< $(LDFLAGS) -o $@
+	$(FLINKER) $< $(addsuffix .o,$(MODULES)) $(LDFLAGS) -o $@
 
 # produce executables
 
