@@ -1,0 +1,129 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3990,        119]
+NotebookOptionsPosition[      3602,        102]
+NotebookOutlinePosition[      3942,        117]
+CellTagsIndexPosition[      3899,        114]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"Import", "[", "\"\<../res/A_CHORUSNU.dat\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ainv", "=", 
+   RowBox[{"Inverse", "[", "A", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<../res/Ainv_CHORUSNU.dat\>\"", ",", "Ainv"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.758893801149809*^9, 3.75889380945588*^9}, {
+  3.758893971392476*^9, 3.758894009838242*^9}, {3.75889410566114*^9, 
+  3.758894164417947*^9}, {3.758894237576312*^9, 3.758894239887269*^9}, {
+  3.7588942892438*^9, 3.7588942967911787`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"Import", "[", "\"\<../res/A_CHORUSNB.dat\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ainv", "=", 
+   RowBox[{"Inverse", "[", "A", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<../res/Ainv_CHORUSNB.dat\>\"", ",", "Ainv"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.758893801149809*^9, 3.75889380945588*^9}, {
+  3.758893971392476*^9, 3.758894009838242*^9}, {3.75889410566114*^9, 
+  3.758894164417947*^9}, {3.758894237576312*^9, 3.758894239887269*^9}, {
+  3.758894301038309*^9, 3.758894308839732*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"Import", "[", "\"\<../res/A_NTVNUDMN.dat\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ainv", "=", 
+   RowBox[{"Inverse", "[", "A", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<../res/Ainv_NTVNUDMN.dat\>\"", ",", "Ainv"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.758893801149809*^9, 3.75889380945588*^9}, {
+  3.758893971392476*^9, 3.758894009838242*^9}, {3.75889410566114*^9, 
+  3.758894164417947*^9}, {3.758894275864046*^9, 3.75889427827367*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"Import", "[", "\"\<../res/A_NTVNBDMN.dat\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ainv", "=", 
+   RowBox[{"Inverse", "[", "A", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<../res/Ainv_NTVNBDMN.dat\>\"", ",", "Ainv"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.758893801149809*^9, 3.75889380945588*^9}, {
+  3.758893971392476*^9, 3.758894009838242*^9}, {3.75889410566114*^9, 
+  3.758894164417947*^9}, {3.758894237576312*^9, 3.758894239887269*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"A", "=", 
+   RowBox[{"Import", "[", "\"\<../res/A_DYE605.dat\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ainv", "=", 
+   RowBox[{"Inverse", "[", "A", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<../res/Ainv_DYE605.dat\>\"", ",", "Ainv"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.758893801149809*^9, 3.75889380945588*^9}, {
+  3.758893971392476*^9, 3.758894009838242*^9}, {3.75889410566114*^9, 
+  3.758894164417947*^9}, {3.758894237576312*^9, 3.758894270336138*^9}}]
+},
+WindowSize->{808, 911},
+WindowMargins->{{315, Automatic}, {-10, Automatic}},
+FrontEndVersion->"10.0 for Linux x86 (64-bit) (September 9, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 636, 15, 77, "Input"],
+Cell[1197, 37, 636, 15, 77, "Input"],
+Cell[1836, 54, 586, 14, 77, "Input"],
+Cell[2425, 70, 587, 14, 77, "Input"],
+Cell[3015, 86, 583, 14, 77, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
