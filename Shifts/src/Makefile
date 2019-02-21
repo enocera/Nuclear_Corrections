@@ -14,7 +14,7 @@ all: rmxeq mkxeq
 
 # main programs to be compiled 
 
-MAIN = prepare compute
+MAIN = prepare compute nuisancenucl_new
 
 ############################## do not change #############################
 

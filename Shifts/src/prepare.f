@@ -37,14 +37,23 @@
       double precision A(nexp,mxset,mxsys,mxsys)
       double precision B(nexp,mxset,mxsys)
 
-      character*10 cdum
-      character*15 nameset(nexp,mxset)
+      character*10  cdum
+      character*15  nameset(nexp,mxset)
       character*100 datafile(nexp,mxset)
       character*100 theoryfile(nexp,mxset)
       character*100 sysfile(nexp,mxset)
-      character*20 namesys
-      character*40 outfileA(nexp,mxset), outfileB(nexp,mxset)
+      character*20  namesys
+      character*40  outfileA(nexp,mxset), outfileB(nexp,mxset)
+      character*6   lbl
       
+*     Define fit
+      write(*,*) "Insert fit type (NucUnc or NucCor)"
+      read(*,*) lbl
+      if(lbl.ne."NucUnc".and.lbl.ne."NucCor")then
+         write(*,*) "Invalid fit type"
+         call exit(-1)
+      endif
+
 *     Define nset
       nset(1)=2
       nset(2)=2
@@ -60,14 +69,27 @@
 *     Define infiles 
       do iexp=1, nexp
          do iset=1, nset(iexp)
-            write(datafile(iexp,iset),101) "../data/DATA_",
-     1           trim(nameset(iexp,iset)), "nucl.dat"
-            write(sysfile(iexp,iset),101) "../data/systype/SYSTYPE_",
-     1           trim(nameset(iexp,iset)), "nucl_DEFAULT.dat"
-            write(theoryfile(iexp,iset),102) "../theory/NucUnc/output/",
-     1           "tables/experiments",iexp-1,"_",
-     1           trim(nameset(iexp,iset)),
-     1           "nucl_experiment_result_table.csv"
+            if(lbl.eq."NucUnc")then
+               write(datafile(iexp,iset),101) "../data/DATA_",
+     1              trim(nameset(iexp,iset)), "nucl.dat"
+               write(sysfile(iexp,iset),101) "../data/systype/SYSTYPE_",
+     1              trim(nameset(iexp,iset)), "nucl_DEFAULT.dat"
+               write(theoryfile(iexp,iset),102) "../theory/",
+     1              trim(lbl), "/output/",
+     1              "tables/experiments",iexp-1,"_",
+     1              trim(nameset(iexp,iset)),
+     1              "nucl_experiment_result_table.csv"
+            elseif(lbl.eq."NucCor")then
+               write(datafile(iexp,iset),101) "../data/DATA_",
+     1              trim(nameset(iexp,iset)), "nuclshift.dat"
+               write(sysfile(iexp,iset),101) "../data/systype/SYSTYPE_",
+     1              trim(nameset(iexp,iset)), "nuclshift_DEFAULT.dat"
+               write(theoryfile(iexp,iset),102) "../theory/",
+     1              trim(lbl), "/output/",
+     1              "tables/experiments",iexp-1,"_",
+     1              trim(nameset(iexp,iset)),
+     1              "nuclshift_experiment_result_table.csv"
+            endif
          enddo
       enddo
 
@@ -75,9 +97,11 @@
       do iexp=1, nexp
          do iset=1, nset(iexp)
             write(outfileA(iexp,iset),101) "../res/A_",
-     1           trim(nameset(iexp,iset)), ".dat"
+     1           trim(nameset(iexp,iset)), 
+     1           "_", trim(lbl), ".dat"
             write(outfileB(iexp,iset),101) "../res/B_",
-     1           trim(nameset(iexp,iset)), ".dat"
+     1           trim(nameset(iexp,iset)), 
+     1           "_", trim(lbl), ".dat"
          enddo
       enddo      
 
@@ -176,8 +200,8 @@
          enddo
       enddo
 
- 101  format(a,a,a)
- 102  format(a,a,i1,a,a,a)
+ 101  format(a,a,a,a,a)
+ 102  format(a,a,a,a,i1,a,a,a)
  103  format(1000(f15.5))
  104  format(f15.5)
  105  format(i6)
