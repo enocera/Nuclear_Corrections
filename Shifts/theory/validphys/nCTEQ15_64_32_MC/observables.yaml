@@ -1,0 +1,23 @@
+meta:
+   author: Emanuele R. Nocera
+   title: Theoretical predictions
+
+fit: {id: NNPDF31_nnlo_nuclear_CORR_new_ite}
+
+theory: 
+  from_: fit
+theoryid: 
+  from_: theory
+
+use_cuts: fromfit
+
+pdf: nCTEQ15_64_32_MC
+
+experiments:
+   - experiment: DYE605
+     datasets:
+         - dataset: DYE605nucl
+
+actions_:
+   - experiments::experiment experiment_result_table
+

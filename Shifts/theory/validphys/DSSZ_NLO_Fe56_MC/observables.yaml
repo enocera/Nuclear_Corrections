@@ -1,0 +1,24 @@
+meta:
+   author: Emanuele R. Nocera
+   title: Theoretical predictions
+
+fit: {id: NNPDF31_nnlo_nuclear_CORR_new_ite}
+
+theory: 
+  from_: fit
+theoryid: 
+  from_: theory
+
+use_cuts: fromfit
+
+pdf: DSSZ_NLO_Fe56_MC
+
+experiments:
+   - experiment: NUTEV
+     datasets:
+         - dataset: NTVNUDMNnucl
+         - dataset: NTVNBDMNnucl
+
+actions_:
+   - experiments::experiment experiment_result_table
+
