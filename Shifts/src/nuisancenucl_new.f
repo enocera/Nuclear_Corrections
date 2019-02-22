@@ -47,7 +47,7 @@
       npt(1,2)=416
       npt(2,1)=39
       npt(2,2)=37
-      npt(3,1)=85
+      npt(3,1)=119
 
 *     Initialise nwrap
       nwrap(1)=3

@@ -215,7 +215,7 @@
      1                    / dble( nwrap(iexp) * nrepwrap )
                                      
                   enddo
-                  
+
                enddo
                
             enddo
@@ -268,6 +268,7 @@
                write(30,103) ipt, (np(iexp,iset,ipt,in), in=1, nn(iexp))
                write(40,103) ipt,
      1              mean_n(iexp,iset,ipt) - mean_p(iexp,iset,ipt)
+
                write(50,103) ipt,
      1             mean_p(iexp,iset,ipt) / mean_n(iexp,iset,ipt) 
                
