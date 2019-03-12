@@ -17,10 +17,10 @@ infilenCTEQs  = "../../nPDFsets/res/nCTEQ15_56_26_MC/xPDFs_3.res"
 infilenCTEQsb = "../../nPDFsets/res/nCTEQ15_56_26_MC/xPDFs_-1.res"
 
 #E605
-infileEPPSub = "../../nPDFsets/res/EPPS16nlo_CT14nlo_Fe56_MC/xPDFs_-2.res"
-infileEPPSdb = "../../nPDFsets/res/EPPS16nlo_CT14nlo_Fe56_MC/xPDFs_-1.res"
-infilenCTEQub = "../../nPDFsets/res/nCTEQ15_56_26_MC/xPDFs_-2.res"
-infilenCTEQdb = "../../nPDFsets/res/nCTEQ15_56_26_MC/xPDFs_-1.res"
+infileEPPSub = "../../nPDFsets/res/EPPS16nlo_CT14nlo_Cu64_MC/xPDFs_-2.res"
+infileEPPSdb = "../../nPDFsets/res/EPPS16nlo_CT14nlo_Cu64_MC/xPDFs_-1.res"
+infilenCTEQub = "../../nPDFsets/res/nCTEQ15_64_32_MC/xPDFs_-2.res"
+infilenCTEQdb = "../../nPDFsets/res/nCTEQ15_64_32_MC/xPDFs_-1.res"
 
 outfile="../figs/nPDFs.png"
 
@@ -375,10 +375,10 @@ plot infileDSSZsb u 2:($3) w l lt 1 lw 3 lc rgb "red" notitle,\
      infileEPPSsb u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSsb u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
      pattern 5 lt 1 lc rgb "blue" notitle,\
-     infilenCTEQsb u 2:($3) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQsb u 2:(($3+$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQsb u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQsb u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
+     infilenCTEQs u 2:($3) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQs u 2:(($3+$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQs u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQs u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
      pattern 6 lt 1 lc rgb "#006400" notitle
 
 unset logscale x
@@ -429,10 +429,10 @@ plot infileDSSZsb u 2:($2<0.3?($3):1/0) w l lt 1 lw 3 lc rgb "red" notitle,\
      infileEPPSsb u 2:($2<0.3?(($3-$4)):1/0) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSsb u 2:($2<0.3?(($3+$4)):1/0):($2<0.3?(($3-$4)):1/0) w filledcu fs transparent\
      pattern 5 lt 1 lc rgb "blue" t "EPPS16",\
-     infilenCTEQsb u 2:($2<0.3?($3):1/0) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQsb u 2:($2<0.3?(($3+$4)):1/0) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQsb u 2:($2<0.3?(($3-$4)):1/0) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQsb u 2:($2<0.3?(($3+$4)):1/0):($2<0.3?(($3-$4)):1/0) w filledcu fs transparent\
+     infilenCTEQs u 2:($2<0.3?($3):1/0) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQs u 2:($2<0.3?(($3+$4)):1/0) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQs u 2:($2<0.3?(($3-$4)):1/0) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQs u 2:($2<0.3?(($3+$4)):1/0):($2<0.3?(($3-$4)):1/0) w filledcu fs transparent\
      pattern 6 lt 1 lc rgb "#006400" t "nCTEQ15"
 
 unset obj
@@ -524,9 +524,9 @@ plot infileEPPSub u 2:($3) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSub u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSub u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
      pattern 5 lt 1 lc rgb "blue" notitle,\
-     infilenCTEQub u 2:($3) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQub u 2:(($3+$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQub u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:($3) w l  lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:(($3+$4)) w l  lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:(($3-$4)) w l  lt 1 lw 3 lc rgb "#006400" notitle,\
      infilenCTEQub u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
      pattern 6 lt 1 lc rgb "#006400" notitle
 
@@ -568,11 +568,11 @@ plot infileEPPSdb u 2:($3) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSdb u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSdb u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
      pattern 5 lt 1 lc rgb "blue" notitle,\
-     infilenCTEQdb u 2:($3) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQdb u 2:(($3+$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQdb u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQdb u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
-     pattern 6 lt 1 lc rgb "#006400" notitle
+     infilenCTEQub u 2:($3) smooth bezier lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:(($3+$4)) smooth bezier lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:(($3-$4)) smooth bezier lt 1 lw 3 lc rgb "#006400" notitle,\
+#     infilenCTEQub u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
+#     pattern 6 lt 1 lc rgb "#006400" notitle
 
 unset logscale x
 unset border 
@@ -618,11 +618,11 @@ plot infileEPPSdb u 2:($3) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSdb u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "blue" notitle,\
      infileEPPSdb u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
      pattern 5 lt 1 lc rgb "blue" notitle,\
-     infilenCTEQdb u 2:($3) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQdb u 2:(($3+$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQdb u 2:(($3-$4)) w l lt 1 lw 3 lc rgb "#006400" notitle,\
-     infilenCTEQdb u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
-     pattern 6 lt 1 lc rgb "#006400" notitle
+     infilenCTEQub u 2:($3) smooth bezier lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:(($3+$4)) smooth bezier  lt 1 lw 3 lc rgb "#006400" notitle,\
+     infilenCTEQub u 2:(($3-$4)) smooth bezier lt 1 lw 3 lc rgb "#006400" notitle
+#     infilenCTEQub u 2:(($3+$4)):(($3-$4)) w filledcu fs transparent\
+#     pattern 6 lt 1 lc rgb "#006400" notitle
 
 unset logscale x
 unset border 
